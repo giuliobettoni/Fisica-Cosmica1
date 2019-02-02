@@ -1,0 +1,1800 @@
+\chapter{Fluidodinamica}
+	\label{chap:Fluidodinamica}
+In questa seconda parte del corso ci concentreremo sulla fluododinamica applicata all'astrofisica; i testi di riferimento sono \cite{book:Clarke} \cite{book:Pringle}. L'approccio seguito dal corso è una via di mezzo tra quelli seguiti dai due testi indicati, sia per argomenti trattati, sia per la loro complessità (il primo è più semplice, il secondo più complesso). Questi studiano la fluidodinamica nel contesto astrofisico; un testo più generale per la fluidodinamica è il \cite{book:Batchelor}. La principale differenza tra l'approccio della fluidodinamica all'astrofisica e quello della fluidodinamica ingegneristica, cioè applicata ai fluidi terrestri, sta nel considerare il fluido come comprimibile. Il fluido astrofisico è infatti comprimibile in tutti i casi, dal plasma delle stelle al mezzo interstellare, dalle nubi molecolari al mezzo intergalattico. Anche le galassie, essendo un sistema di molti corpi, le stelle, possono essere considerati dei fluidi sotto opportune condizioni.
+La descrizione dei fluidi astrofisici può essere particolarmente complessa: ad esempio un gas ionizzato interagisce con campi gravitazionali ed elettromagnetici sia esterni che interni, cioè generati dal fluido stesso. I fluidi come questo, ovvero i Plasmi, sono studiati dalla branca dell'idrodinamica nota come MHD (Magneto Hydrodinamics), che è un'approsimazione della fisica dei plasmi alla fluidodinamica. Un'altra complicazione nella descrizione di un fluido è data dalla possibilità che questo sia degenere, come il gas di elettroni degeneri di una nana bianca. Infine il fluido può essere collisionale oppure no, ovvero è possibile che le particelle del fluido intragiscano tra loro con interazioni a due corpi in modo non trascurabile, cioè tali da dare effetti macroscopici sull'intero fluido. Un esempio di fluido non collisionale è una galassia, in cui le stelle non interagiscono tra loro in maniera sensibile con interazioni a due corpi come ad esempio urti e scattering gravitazionale. Un altro esempio è il plasma in cui abbiamo N elettroni e N protoni in cui le interazioni a due corpi sono trascurabili, poichè la singola particella interagisce in maniera maggiore con il campo elettrico e magnetico generato dall'intero fluido; effettuando invece l'approssimazione fluida collisionale per il plasma si ottiene l'MHD.
+
+In questo corso tratteremo fluidi collisionali, ovvero sistemi di N particelle (con N molto grande) che interagiscono tra loro tramite urti, gravità, le interazioni elettromagnetiche vengono invece trascurate.
+
+\section{Teorema del trasporto} \label{sec:teoremadeltrasporto}
+In questa sezione descriveremo la cinematica di un fluido, introducendo le principali grandezze fisiche utili a descriverlo, e il teorema del trasorto di Reynolds. Anzichè considerare il fluido come composto da singole particelle ($N\sim 10^{30}$) e quindi descritto da N equazioni differenziali, considereremo un mezzo continuo che permette di descrivere l'insieme di tutte e N le particelle. Definiamo l'\textit{elemento fluido} come l'elemento fondamentale del fluido, un volume di fluido microscopicamente grande (cioè contenente un gran numero di particelle) di modo da poter definire quantità macroscopiche come medie di quantità microscopiche (pressione, densità, temperatura...) e macroscopicamente piccolo cioè che permetta di descrivere il fluido come un continuo. Quindi preso un elemento fluido cubico di lato $l$ e densità numerica di particelle $n$ e presa una generica quantità macroscopica $A$ (come ad esempio la densità), vogliamo che sia tale che $nl^3\gg 1$ (microscopicamente grande) e tale che $l\ll A/|\V{\nabla} A|$, cioè che la scala di variazione della grandezza macroscopica sia molto più grande della scala dell'elemento fluido (macroscopicamente piccolo). Se queste condizioni sono verificate, allora possiamo descrivere il fluido come un continuo. Se poi aggiungiamo l'ipotesi che il fluido sia collisionale, dobbiamo imporre che $l\gg \lambda_{mfp}$ dove $\lambda_{mfp}$ indica il cammino libero medio delle particelle dovuto ad un'interazione a due corpi (non necessariamente un urto). Questo comporta che all'interno di un elemento fluido le particelle interagiscono tra loro, e quindi sarà possibile descriverle con delle opportune distribuzioni della velocità, ad esempio quella di Maxwell. Ciò cosente di descrivere il fluido con delle equazioni di stato. La \textit{velocità fluida} $\V{u}$ è definita come la velocità media delle particelle dell'elemento fluido, mediata sulla distribuzione delle velocità dell'elemento fluido. Se il cammino libero medio è maggiore della scala tipica di variazione delle gradezze macroscopiche, allora non possiamo fare l'ipotesi di collisionalità. Tipicamente il $\lambda_{mfp}$ per collisioni tra elettroni e ioni è 
+\begin{equation}
+\lambda_{mfp}=5\cdot 10^4 \mathrm{cm}\, \frac{T^2}{n}\,\frac{1}{\ln \Lambda}
+\end{equation}
+Il mezzo intracluster ha $T\approx 3\cdot10^7 \mathrm{K}$, $n\approx 10^{-3} \mathrm{cm}^{-3}$ che implica (considerando il logaritmo coulombiano dell'ordine dell'unità) $\lambda_{mfp} \approx 10^{23} \mathrm{cm} \approx 0.1 \mathrm{Mpc}$ che è la scala tipica di un cluster. Pertanto il mezzo intracluster è borderline tra l'essere considerato un plasma e un fluido.
+
+La fluidodinamica segue due approcci nella modellizzazione di un fluido:
+\begin{itemize}
+\item \textbf{Euleriano.} Le quantità fluide, cioè le grandezze fisiche che descrivono il fluido, sono considerate fisse nello spazio, e studiate al varaire del tempo. Fissato un punto $\V{r}$ dello spazio, la quantita fluida studiata, ad esempio la densità $\rho$, è funzione del punto considerato e del tempo, $\rho(\V{r}, t)$, e viene studiata tramite la derivata euleriana
+\begin{equation}
+\frac{\partial \rho}{\partial t}\bigg\vert_{\V{r}}
+\end{equation}
+che non è altro che la derivata temporale della quantità fluida a $\V{r}$ fissato. Al passare del tempo vengono quindi considerati elementi fluidi diversi, ovvero quelli che transitano in $\V{r}$.
+\item \textbf{Lagrangiano.} Vengono studiate le quantità fluide associate ad un unico elemento fluido al passare del tempo. In altre parole si studia l'evoluzione di un singolo elemento fluido, la cui posizione dipende dalla sua posizione iniziale $\V{r}_0$ e dal tempo. In questo approccio la densità (e in generale le quantità fluide) è funzione della posizione e del tempo, $\rho(\V{r}(\V{r}_0,t), t)$, ed è studiato tramite la derivata lagrangiana
+\begin{equation}
+\frac{D \rho}{D t} \equiv \der{\rho}{t}\bigg\vert_{\V{r}_0} = \frac{\partial \rho}{\partial t}\bigg\vert_{\V{r}} + \V{u}\cdot \V{\nabla}\rho \label{eq:DerivataLagrangiana}
+\end{equation}
+dove $\V{u}\equiv \frac{d\V{r}}{dt}|_{r_0}$ è la velocità fluida, cioè la velocità con cui si muove l'elemento fluido \footnote{La notazione $\V{u}\cdot \V{\nabla}\rho$ indica il prodotto scalare tra la velocità fluida e il gradiente applicato alla densità.}.
+\end{itemize}
+In generale un problema fluidodinamico, come ad esempio un problema complesso come l'esplosione di una supernova, non presenta delle soluzioni analtiche, bensì soluzioni ottenute numericamente. Ciò ha provocato lo sviluppo della fluidodinamica computazionale. Con l'approccio euleriano il volume di fluido studiato viene suddiviso in tanti volumetti in cui vengono risolte numericamente le equazioni fluidodinamiche, mentre con un approccio lagrangiano anzichè discretizzare il volume del fluido, si discretizza la sua massa, cioè si divide il fluido in tanti elementi fluidi per i quali vengono risolte numericamente le equazioni fluidodinamiche. Gli algoritmi di fluidodinamica computazionale si suddividono quindi in due classi: codici euleriani AMR (Adaptive Mesh Refinement) e codici lagrangiani SPH (Smoothed Particle Hydrodinamics), a seconda dell'approccio seguito. I primi sono molto utili per problemi ad un alto grado di simmetria.
+
+\subsection{Concetti di cinematica}
+La cinematica è lo studio della traiettoria delle particelle; differisce dalla dinamica in quanto non considera l'origine del moto della particelle ma si limita ad analizzare le proprietà delle particelle in moto in un campo di velocità $\V{u}(\V{r},t)$. Gli effetti di questo campo di velocità sul moto del fluido, possono essere studiati tramite tre linee di campo\footnote{Per la discussione di questo paragrafo vedi \cite{book:Clarke}}:
+\begin{itemize}
+\item \textbf{Streamlines (linee di flusso).} Una streamline è tale che la sua tangente in un generico punto dà la direzione della velocità in quel genenerico punto. La tangente ad una curva di parametro $s$ è data in coordinate cartesiane dal vettore $(\frac{\mathrm{d}x}{\mathrm{d}s},\frac{\mathrm{d}y}{\mathrm{d}s},\frac{\mathrm{d}z}{\mathrm{d}s})$, pertanto le streamlines sono determinate dall'equazione
+\begin{equation}
+\frac{\mathrm{d}\V{r}}{\mathrm{d}s} = \V{u}(\V{r}) \label{eq:streamlines}
+\end{equation}
+riscrivibile col seguente seguente sistema di equazioni, che rimuove la dipendenza dal parametro $s$
+\begin{equation}
+\frac{\mathrm{d}x}{u_x} = \frac{\mathrm{d}y}{u_y} = \frac{\mathrm{d}z}{u_z} 
+\end{equation}
+\item \textbf{Pathlines (traiettorie fluide)} Una pathline è la traiettoria seguita da un elemento fluido, ed è quindi individuata dall'equazione
+\begin{equation}
+\frac{\mathrm{d}\V{r}}{\mathrm{d}t} = \V{u}(\V{r},t)
+\end{equation}
+Questa definizione è simile alla \ref{eq:streamlines}. Le due relazioni sono uguali solo se il campo di velocità è indipendente dal tempo; infatti le streamlines sono definite ad un dato istante di tempo (sono una sorta di istantanea del campo di velocità).
+\item \textbf{Streaklines} Una streakline è una curva che unisce le posizioni al tempo $t_0$ occupate da tutti gli elementi fluidi che sono passati o passeranno per un certo punto $\V{r}_0$ fissato, il quale definisce la streakline. Per meglio comprendere il significato fisico delle streaklines supponiamo che in $\V{r}_0$ ci sia del colorante rosso. Qualunque elemento fluido passante per quel punto si colorerà di rosso. La streakline è la linea rossa risultante, data da tutti gli elementi fluidi che passando per $\V{r}_0$ si sono colorati.
+\end{itemize}
+Se il campo di velocità non dipende dal tempo allora streamlines, pathlines e streaklines coincidono.
+
+\subsection{Teorema di Reynolds}
+Il fluire di un fluido (il flow di un fluido) porta gli elementi di fluido a cambiare posizione nel tempo. Questo flusso fa cambiare le posizioni degli elementi di fluido tramite la trasformazione $\V{r}=\V{r}(\V{r}_0,t)$. A questa trasformazione possiamo associare lo Jacobiano $J$ il cui elemento di matrice è
+\begin{equation}
+J_{ij}=\frac{\partial r_i}{\partial r_{0,i}}
+\end{equation}
+Segue quindi che
+\begin{equation}
+\mathrm{d}^3\V{r} = J_t \mathrm{d}^3\V{r}_0
+\end{equation}
+con $J_t = \mathrm{det} J$. Il pedice $t$ serve per enfatizzare il fatto che lo Jacobiano dipende dal tempo. Lo jacobiano mostra come gli elementi di volume variano nel tempo. Se abbiamo un volume fissato che spostandosi nel tempo a causa del flusso, subisce una compressione, allora il suo valore nella nuova posizione $\V{r}$ sarà minore, e corrisponderà a $J_t$ volte il suo valore iniziale. Quindi in una compressione si ha che la derivata temporale di $J_t$ è negativa, altrimenti se si ha espansione, $J_t$ ha derivata temporale positiva.
+\subparagraph{Lemma}
+
+\begin{equation}
+\frac{\mathrm{D}J_t}{\mathrm{D}t} = \frac{\mathrm{d}J_t}{\mathrm{d}t} = J_t \V{\nabla}\cdot \V{u} \footnote{Se la divergenza di \textbf{u} è positiva, il fluido si espande; viceversa se è negativa, il fluido si comprime.}
+\end{equation}
+
+\textit{Dim.}
+Per dimostrare questo lemma sfruttiamo un risultato dell'algebra lineare: dato un parametro $t$ (nel nstro caso il tempo) da cui una matrice $A$ dipende, si ha che la derivata rispetto a $t$ del determinante di tale matrice vale
+\begin{align*}
+\der{}{t}\mathrm{det}\,A(t) = \mathrm{tr}\tonde{A^\dagger(t)\, \der{A(t)}{t}}
+\end{align*}
+cioè è uguale alla traccia del prodotto matriciale tra la matrice aggiunta\footnote{La matrice aggiunta è la matricie trasposta, complessa coniugata.} e la matrice i cui elementi sono quelli di $A$ derivati rispetto a $t$.
+SISTEMARE
+
+
+\subparagraph{Teorema}
+
+\begin{equation}
+\frac{\dd}{\dd t} \int_{V(t)} f(\V{r},t) \dd^3 \V{r} = \int_{V(t)} \left[ \frac{\DD f(\V{r},t)}{\DD t} + f(\V{r},t) \V{\nabla}\cdot \V{u}(\V{r},t) \right] \dd^3 \V{r}
+\end{equation}
+dove $V(t)$ indica una volume variabile nel tempo, ovvero il volume dell'elemento fluido fissato (approccio lagrangiano). Si può scrivere in modo analogo con
+\begin{equation}
+\frac{\DD f}{\DD t} + f \V{\nabla}\cdot \V{u} = \frac{\partial f}{\partial t} + \V{u} \cdot \V{\nabla}f + f \V{\nabla}\cdot \V{u} = \frac{\partial f}{\partial t} + \V{\nabla}\cdot (f\V{u}) \label{eq:TeoReynoldsAlternativo}
+\end{equation}
+
+\textit{Dim.}
+
+\begin{align*}
+\frac{\dd}{\dd t} \int_{V(t)} f \dd^3 \V{r} & = \frac{\dd}{\dd t} \int_{V(0)} f J_t \dd^3 \V{r}_0 = \\
+& = \int_{V(0)} \frac{\dd}{\dd t} \left[ f \, J_t \right] \dd^3 \V{r}_0 = \\
+& = \int_{V(0)} \left[ J_t \frac{\DD f}{\DD t} + f J_t \V{\nabla}\cdot \V{u} \right] \dd^3 \V{r}_0 = \\
+& = \int_{V(t)} \left[ \frac{\DD f}{\DD t} + f \V{\nabla}\cdot \V{u} \right] \dd^3 \V{r}
+\end{align*}
+Nella terza riga si è usato il fatto che stiamo derivando rispetto al tempo a $\V{r}_0$ fissato, cioè stiamo facendo la derivata lagrangiana. Quindi sfruttando la derivazione del prodotto e riscrivendo la derivata lagrangiana di $J_t$ sfruttando il lemma, si ottiene appunto l'espressione della terza riga. Si può quindi portare fuori dall'integrale $J_t$ e tornare alla variabile $\V{r}$, dimostrando il teorema.
+
+
+Se quindi abbiamo una funzione $f(\V{r},t)$ che descrive una propretà del fluido (ad esempio la densità) si può applicare il teorema del trasporto per studiare la variazione del suo integrale su un certo volume. Proviamo ad applicare questo teorema nello studio della variazione della massa in un certo volume di fluido finito. Ipotizzando l'assenza di sorgenti e pozzi di massa la massa è costante, quindi la sua derivata è nulla e quindi il membro di sinistra del teorema di Reynolds è nullo. Ciò implica che l'integranda del membro di destra deve essere nulla sul volume di integrazione considerato, pertanto (usando la \ref{eq:TeoReynoldsAlternativo}) si ottiene l'\textit{equazione di continuità}
+\begin{EQ}
+\begin{equation}
+\frac{\partial \rho(\V{r}, t)}{\partial t} + \V{\nabla} \cdot (\rho(\V{r}, t) \V{u}(\V{r}, t)) = 0\label{eq:Continuità1}
+\end{equation}
+\end{EQ}
+Questa è una derivazione lagrangiana dell'equazione di continuità.
+
+\subparagraph{Corollario}
+
+\begin{equation}
+\frac{\dd}{\dd t} \int_{V(t)} \rho(\V{r}, t) f(\V{r},t) \dd^3 \V{r} =  \int_{V(t)} \rho(\V{r}, t) \frac{\DD f(\V{r},t)}{\DD t} \dd^3 \V{r}
+\end{equation}
+cioè è possibile portare la derivata lagrangiana dentro all'integrale "scavalcando" la densità.
+
+\textit{Dim.}
+
+\begin{align*}
+\frac{\dd}{\dd t} \int_{V(t)} \rho(\V{r}, t) f(\V{r},t) \dd^3 \V{r} & = \int_{V(t)} \left[ \frac{\DD \rho(\V{r}, t) f(\V{r},t)}{\DD t} + \rho(\V{r}, t) f(\V{r},t) \V{\nabla}\cdot \V{u}(\V{r},t) \right] \dd^3 \V{r} = \\
+& = \int_{V(t)} \rho(\V{r}, t) \frac{\DD  f(\V{r},t)}{\DD t} + f(\V{r},t) \left[ \frac{\DD  \rho(\V{r}, t)}{\DD t} + \rho(\V{r}, t) \V{\nabla}\cdot \V{u}(\V{r},t) \right] \dd^3 \V{r} = \\
+& = \int_{V(t)} \rho(\V{r}, t) \frac{\DD f(\V{r},t)}{\DD t} \dd^3 \V{r}
+\end{align*}
+Alla seconda riga si è usata l'equazione di continuità nel termine tra parentesi quadre che risulta così nullo.
+
+\section{Equazioni fluidodinamiche}
+Iniziamo questa sezione ricavando, per completezza, l'equazione di continuità precedentemente ottenuta con l'approccio lagrangiano, seguendo l'approccio euleriano. Abbiamo quindi un volume fissato nello spazio che non varia nel tempo, $V$ (nel caso lagrangiano avevamo un volume dipendente dal tempo poichè è il volume di un elemento fluido che, muovendosi nel fluido, può variare e quindi ha una dipendenza temporale). La variazione temporale della massa sarà data dalla derivata temporale dell'integrale su $V$ della densità. Questa variazione corrisponde al flusso di massa attraverso la superficie del volume considerato $S$. Si ottiene così
+\begin{equation}
+\frac{\partial}{\partial t} \int_V \rho \dd v = - \int_S \rho \V{u} \cdot \dd \V{S} = -\int_V \V{\nabla}(\rho \V{u}) \dd v
+\end{equation}
+dove nell'ultimo passaggio abbiamo usato il teorema della divergenza. Eguagliando il primo membro con il terzo si ottiene banalmente l'equazione di continuità \ref{eq:Continuità1}. Un'altra forma dell'equazione di continuità è 
+\begin{equation}
+\frac{\DD \rho(\V{r}, t)}{\DD t} + \rho(\V{r}, t)\V{\nabla} \cdot \V{u}(\V{r}, t) = 0 \label{eq:Continuità2}
+\end{equation}
+Notiamo che se il fluido condsiderato è incomprimibile, si ha che $\frac{\DD \rho(\V{r}, t)}{\DD t}=0$, che implica $\V{\nabla} \cdot \V{u}(\V{r}, t) = 0$. Pertanto i fluidi incomprimibili hanno campi di velocità solenoidali.
+
+Consideriamo ora la forza per unità di superficie $\V{f}_\mathrm{s}$. Nell'ipotesi di fluido collisionale questa forza ha per modulo la pressione e verso dato dal versore suscente dalla superficie $S$ considerata, cioè
+\begin{equation}
+\V{f}_\mathrm{s} = p \V{\hat{s}} \label{eq:Pressione}
+\end{equation}
+Possono però esserci delle forze di taglio, ovvero forze che hanno componenti parallele alla superficie non nulle (lo vedremo più avanti). In generale indichiamo la componente i-esima della forza per unità di superficie come
+\begin{equation}
+f_{i,\mathrm{s}} = \sigma_{ij} \hat{s_j} \footnote{Usiamo in questo caso e in generale in tutto il corso, la notazione degli indici ripetuti, cioè con questa espressione sottointendiamo $\Sigma_j \sigma_{ij} \hat{s_j}$}
+\end{equation}
+dove $\hat{s_j}$ è la componente j-esima del versore $\V{\hat{s}}$. La quantità $\sigma_{ij}$ prende il nome di \textit{tensore degli sforzi}. Il caso della pressione è il caso in cui il tensore degli sforzi è diagonale, cioè è della forma $\sigma_{ij, \mathrm{pressione}} = p \delta_{ij}$.
+
+\subsection{Equazione di Eulero} \label{subsec:EquazioneEulero}
+Ricaviamo l'equazione di Eulero seguendo prima l'approccio lagrangiano; prendiamo quindi un volume che si muove nel fluido (cioè un volume dipendente dal tempo $V(t)$) e studiamo come varia la sua quantità di moto. La quantità di moto sarà data dall'integrale di volume della densità di volume della quantità di moto, ovvero $\rho \V{u}$. Abbiamo quindi (omettiamo la dipendenza da posizione e tempo delle grandezze in gioco per alleggerire la notaizone)
+\begin{align*}
+\frac{\dd}{\dd t} \int_{V(t)} \rho \V{u} \dd V = \int_{V(t)} \rho \frac{\DD \V{u}}{\DD t} \dd V
+\end{align*}
+Proiettiamo il vettore quantità di moto su un generico versore $\V{\hat{n}}$
+\begin{align*}
+\V{\hat{n}} \cdot \left[ \frac{\dd}{\dd t} \int_{V(t)} \rho \V{u} \dd V \right] & = \int_{V(t)} \rho \frac{\DD \V{u}}{\DD t} \cdot \V{\hat{n}} \dd V = \\
+&= - \int_{S(t)} p \V{\hat{n}} \cdot \dd \V{S} + \int_{V(t)} \V{f}_V \cdot \dd V
+\end{align*}
+nella seconda riga abbiamo imposto che la derivata della quantità di moto, cioè una forza, è uguale alle somma delle forze di superficie (il primo integrale, in cui abbiamo supposto valida la \ref{eq:Pressione}) e delle forze di volume (il secondo integrale).
+Notando che 
+\begin{align*}
+\int_{S(t)} p \V{\hat{n}} \cdot \dd \V{S} = \int_{V(t)} \V{\nabla}\cdot (p \V{\hat{n}}) \dd V = \int_{V(t)} \V{\hat{n}} \cdot \V{\nabla}\rho \, \dd V
+\end{align*}
+otteniamo l'\textit{equazione di Eulero}
+\begin{EQ}
+\begin{equation}
+\rho(\V{r},t)\frac{\DD \V{u}(\V{r},t)}{\DD t }= -\V{\nabla}\rho(\V{r},t) + \V{f}_V (\V{r},t) \label{eq:EuleroLagrangiana}
+\end{equation}
+\end{EQ}
+Vediamo anzitutto che è il gradiente della pressione a determinare una forza, non la pressione stessa, cioè sono le variazioni di pressione nel fluido che determinano forze che agiscono sugli elementi di fluido alterandone il moto. Notiamo che nell'equazione di Eulero i termini in gioco hanno le dimensioni di una forza per unità di volume. Il termine $\V{f}_V (\V{r},t)$ indica il contributo delle forze esterne, che possono essere sia dovute a oggetti esterni al fluido, sia da fenomeni non fluidodinamici generati dal fluido stesso, come campi elettromagnetici o gravitazionali generati dal fluido.
+Sviluppando la derivata lagrangiana usando la definizione  \ref{eq:DerivataLagrangiana} si ottiene l'equazione di eulero in forma euleriana
+\begin{equation}
+\rho \left(\frac{\partial \V{u}}{\partial t} + (\V{u} \cdot \V{\nabla})\V{u} \right) = - \V{\nabla}p + \V{f}_V
+\end{equation}
+Molto spesso considereremo come forza esterna la forza associata al campo gravitazionale generato dal fluido (cioè $\V{f}_V = \V{f}_g = -\rho \V{\nabla}\phi_g$), e quindi l'equazione di Euelero assume la forma
+\begin{equation}
+\frac{\partial \V{u}}{\partial t} + (\V{u} \cdot \V{\nabla})\V{u}  = - \frac{\V{\nabla}p}{\rho} - \V{\nabla}\phi_g \label{eq:EuleroEuleriana}
+\end{equation}
+
+A questo punto ricaviamo l'equazione di Eulero seguendo un approccio euleriano. Consideriamo quindi un volume $V$ fisso nello spazio; anche in questo caso proiettiamo su $\V{\hat{n}}$, ottenendo $u_n = \V{u}\cdot\V{\hat{n}}$. La variazione temporale della quantità di moto è data derivando temporalmente l'integrale della densità della quantità di moto sul volume $V$. Questa variazione è pari al flusso della densità di quantità di moto attraverso la superficie $S$, a cui vanno aggiunti un termine di pressione e uno di volume
+\begin{align*}
+\frac{\partial}{\partial t}\int_V \rho u_n \dd V  & = -\int_S \rho u_n \V{u} \cdot \dd \V{S} - \int_S p \V{\hat{n}} \cdot \dd \V{S} + \int_V \V{f}_V \cdot \dd V =  \\
+& = -\int_V \V{\nabla} \cdot (\rho u_n \V{u}) \dd V - \V{\hat{n}} \int_V \V{\nabla}p \dd V + \int_V \V{f}_V \cdot \dd V
+\end{align*}
+Poichè il volume non varia nel tempo si può portare la derivata temporale nell'integrale a primo membro ed eguagliare le integrande
+\begin{align*}
+\frac{\partial}{\partial t} (\rho u_n )& =  - \V{\nabla} \cdot (\rho u_n \V{u}) - \V{\hat{n}} \cdot \V{\nabla}p + \V{f}_V \cdot
+\V{\hat{n}} \\
+\V{\hat{n}} \cdot \V{u} \frac{\partial \rho}{\partial t} + \rho \frac{\partial}{\partial t}(\V{\hat{n}} \cdot \V{u}) & = - \V{\hat{n}} \cdot \V{u} \V{\nabla} \cdot (\rho \V{u}) - \rho \V{u} \cdot \V{\nabla}(\V{\hat{n}} \cdot \V{u}) - \V{\hat{n}} \cdot \V{\nabla} p + \V{f}_V \cdot \V{\hat{n}}
+\end{align*}
+Notando che i primi termini del primo e del secondo membro sono uguali per via dell'equazione di continuità, e semplificando i vettori $\V{\hat{n}}$ si ottiene l'equazione di Eulero in forma euleriana. Durante questa trattazione abbiamo ottenuto l'equazione
+\begin{equation}
+\frac{\partial}{\partial t} (\rho u_n)  =  - \V{\nabla} \cdot (\rho u_n \V{u}) - \V{\hat{n}} \cdot \V{\nabla}p + \V{f}_V \cdot \V{\hat{n}}
+\end{equation}
+che cerceremo ora di comprendere meglio. Consideriamo il versore $\V{\hat{n}}$ come l'i-esimo versore cartesiano; sviluppando la divergenza, usando la notazione degli indici ripetuti, otteniamo
+\begin{equation}
+\frac{\partial}{\partial t} (\rho u_i) =  - \frac{\partial}{\partial x_j} (\rho u_i u_j) - \frac{\partial}{\partial x_i} p + f_i
+\end{equation}
+Scrivendo l'equazione di Eulero in forma euleriana, risulta naturalmente che il flusso di quantità di moto è legato alla divergenza di un tensore ($\rho u_i u_j$, flusso di quantità di moto). Il flusso della massa, uno scalare, è un vettore, e in accordo con questo il flusso della quantità di moto, un vettore, è un tensore. Una riscrittura\footnote{In questa notazione indichiamo la derivata spaziale con $\frac{\partial}{\partial x_j} \equiv \partial_j  $ e la derivata temporale con $\frac{\partial}{\partial t} \equiv \partial_t  $} dell'equazione precedente è 
+\begin{equation}
+{\partial_t} (\rho u_i) =  - {\partial_j} (\rho u_i u_j +  p \delta_{ij} ) + f_i
+\end{equation}
+Il termine tra parenstesi del secondo membro indica il flusso della quantità di moto, ed è dato da due contributi: il primo è noto come \textit{ram pressure} (letteralmente \textit{pressione ariete}) e indica la pressione generata dai moti collettivi e ordinati delle particelle (cioè i moti degli elementi di fluido); il secondo è invece la \textit{pressione termica}, originata dai moti caotici delle particelle, moti che sono isotropi. Quest'isotropia si traduce in un'indipendenza della pressione termica da $i$ e $j$; in altre parole la pressione termica è uno scalare. Fisicamente questa proprietà corrisponde al fatto che la pressione termica, a differenza della ram pressure, agisce sempre perpendicolarmente ad ogni superficie del fluido. Consideriamo a titolo d'esempio il caso di un fluido in moto in una condotta cilindrica con velocità parallela all'asse della condotta $y$, $\V{u} = (0, u, 0)$. Ogni superficie nel fluido sperimenterà la pressione termica $p$, tuttavia solo le superfici la cui normale ha qualche componente lungo la direzione del flusso ($y$) sperimenteranno una ram pressure. In questo esempio, il \textit{tensore di stress}\footnote{Fisicamente il tensore degli stress $\sigma_{ij}$ è la forza che agisce in direzione $i$ su una superficie la cui normale è in direzione $j$.}
+\begin{equation}
+\sigma_{ij} \equiv \rho u_i u_j +  p \delta_{ij} \label{eq:Stress0}
+\end{equation}
+risulta essere
+\[
+\begin{pmatrix}
+p & 0 & 0 \\
+0 & p+\rho u^2 & 0 \\
+0 & 0 & p
+\end{pmatrix}
+\]
+Notiamo infine che se asumiamo che le forze di volume sono dovute da un contributo esterno e da uno interno al fluido (ad esempio l'autogravità, ovvero se assumiamo
+$f_i=-\rho\partial_i \phi$ con $\phi \equiv \phi_{\mathrm{ext}} + \phi_{\mathrm{sg}}$ con $\nabla^2 \phi_{\mathrm{sg}}=4 \pi G \rho$, allora l'equazione di Eulero diventa un'equazione integro-differenziale.
+
+\subsection{Equazione di stato e conservazione dell'energia} \label{sec:ConservazioneEnergia}
+Come visto in precedenza, poichè abbiamo assunto l'ipotesi di fluido collisionale, possiamo descrivere il fluido con un'equazione di stato. Per ora considereremo gas perfetti, la cui equazione è 
+\begin{EQ}
+\begin{equation}
+p = \rho \left(\frac{k T}{\mu m_\mathrm{p}} \right) 
+\end{equation}
+\end{EQ}
+Il termine $\mu$ indica il peso molecolare medio in unità della massa del protone $m_p$. L'equazione è ottenuta da una riscrittura della più nota $p=nkT$ con $n$ densità volumica del numero di particelle. Quest'equazioni può essere riscritta in una forma più utile. Ricordiamo dalla, termodinamica, che $R=c_p -c_v$ (relazione di Meyer) ovvero la costante dei gas è data dalla differenza tra il calore specifico (per unità di massa) a pressione costante e il calore specifico a volume costante. Definendo $\gamma \equiv \frac{c_p}{c_V}$ e ricordando che per un gas perfetto l'energia interna per unità di massa è $e=c_V T$, si può riscrivere l'equazione di stato nella forma
+\begin{EQ}
+\begin{equation}
+p = (\gamma -1) \rho e \label{eq:GasPerfetti}
+\end{equation}
+\end{EQ}
+Per completare il sistema di equazioni fluidodinamiche bisogna considerare i flussi di energia all'interno del fluido, tenendo conto di eventuali sorgenti o pozzi di energia. Iniziamo scrivendo il primo principio della Termodinamica per unità di massa
+\begin{equation}
+\dd q = \dd e + p \dd v = T \dd s 
+\end{equation}
+dove $q$, $e$, $v$, e $s$ sono rispettivamente il calore assorbito, l'energia, il volume e l'entropia, tutte per unità di massa. Per definizione abbiamo quindi che $v=\rho^{-1}$, derivando temporalmente abbiamo
+\begin{align}
+\dot{q} = \frac{\DD e}{\DD t} + p \frac{\DD}{\DD t} \left( \frac{1}{\rho}\right) \label{eq:EquazioneDiStato1}
+\end{align}
+dove $\dot{q}$ è il calore netto assorbito per unità di massa, cioè il tasso di riscaldamento meno il tasso di raffreddamento. Notiamo poi che 
+\begin{align*}
+\frac{\DD}{\DD t} \left( \frac{1}{\rho}\right) = - \frac{1}{\rho^2}\frac{\DD}{\DD t} \rho = \frac{\Div{u}}{\rho}
+\end{align*}
+dove nell'ultimo passaggio si è sfruttata l'equazione di continuità.
+Sostituendo abbiamo 
+\begin{align*}
+\dot{q} = \frac{\DD e}{\DD t} + p \frac{\DD}{\DD t} \left( \frac{1}{\rho}\right)  \Longrightarrow\frac{\DD e}{\DD t} = - \frac{p}{\rho}\Div{u} + \dot{q}
+\end{align*}
+Notiamo che, trascurando $\dot{q}$ se si ha una compressione del fluido la divergenza di $\V{u}$ è negativa, e quindi la variazione di energia interna è positiva, cioè il fluido si scalda. Viceversa un'espansione corrisponde ad una divergenza positiva e quindi ad una variazione di energia interna negativa che implica quindi un raffreddamento. Fatto ciò consideriamo la variazione temporale dell'energia per unità di volume
+\begin{align*}
+\frac{\DD}{\DD t}(\rho e) & = e \frac{\DD \rho}{\DD t} + \rho \frac{\DD e}{\DD t} = \\
+& = -e\rho \V{\nabla}\cdot \V{u} -p \V{\nabla}\cdot \V{u} + \rho \dot{q} = \\
+& = \frac{\partial}{\partial t}(\rho e) + \V{u}\cdot \V{\nabla} (\rho e) 
+\end{align*}
+Nella seconda riga abbiamo sfruttato l'espressione della derivata lagrangiana di $e$ appena ricavata. Nell'ultima uguaglianza abbiamo invece sviluppato la derivata lagrangiana di $\rho e$ di partenza. Considerando l'ultima uguaglianza otteniamo
+\begin{align*}
+-p \V{\nabla}\cdot \V{u} + \rho \dot{q} = \frac{\partial}{\partial t}(\rho e) + \V{u}\cdot \V{\nabla} (\rho e) + e\rho \V{\nabla}\cdot \V{u}
+\end{align*}
+\begin{equation}
+\frac{\partial}{\partial t}(\rho e) + \V{\nabla} \cdot (\rho e \V{u})  = -p\V{\nabla}\cdot \V{u} + \rho \dot{q}
+\end{equation}
+Scritta in quest'ultima forma è un'equazione di continuità, infatti al membro di sinistra abbiamo la derivata temporale di una certa quantità (in questo caso la densità volumica di energia) sommata alla divergenza della stessa quantità moltiplicata per la velocità, mentre a destra abbiamo dei termini che modificano la quantità considerata. In questo caso il primo termine è il lavoro e il secondo è un tasso di riscaldamento o raffreddamento.
+Spesso si considera oltre all'energia interna, anche l'energia totale. Considereremo ora il caso di un sistema non autogravitante. L'energia totale risulta essere
+\begin{equation}
+E = \rho e + \frac{1}{2} \rho \V{u}^2 + \rho \phi_\mathrm{ext}
+\end{equation}
+Le derivate lagrangiane dei vari termini sono
+\begin{equation}
+\frac{\DD}{\DD t}(\rho e) = -\rho e \V{\nabla} \cdot \V{u} - p \V{\nabla} \cdot \V{u} + \rho \dot{q}
+\end{equation}
+\begin{equation}
+\frac{\DD}{\DD t}(\rho \phi_\mathrm{ext}) = \footnote{IN questo passaggio si svolge la derivata di un prodotto e si usa l'equazione di continuità \ref{eq:Continuità1}}
+ \phi_\mathrm{ext} \rho \V{\nabla} \cdot \V{u} + \rho \frac{\DD \phi_\mathrm{ext}}{\DD t}  = \footnote{Qui si svolge la derivata lagrangiana del potenziale esterno}
+ -\phi_\mathrm{ext} \rho \V{\nabla}\cdot \V{u} + \rho \frac{\partial \phi_\mathrm{ext}}{\partial t} + \rho \V{u} \cdot \V{\nabla}\phi_\mathrm{ext}
+\end{equation}
+\begin{equation}
+\frac{\DD}{\DD t}\left(\frac{1}{2} \rho \V{u}^2 \right)=\footnote{In questo passaggio si svolge la derivata di un prodotto e si usa l'equazione di continuità \ref{eq:Continuità1}}
+ -\frac{\rho}{2}\V{u}^2 \V{\nabla}\cdot \V{u} + \rho \V{u} \cdot \frac{\partial \V{u}}{\partial t} = \footnote{Si usa l'equazione di Eulero \ref{eq:EuleroEuleriana} per riscrivere la derivata parziale di $\V{u}$ rispetto al tempo} -\frac{\rho}{2}\V{u}^2 \V{\nabla}\cdot \V{u} + \rho \V{u} \cdot \left[ - \frac{\V{\nabla}p}{\rho} - \V{\nabla}\phi_\mathrm{ext} \right]
+\end{equation}
+Sommando tutti e tre le derivate lagrangiane si ottiene la derivata lagrangiana dell'energia totale
+\begin{equation}
+\frac{\DD E}{\DD t} = -E \V{\nabla} \cdot \V{u} - \V{\nabla} \cdot (p \V{u}) + \rho \left( \dot{q} + \frac{\partial \phi_\mathrm{ext}}{\partial t} \right)
+\end{equation}
+Infine svolgendo la derivata lagrangiana del primo membro si ottiene
+\begin{equation}
+\frac{\partial E}{\partial t} + \V{\nabla} \cdot \left[ (E+p)\V{u} \right] = \footnote{In questo passaggio si usa $\V{\nabla}\cdot(E\V{u}) = \V{u}\cdot \V{\nabla}E + E \V{\nabla}\cdot \V{u}$ e la linearità dell'operatore divergenza}\rho \left[ \dot{q} + \frac{\partial \phi_\mathrm{ext}}{\partial t} \right]
+\end{equation}
+\subsection{Equazione del trasporto}
+In conclusione le equazioni fluidodinamiche che abbiamo ricavato e che risolveremo volta per volta a seconda del sistema studiato sono
+\begin{EQ}
+\begin{align}
+&\partial_t \rho + \partial_j (\rho u_i) =0 \label{eq:Finale1}\\
+&\partial_t (\rho u_i) + \partial_j(\rho u_i u_j )= -\partial_i p -\rho\partial_i \phi  \label{eq:Finale2} \\
+&\phi = \phi_\mathrm{ext} + \phi_\mathrm{sg} \label{eq:Finale3} \\
+&\nabla^2 \phi_\mathrm{sg} = 4 \pi G \rho  \label{eq:Finale4} \\
+&p = (\gamma -1) \rho e \label{eq:Finale5} \\
+&\partial_t (\rho e) + \partial_j (\rho e u_j) = -p \partial_j u_j + \rho \dot{q} \label{eq:Finale6}
+\end{align}
+\end{EQ}
+Notiamo che nell'equazione di Eulero non sono presenti termini di dissipazione interna, termini che tratteremo più avatni.
+ 
+\begin{comment}
+Quando parliamo di equazione di continuità solitamente intendiamo la \ref{eq:Finale1}. Più in generale un'equazione di continuità è un'equazione differenziale che esprime in forma locale la legge di conservazione di una generica grandeza fisica utilizzando il flusso di tale grandezza attraverso una superficie chiusa. Nelle equazioni \ref{eq:Finale2} e \ref{eq:Finale6} ci sono, rispetto alla \ref{eq:Finale1}, dei termini aggiuntivi (il secondo membro) che descrivono fenomeni che alterano il flusso delle grandezze considerate. Nel caso della massa (\ref{eq:Finale1}) non si hanno nè sorgenti nè pozzi, e quindi la massa si conserva. Nel caso della quantità di moto (\ref{eq:Finale2}) intervengono la pressione e il campo gravitazionale, mentre nel caso dell'energia (\ref{eq:Finale6}) compaiono il lavoro compiuto dal fluido durante il suo moto, e un tasso di riscaldamento netto. Osserviamo poi che le equazioni di questa forma 
+\footnote{Il termine $\partial_j (\rho e u_j)$ viene chiamato termine di avvezione (advection), soprattutto nel caso in cui la quantità studiata sia l'energia (tuttavia prendono lo stesso nome anche gli analoghi termini delle equazioni \ref{eq:Finale1} e \ref{eq:Finale2}.} tutti i termini che sono espressi come divergenza di una certa quantità sono dei termini di superficie, non di volume, e quindi sono termini di trasporto, non di dissipazione.
+\end{comment}
+Facendo riferimento alle equazioni \ref{eq:Finale1}, \ref{eq:Finale2} e \ref{eq:Finale6}, Facciamo una breve digressione sulle \textit{equazioni del trasporto}. L'equazione del trasporto (anche nota come convection-diffusion\footnote{Spesso convezione e avvezione sono indicati come sinonimi, come ad esempio nel nome di questa equazione, in cui si intente l'avvezione. I due fenomeni indicano il trasporto di sostanza fluida a causa del moto complessivo del fluido (bulk motion). Nel caso della convezione si indica il movimento del fluido dovuto a gradienti di densità a loro volta dati da gradienti termici, mentre nel caso dell'avvezione si ha il movimento del materiale a causa del solo campo di velocità del fluido.} equation) è una combinazione delle equazioni di diffusione e di avvezione. 
+la forma generale dell'equazione è 
+\begin{equation}
+\frac{\partial c}{\partial t} = \V{\nabla}\cdot (D\V{\nabla}c) - \V{\nabla}\cdot (\V{u}c) + R \label{eq:Trasporto}
+\end{equation}
+dove
+\begin{itemize}
+\item $c$ è la grandezza fisica di interesse (nel nostro caso $\rho$, $\rho \V{u}$, $\rho e$). 
+\item $D$ è la diffusività o coefficiente di diffusione, as esempio la diffusività di materia per il moto delle particelle o la diffusività termica per il trasporto del calore.
+\item $\V{u}$ è il campo di velocità con cui la quantità studiata si sta muovendo. È funzione dello spazio e del tempo. Per esempio, nell'avvezione, $c$ potrebbe essere la concentrazione di sale in un fiume, e $\V{u}$ sarebbe quindi la velocità con cui l'acqua scorre come funzione del tempo e della posizione.
+\item $R$ descrive le sorgenti o i pozzi della quantità di interesse $c$.
+\end{itemize}
+Il secondo membro dell'equazione è dato dalla somma di tre termini:
+\begin{itemize}
+\item $\V{\nabla}\cdot (D\V{\nabla}c)$ descrive la diffusione. Questo termine dipende dal gradiente della quantità di interesse $c$, quindi se siamo in una regione $\Omega$ in cui si ha un minimo locale (appena fuori $\Omega$ si ha $\V{\nabla}c < 0 $) la quantità $c$ diffonderà dall'esterno verso $\Omega$ (infatti la divergenza sarà negativa). Al contrario, se in $\Omega$ si ha un massimo locale (appena fuori $\Omega$ si ha $\V{\nabla}c > 0 $) la quantità $c$ diffonderà $\Omega$ verso l'esterno (infatti la divergenza sarà positiva).
+\item $- \V{\nabla}\cdot (\V{u} c)$ descrive l'avvezione, quindi descrive la variazione della quantità $c$ a causa del moto del fluido.
+\item $R$ descrive la creazione ($R>0$) o la distruzione ($R<0$) della quantità $c$; può essere funzione di $c$ e/o di altri parametri.
+\end{itemize}
+Notiamo che nell'equazione precedente i primi due termini (in generale i termini che sono la divergenza di una certa quantità), sono termini di trasporto, non di dissipazione. Infatti integrando l'equazione su un volume finito abbiamo che i termini con la divergenza di una certa quantità possono essere riscritti come integrali di superficie di quella stessa quantità, ovvero possono essere trasformati in flussi. I termini della divergenza indicano variazioni locali (infatti per applicare il teorema della divergenza occorre integrare su un volume finito, cioè delimitato da una superficie) in quanto la quantità c fluisce attraverso la superficie del volume "locale" ma si mantiene globalmente costante. Se il sistema è isolato, privo di sorgenti e pozzi, l'equazione precedente diventa un'equazione di conservazione: la quantità c si conserva globalmente, ma non è detto che lo faccia localmente. Ciò è vero se non si hanno nè fenomeni di diffusione nè di avvezione. Il terzo termine invece, come già detto, non indica un trasporto di $c$ ovvero una variazione locale, bensì una variazione globale ($c$ viene generata o distrutta).
+
+
+Un'equazione del trasporto utile in astrofisica è quella del calore \footnote{Più propriamente l'equazione del calore è, esplicitando in termini della temperatura, $\frac{\partial T}{\partial t} - \kappa \nabla^2 T = S(\V{x},t)$ dove $S(\V{x},t)$ è la funzione sorgente, e il coefficiente di diffusione termica è $\kappa \equiv \frac{k}{\rho c_p}$} :
+\begin{equation}
+\rho \frac{\partial q}{\partial t} + \V{\nabla}\cdot (- k \nabla T) = R 
+\end{equation}
+dove $q=c_p T$ (con $c_p$ calore specifico) è il calore assorbito per unità di massa, e
+ $k$ è la conduttività termica. Se non abbiamo sorgenti o pozzi di calore (caso che non tratteremo), allora avremo che l'ultimo termine dell'equazione del trasporto dell'energia \ref{eq:Finale6} diventa
+\begin{equation}
+\rho \dot{q}=-\V{\nabla} \cdot (k \V{\nabla} T)
+\end{equation}
+Questo termine contiene una divergenza, quindi notiamo che nell'equazione dell'energia, anche questo termine che descrive il calore, descrive un trasporto di energia. Il calore propaga seguendo l'opposto del gradeinte termico.
+
+Un meccanismo di riscaldamento è dovuto ai raggi cosmici, i quali incidono su un fluido rilasciando energia agli atomi che lo costituiscono. questo meccanismo di riscaldamento è il principale dell'ISM (Interstellar Medium). Nel caso più semplice di ISM costituito da idrogeno atomico si ha che l'interazione tra raggio cosmico (protone energetico) e idrogeno atomico rilascia $\Delta E = 4 \mathrm{eV}$, mentre il tasso di ionizzazione è $\tau^{-1} = 10^{-17} \mathrm{s}^{-1}$ e quindi 
+\begin{align*}
+\dot{q}_\mathrm{cr}= \frac{\Delta E}{\tau} \frac{1}{m_\mathrm{p}} \approx 4\cdot 10^{-5} \mathrm{erg}\, \mathrm{s}^{-1} \, \mathrm{g}^{-1}
+\end{align*}
+
+Il principale meccanismo di raffreddamento consiste invece nel raffreddamento radiativo. Dobbiamo distinguere il mezzo considerato in otticamente spesso o otticamente sottile. Nel primo caso (nell'approssimazione di Rosseland) si ha diffusione, quindi il fenomeno viene interpretato come un riscaldamento, in quanto si ha flusso di energia dalle regioni a temperatura maggiore verso quelle a temperature minori. Se il mezzo è otticamente sottile, cosa che può accadere sulla superficie di un mezzo otticamente spesso come una stella (regione che viene chiamata fotosfera), la radiazione viene persa dal fluido, e il fenomeno è un vero e proprio raffreddamento. Un tipico esempio di raffreddamento radiativo è la bremsstrahlung, per il quale si ha
+\begin{align*}
+\rho \dot{q}_\mathrm{ff} \approx -1.4 \cdot 10^{-27} Z^2 T^{1/2} n^2 \mathrm{erg}\, \mathrm{s}^{-1} \, \mathrm{cm}^{-3}
+\end{align*}
+
+\section{Equazioni di stato politropiche}
+Riscriviamo il primo principio della termodinamica 
+\begin{equation}
+T \dd s = c_V \dd T - \frac{p}{\rho^2}\dd \rho
+\end{equation}
+Usando la \ref{eq:Finale5} con $e=c_v T$, cioè 
+\begin{equation}
+\frac{p}{\rho}= (\gamma -1) c_V T \label{eq:Stato2}
+\end{equation}
+otteniamo
+\begin{equation}
+\dd s = c_V \left( \frac{\dd T}{T} - (\gamma -1) \frac{\dd \rho}{\rho} \right)
+\end{equation}
+Integrandola si ottiene
+\begin{equation}
+s-s_0 = c_v \ln \left[ \frac{T/T_0}{(\rho / \rho_0)^{\gamma -1}} \right] \label{eq:Isentropica}
+\end{equation}
+Sfruttando di nuovo la \ref{eq:Finale5} con $e=c_v T$, e imponendo che la trasformazione sia adiabatica e che quindi la variazione di entropia è nulla, si trova
+\begin{equation}
+p = k \rho^\gamma
+\end{equation}
+dove $k=\frac{p_0}{\rho_0^\gamma}$ è una costante. Quindi per un fluido adiabatico ciascun elemento fluido mantiene costante la sua entropia e quindi vale la relazione precedente, cioè $k$ è una costante. Tuttavia non è detto che tutti gli elementi fluidi abbiano la stessa $k$. Nel caso generale si parla di fluido adiabatico, nel caso specifico in cui $k$ è la stessa in tutto il fluido si parla di \textit{fluido isentropico}. L'equazione precedente mostra inoltre che se il fluido è adiabatico possiamo relazionare direttamente la pressione con la densità, senza prima determinare la temperatura. 
+
+Se il fluido, anzichè essere adiabatico, fosse isotermo, allora l'equazione di stato \ref{eq:Stato2} mostra che $p\propto \rho $. In entrambi i casi non è più necessario risolvere l'equazione dell'energia. Queste due equazioni di stato fanno parte di una classe di equazioni di stato note come \textit{barotropiche}. Un fluido si dice barotropico se la sua pressione dipende solo dalla densità, quindi se la sua equazione di stato è 
+\begin{equation}
+p = p(\rho) \label{eq:BarotropicaGenerica}
+\end{equation}
+Un caso particolare di barotropica è dato dalle politropiche, ovvero equazioni di stato in cui la pressione è una legge di potenza della densità, espressa nella forma
+\begin{equation}
+p=k \rho^{1+\frac{1}{n}}
+\end{equation}
+dove $n$ è noto come \textit{indice politropico}. Un'adiabatica è una particolare politropica in cui si ha $\frac{1}{\gamma -1}$. Un esempio di fluido politropico è un gas degenere di elettroni (lo studieremo più avanti).
+
+
+\section{Applicazioni delle equazioni fluidodinamiche}
+Chiariti i meccanismi di riscaldamento e di raffreddamento, possiamo studiare le soluzioni delle equazioni del fluido in determinate condizioni. Queste soluzioni vengono tipicamente ricercate in configurazioni di equilibrio: considereremo ora l'equilibrio idrostatico. In questa configurazione, il sistema studiato è tale che $\V{u}=0$ e le forze di pressione bilanciano le forze esterne. In questo caso l'equazione di continuità \ref{eq:Finale1} è soddisfatta banalmente, infatti essendo in equilibrio le derivate temporali sono nulle, ed essendo il fluido statico, il termine in $\V{u}$ si annulla, essendo $\V{u}$ stessa nulla. L'equazione di Eulero \ref{eq:Finale2} diventa invece
+\begin{equation}
+\frac{1}{\rho} \V{\nabla}p= -\V{\nabla}\phi \label{eq:EquilibrioIdrostatico}
+\end{equation}
+che prende il nome di \textit{equazione di equilibrio idrostatico}. Aggiungendo le equazioni \ref{eq:Finale3} \ref{eq:Finale4} e assumendo che il fluido sia barotropico (assunzione che verrà fatta praticamente sempre da qui in avanti) ovvero che l'equazione di stato sia nella forma generica \ref{eq:BarotropicaGenerica} otteniamo un sistema di tre equazioni in tre variabili, $p$, $\rho$, e $\phi_\mathrm{sg}$.
+
+\begin{Example}{Atmosfera terrestre}
+Studiamo ora il sistema atmosfera terrestre, supponendo che sia isotermo. In quest'ipotesi l'equazione di stato e l'equazione del campo gravitazionale terrestre sono
+\begin{align*}
+& p=\frac{kT}{\mu m_\mathrm{p}}\rho 
+& -\V{\nabla}\phi = -g \V{\hat{z}}
+\end{align*}
+che sostituite nell'equazione dell'equilibrio idrostatico \ref{eq:EquilibrioIdrostatico}, danno
+\begin{equation}
+\frac{c_\mathrm{s}^2}{\rho}\frac{\dd \rho}{\dd z}=-g
+\end{equation}
+dove $c_\mathrm{s}^2 \equiv \frac{kT}{\mu m_\mathrm{p}}$ è il quadrato della velocità del suono (lo vedremo più avanti).
+
+Per risolvere questo problema utilizzeremo un metodo che adotteremo spesso nella risoluzione delle equazioni differenziali, utile a isolare il senso fisico dell'equazione differenziale dalla sua forma matematica, la cui risoluzione è un semplice problema matematico. Esso consiste nel definire delle nuove variabili di modo che le costanti fisiche del problema spariscano, e che l'equazione sia un'equazione differenziale adimensionale. In questo caso definiamo
+\begin{align*}
+& y=\frac{\rho}{\rho_0}
+& x=\frac{z}{z_0}
+\end{align*}
+con $\rho_0$ e $z_0$ scelti in maniera opportuna, in modo che facciano sparire le costanti fisiche. Per determinarli sostituiamo le definizione nell'equazione, ottenendo
+\begin{align*}
+\frac{1}{y}\frac{c_\mathrm{s}^2}{z_0}\frac{\dd y}{\dd x}=-g
+\end{align*}
+Imponendo $z_0=\frac{c_\mathrm{s}^2}{g}$, otteniamo l'equazione differenziale
+\begin{equation}
+\frac{\dd y}{\dd x} = -y
+\end{equation}
+Con questo approccio, prima ancora di risolvere l'equazione differenziale abbiamo già ottenuto la scala tipica dell'atmosfera, ovvero $z_0$. Il fattore $c_\mathrm{s}^2$ è legato alla pressione dell'atmosfera, mentre $g$ è legato al campo gravitazionale. Quindi dalla sola definizione della scala $z_0$ notiamo che se la pressione aumenta (e quindi anche $c_\mathrm{s}^2$ aumenta) lo spessore atmosferico aumenta. Se invece aumenta la gravità, ovvero se aumenta $g$, lo spessore atmosferico diminuisce. Un altro modo per interpretare $z_0$ è sostituendo la definizione di $c_\mathrm{s}^2$. Si ottiene così l'equazione
+\begin{equation}
+\mu m_\mathrm{p} g z_0 = kT
+\end{equation}
+dalla quale si vede che $z_0$ è l'altezza a cui l'energia potenziale gravitazionale è uguale all'energia termica.
+Infine risolvendo il problema, e tornando alle variabili $\rho$ e $z$, abbiamo che
+\begin{equation}
+\rho = \rho_0 \,\mathrm{e}^{-z/z_0}
+\end{equation}
+\end{Example} 
+
+\begin{Example}{Strato isotermo autogravitante} \label{sec:StratoIsotermoAutogravitante}
+Consideriamo ora uno strato di fluido di spessore $z$ (con strato inferiore a $z=0$ e strato superiore a $z$), isotermo, in equilibrio idrostatico e autogravitante, ovvero la gravità è prodotta dal fluido stesso. Anzitutto ricaviamo quanto vale la forza di gravità ad una data altezza $z$. Per farlo usaimo la legge di Gauss
+\begin{align*}
+\V{g}=-4 \pi G\sigma(z) \V{\hat{z}}
+\end{align*}
+dove $\sigma(z)$ è la densità superficiale, ovvero
+\begin{align}
+& \sigma (z) = \int_0^z \rho(z') \dd z'
+& \rho (z) = \frac{\dd \rho}{\dd z}
+\end{align}
+Supponendo anche in questo caso l'isotermia, abbiamo l'equazione di equilibrio idrostatico
+\begin{equation}
+\frac{\V{\nabla} p}{\rho} = \V{g}
+\end{equation}
+ottenendo
+\begin{equation}
+c_\mathrm{s}^2 \frac{\dd^2 \sigma}{\dd z^2} = -4\pi G \sigma \frac{\dd \sigma}{\dd z}
+\end{equation}
+Anche in questo caso introduciamo due dei fattori di scala per $\sigma$ e $z$
+\begin{align*}
+& w = \frac{\sigma}{\sigma_0}
+& y = \frac{z}{z_0}
+\end{align*}
+Sostituendo si trova
+\begin{equation}
+\frac{\dd^2 w}{\dd y^2}=-2 w \frac{\dd w}{\dd y} \label{eq:Diff1}
+\end{equation}
+con
+\begin{equation}
+z_0 = \frac{c_\mathrm{s}^2}{2\pi G \sigma_0}
+\end{equation}
+Anche in questo caso il significato fisico di $z_0$ è lo stesso dell'esempio precedente. Introduciamo anche una scala di densità $\rho_0 = \frac{\sigma_0}{z_0}$. Essendo $\rho(z)=\frac{\dd \sigma}{\dd z}$ si ottiene che $\frac{\rho}{\rho_0}=w'$. Quindi interpretando la densità $\rho_0$ come il valore assunto a $z=0$, otteniamo la condizione al contorno $w'(0)=1$. Per trovare la seconda condizione al contorno notiamo che essendo $\sigma(z)$ definito come un integrale di $\rho(z)$ tra $0$ e $z$, si ha $\sigma(0)=0$, che implica che $w(0)=0$. Per come abbiamo definito $\rho_0$ possiamo riscrivere l'altezza di scala come 
+\begin{equation}
+z_0=\frac{c_\mathrm{s}}{\sqrt{2\pi G \rho_0}} 
+\end{equation}
+Notiamo che dimensionalmente $\sqrt{G\rho_0}$ è una frequenza: il suo reciproco è il tempo di free-fall.
+Risolviamo ora l'equazione differenziale\ref{eq:Diff1}; notando che $2ww'=\frac{\dd}{\dd y}(w^2)$, e integrando l'equazione, otteniamo
+\begin{align*}
+w^2(0)-w^2 &= w'-w'(0) \\
+\frac{\dd w}{\dd y} &=1-w^2
+\end{align*}
+dove nell'ultimo passaggio abbiamo sostituito le condizioni al contorno. La soluzione finale dell'ultima equazione è $w=\tanh y$, e le soluzioni finali del problema sono
+\begin{align}
+& \rho = \frac{\rho_0}{\mathrm{coch}^2 \left(\frac{z}{z_0} \right)}
+& \sigma = \sigma_0 \tanh \left(\frac{z}{z_0} \right)
+\end{align}
+Concludiamo con un'ulteriore riscrittura della scala caratteristica
+\begin{equation}
+z_0=\frac{c_\mathrm{s}^2}{\pi G \Sigma}
+\end{equation}
+dove abbiamo definito 
+\begin{equation}
+\Sigma \equiv \int_{-\infty}^{+\infty} \rho(z) \dd z = 2\sigma_0
+\end{equation}
+\end{Example}
+
+\begin{Example}{Disco protoplanetario}
+Il sistema è un disco di gas io orbita attorno ad una stella centrale. Anche in questo caso ipotizziamo che il gas sia isotermo, e quindi valgono le equazioni seguenti
+\begin{align*}
+& p=c_\mathrm{s}^2 \rho
+& \frac{c_\mathrm{s}^2}{\rho} \frac{\dd \rho}{\dd z} = -\frac{\dd \phi}{\dd z}
+\end{align*}
+In questo caso, a differenza del precedente, il campo gravitazionale è determinato dalla stella centrale, considerata puntiforme. Chiamiamo $M$ la massa della stella, $z$ l'altezza sul piano centrale del disco dell'elemento fluido che stiamo considerando, $r$ la distanza tra l'elemento fluido e la stella (distanza sferica), $R$ la proiezione di $r$ sul piano centrale (distanza cilindrica)($r^2 = R^2+z^2$). Se ipotizziamo che il disco è sottile, ovvero che $z \ll R$, possiamo approssimare $r\approx R$. Possiamo calcolare il gradiente di $\phi$ in direzione $z$
+\begin{align*}
+\frac{\dd \phi}{\dd z} &= \frac{\dd}{\dd z} \left( -\frac{GM}{r} \right) = \\
+&= \frac{GM}{r^2} \frac{\dd r}{\dd z} = \\
+&= \frac{GM}{r^3}z \approx \\
+& \approx \frac{GM}{R^3}z
+\end{align*}
+L'equazione differenziale da risolvere diventa
+\begin{equation}
+\frac{c_\mathrm{s}^2}{\rho} \frac{\dd \rho}{\dd z} = -\Omega^2 z \label{eq:Diff2}
+\end{equation}
+dove abbiamo definito la \textit{velocità Kepleriana} $\Omega\equiv \sqrt{\frac{GM}{R^3}}$. Seguiamo lo stesso metodo adottato in precedenza, fissando 
+\begin{align*}
+&z=z_0 x
+& \rho = \rho_0 y
+\end{align*}
+Sostituendo nell'equazione\ref{eq:Diff2} osserviamo che la scelta che permette di semplificare le costanti fisiche è $z_0=\frac{c_\mathrm{s}}{\Omega}$. L'equazione differenziale diventa
+\begin{equation}
+\frac{1}{y} \frac{\dd y}{\dd x} = -x
+\end{equation}
+che si risolve banalmente trovando come soluzione finale
+\begin{equation}
+\rho = \rho_0 \, \mathrm{e} ^{-z^2/2z_0^2}
+\end{equation}
+\end{Example}
+
+
+
+\section{Sfere Politropiche} \label{sec:SferePolitropiche}
+Le sfere politropiche sono usate in molti contesti astrofisici, dalla struttura interna delle stelle, fino alle nubi molecolari. Esse sono delle sfere di gas autogravitante in equilibrio idrostatico. In questa sezione studieremo questi sistemi, per i quali risolveremo le equazioni fluide, trovandone così la struttura di equilibrio. Iniziamo scrivendo le equazioni fluide che descrivono questo problema (equazione di equilibrio idrostatico ed equazione di Poisson) in coordinate sferiche.
+\begin{align}
+& \der{p}{r} = -\rho \der{\phi}{r} \label{eq:Barotropica1} \\
+& \frac{1}{r^2}\der{}{r} \left( r^2 \der{\phi}{r} \right) = 4\pi G \rho \label{eq:Barotropica2}
+\end{align}
+Siccome $\rho>0$, per definizione, risulta che il gradiente di $p$ è opposto al gradiente di $\phi$, e quindi $p$ deve essere funzione monotona di $\phi$. Quindi in condizioni di equilibrio idrostatico, le superfici isobare sono anche superfici isopotenziali. Inoltre possiamo scrivere
+\begin{align*}
+\der{p}{r} = \der{p}{\phi} \der{\phi}{r} &= -\rho \der{\phi}{r} \\
+& \Downarrow \\
+\rho &= -\der{p}{\phi} = \rho(\phi)
+\end{align*}
+dove nell'ultima equazione abbiamo sfruttato il fatto che essendo $p$ funzione monotona di $\phi$, allora anche la sua derivata sarà funzione di $\phi$. Inoltre l'equazione dell'equilibrio idrostatico ci dice anche che $\phi$ è funzione monotona di $p$, pertanto ricaviamo che $\rho$ è funzione di $p$, e quindi che (questo passaggio non è molto chiaro) $p=p(\rho)$, cioè che se il gas autogravitante è in equilibrio, si può descrivere con una barotropica. Ipotizzando che l'equazione di stato sia una politropica, otteniamo la terza equazione che chiude il sistema
+\begin{equation}
+p = k\rho^{1+1/n}	\label{eq:Barotropica3}
+\end{equation}
+Dalla \ref{eq:Barotropica1} possiamo ottenere la derivata di $\phi$ lungo $r$, e sostituendola nella \ref{eq:Barotropica2} otteniamo
+\begin{equation}
+\frac{1}{r^2}\der{}{r} \left( r^2 \frac{1}{r}\der{p}{r} \right) =- 4\pi G \rho \label{eq:Barotropica4}
+\end{equation}
+Introduciamo la nuova variabile
+\begin{equation}
+\rho = \rho_\mathrm{c} \theta^n \label{eq:Barotropica5}
+\end{equation}
+con $\rho_\mathrm{c}$ densità al centro della sfera. Sostituendo questa definizione nell'equazione \ref{eq:Barotropica3}, e sostituendo la pressione $p$ così ottenuta nella \ref{eq:Barotropica4}, si ottiene
+\begin{equation}
+\frac{1}{r^2}\der{}{r} \left( r^2 \frac{1}{\rho} k \rho_\mathrm{c}^{1+1/n}(n+1)\theta^n \der{\theta}{r} \right) = -4\pi G \rho_\mathrm{c}\theta^n
+\end{equation}
+Tenendo conto della \ref{eq:Barotropica5} e introducendo
+\begin{equation}
+r=\lambda \xi
+\end{equation}
+con $\lambda$ costante e $\xi$ variabile, otteniamo
+\begin{align*}
+\frac{1}{r^2}\der{}{r} \left( r^2  k \rho_\mathrm{c}^{1/n}(n+1) \der{\theta}{r} \right) & = -4\pi G \rho_\mathrm{c}\theta^n \\
+\frac{1}{\lambda^2}k \rho_\mathrm{c}^{1/n} (n+1) \frac{1}{\xi^2} \der{}{\xi} \left( \xi^2 \der{\theta}{\xi} \right) &= -4\pi G \rho_\mathrm{c}\theta^n
+\end{align*}
+Definendo
+\begin{equation}
+\lambda^2 = \frac{k \rho_\mathrm{c}^{\frac{1}{n} -1} (n+1)}{4\pi G} \label{eq:Barotropica6}
+\end{equation}
+otteniamo l'equazione finale
+\begin{equation}
+\frac{1}{\xi^2}\der{}{\xi} \left( \xi^2 \der{\theta}{\xi} \right) = -\theta^n  \label{eq:Barotropica7}
+\end{equation}
+Le condizioni al contorno sono
+\begin{align*}
+& \theta(0) =1
+& \theta'(0) =0
+\end{align*}
+La prima segue dalla definizione di $\theta$, dovendo valere $\rho = \rho_\mathrm{c}$ per $\xi=0$, cioè per $r=0$. La seconda segue dal fatto che $\theta$ è legato al potenziale, e quindi $\theta'$ è legato alla forza, la quale è nulla al centro della sfera per simmetria. L'equazione \ref{eq:Barotropica7} è nota come \textit{equazione di Lane-Emden di grado n}. Risolvendo l'equazione si ottiene la struttura della sfera politropica, tuttavia non esiste soluzione analitica $\forall n$, ma solo per alcuni casi:
+\begin{itemize}
+\item \textbf{n=0} La soluzione è $\theta_0 = 1-\frac{1}{6}\xi^2$. Essendo una parabola, è possibile che $\theta$ diventi negativo, ma questo non ha senso fisico. Il valore di $\xi$ tale per cui $\theta=0$ definisce la superficie della sfera politropica (per valori di $\xi$ più grandi si avrebbe $\theta<0$). Tale valore è $\xi_0=\sqrt{6}\approx 2.45$. Il caso $n=0$ e $\theta=0$ è un caso limite, in cui la pressione si annulla.
+\item \textbf{n=1} La soluzione è $\theta_1=\frac{\sin \xi}{\xi}$. Anche in questo caso la dimensione della sfera politropica è dato dal valore di $\xi$ che annulla $\theta$ (in questo caso solo il primo, perchè matematicamente si hanno piò soluzioni). Si ha $\xi_1=\pi$. Notiamo che in questo caso di $n=1$, $\lambda$ non dipende da $\rho_\mathrm{c}$ il che significa che tutte le sfere politropiche con $n=1$ hanno lo stesso raggio $R=\xi_1\lambda = \pi\left(\frac{k}{2\pi G} \right)^{1/2}$.
+\item \textbf{n=5} La soluzione è $\theta_5 = \frac{1}{\sqrt{1+\xi^2*1/3}}$. In questa funzione notiamo che $\theta$ non si annulla mai, e quindi la sfera si estende all'infinito. Inoltre si può dimostrare che per $n<5$ le sfere politropiche hanno raggio finito, mentre per $n\geq 5$ le sfere si estendono all'infinito. 
+\end{itemize}
+Per tutti gli altri valori di n, l'equazione va risolta numericamente.
+
+\subsection{Relazione massa-raggio}
+In questa sezione studiamo la relazione tra il raggio e la massa di una sfera politropica. Consideriamo sfere politropiche con un generico $0\leq n < 5$, poichè, come abbiamo visto, per valori maggiori di $5$ la sfera si estende all'infinito. Per queste sfere si ha un raggio dato da
+\begin{equation}
+R= \xi_n \left[ \frac{k(n+1)}{4\pi G} \right]^{1/2} \rho_\mathrm{c} ^\frac{1-n}{2n} \label{eq:RaggioPolitropica}
+\end{equation}
+dove $\xi_n$ è il valore di $\xi$ che anulla $\theta$ della politropica di ordine $n$.
+La massa della sfera sarà, per definizione
+\begin{align*}
+M=\int_0^R 4\pi r^2 \rho (r) \dd r &= 4 \pi \lambda^3 \rho_\mathrm{c} \int_0 ^{\xi_n} \xi^2 \theta ^n \dd \xi \\
+& = 4 \pi \lambda^3 \rho_\mathrm{c} \left[ -\xi^2 \der{\theta}{\xi} \right]_{\xi_n}
+\end{align*}
+dove nell'ultimo passaggio abbiamo sfruttato l'equazione di Lane-Emden \ref{eq:Barotropica7}. Definendo $g_n \equiv  -\xi^2 \der{\theta}{\xi} \Big|_{\xi_n}$ e usando la definizione di $\lambda$ \ref{eq:Barotropica6}, otteniamo 
+\begin{align*}
+M = 4\pi \left[ \frac{k(n+1)}{4\pi G} \right]^{3/2} g_n \rho_\mathrm{c}^\frac{3-n}{2n}
+\end{align*}
+Ricavando $\rho_\mathrm{c}$ in funzione del raggio della sfera politropica dall'equazione \ref{eq:RaggioPolitropica}, e sostituendo nell'equazione precedente otteniamo la massa della sfera in funzione del suo raggio
+\begin{EQ}
+\begin{equation}
+M = 4\pi g_n \left[ \frac{k(n+1)}{4\pi G} \right]^\frac{n}{n-1} \left( \frac{R}{\xi_n} \right)^\frac{3-n}{1-n} \label{eq:MassaRaggio}
+\end{equation}
+\end{EQ}
+Questo calcolo è stato effettuato per la prima volta da Chandrasekar. Vediamo subito che per i casi $n=1$ e $n=3$ si hanno delle singolarità; il primo lo abbiamo già studiato, trovando che le sfere politropiche di $n=1$ hanno tutte lo stesso raggio, e ciò si ripercuote in una singolarità della relazione massa raggio, che in questo caso non ha più senso. Il secondo caso, che studieremo tra poco, mostra che tutte le sfere hanno la stessa massa (poichè essa non dipende più dal raggio).
+
+Un valore notevole è $n=\frac{3}{2}$, che corrisponde al caso di un gas adiabatico si ha
+\begin{equation}
+p=K \rho^{5/3} \label{eq:PolitropicaAdiabatica}
+\end{equation}
+Sottolineaiamo il fatto che se l'equazione di stato è genuinamente politropica, la costante $K$ è una costante fondamentale che dipende dall'equazione di stato, ma che non ha niente a che vedere con l'entropia del gas, come invece accade per un gas perfetto adiabatico. In questo caso infatti $K$ dipende dall'entropia, come abbiamo visto nell'equazione \ref{eq:Isentropica}. L'equazione \ref{eq:PolitropicaAdiabatica} si applica a gas adiabatici, a stelle convettive\footnote{Le stelle convettive sono stelle di massa $M<0.2\, M_\odot$, oppure giganti rosse} e a un gas di elettroni degeneri non relativistici. In quest'ultimo caso si ha
+\begin{equation}
+K_\mathrm{el, deg} = \frac{1}{20}\left( \frac{3}{\pi} \right)^{2/3} \frac{h^2}{\mel} \left( \frac{1}{\mu \mpr} \right) ^{5/3}
+\end{equation}
+Notiamo che $n=\frac{3}{2}$ implica $M\propto R^{-3}$, quindi più è massicia la stella più è compatta. Questa relazione è in buon accordo con le osservazioni sperimentali della dipendenza della massa dal raggio per le nane bianche. Per quanto riguarda le stelle convettive si osserva sperimentalmente che per le stelle di sequenza principale (e quindi anche per le stelle $M<0.2\,M_\odot$) vale la dipendenza $M\propto R$. Inoltre per le giganti rosse la massa varia di poco durante le loro fasi di vita, mentre il raggio aumenta anche di $\approx 10^2$ volte. Il fatto che per queste due tipologie di stelle non vale $M\propto R^{-3}$ dipende dal fatto che per le nane bianche $K$ è effettivamente una costante, mentre per stelle poco massicce e giganti rosse $K$ dipende dall'entropia. Per vedere le ripercussioni di questa dipendenza sulla relazione massa-raggio, consideriamo il gas perfetto al centro di una stella, per il quale varrà la relazione 
+\begin{equation}
+\frac{p_\mathrm{c}}{\rho_\mathrm{c}} = \frac{k T_\mathrm{c}}{\mu \mpr} = K \rho_\mathrm{c} ^\frac{1}{n}
+\end{equation}
+avendo usato nella prima uguaglianza l'equazione dei gas perfetti, mentre nella seconda l'equazione di una politropica. Aggiungiamo l'ipotesi che la temperatura al centro della stella sia costante, a prescindere dalla sua massa. Quest'ipotesi è giustificata dal fatto che la temperatura centrale delle stelle di sequenza principale, è determinata dai processi di reazione nucleare, i quali sono pressochè gli stessi in tutte le stelle (fusione di idrogeno in elio). Questo implica che $K\propto \rho_\mathrm{c}^{-1/n}$. Dalle relazioni precedenti abbiamo
+\begin{align*}
+& M \propto \rho_\mathrm{c}^\frac{3-n}{2n} \, K^\frac{3}{2} \propto \rho^{-\frac{1}{2}} \\
+& R \propto \rho_\mathrm{c}^\frac{1-n}{2n} \, K^\frac{1}{2} \propto \rho^{-\frac{1}{2}} 
+\end{align*}
+e quindi per le stelle di sequenza principale, il fatto che $K$ non sia una costante vera e propria (ma dipende dall'entropia, e quindi dalla temperatura), introduce una dipendenza $M\propto R$. Notiamo che, ribaltando la discussione fatta, l'evidenza sperimentale che le stelle di sequenza principale hanno una dipendenza della massa dal raggio di semplice proporzionalità diretta, implica che la temperatura centrale sia costante. Inoltre sottolineiamo che la relazione $M\propto R$ non dipende da $n$, quindi questa discussione è valida per tutte le stelle di sequenza principale, non solo per le stelle poco massicce $M<0.2 M_\odot$, ma anche per stelle con diversi valori di $n$.
+
+Un altro valore notevole è $n=3$ che dà
+\begin{equation}
+p=K \rho^{4/3} \label{eq:PolitropicaRadiativa}
+\end{equation}
+che secrive bene sistemi come stelle radiative (ad esempio il sole) e gas elettronici degeneri relativistici. In quest'ultimo caso si ha
+\begin{equation}
+K_\mathrm{el, rel} = \frac{1}{8}\left( \frac{3}{\pi} \right)^{1/3} hc \left( \frac{1}{\mu \mpr} \right) ^{4/3}
+\end{equation}
+Quindi dalla relazione \ref{eq:MassaRaggio} vediamo che tutte le nane bianche relativistiche hanno la stessa massa, che è
+\begin{equation}
+M = \sqrt{\frac{3}{\pi}} g_3 \left( \frac{hc}{2G} \right) ^{3/2} \left( \frac{1}{\mu \mpr} \right)^{4/3} \approx 5.75 \frac{M_\odot}{\mu^2}
+\end{equation}
+nota come massa di Chandrasekar.
+
+
+\subsection{Fluido isotermo}
+In questa sezione studiamo una sfera costituita da un fluido isotermo, per il quale vale $p\propto \rho$ e $K=\sound^2$. In questo caso l'equazione \ref{eq:Barotropica4} si semplifica in
+\begin{equation}
+\frac{\sound^2}{r^2}\der{}{r} \left( r^2 \der{(\ln\rho)}{r} \right) = -4\pi G \rho \label{eq:Isoterma1}
+\end{equation}
+ed è l'equazione da risolvere per una \textit{sfera isoterma autogravitante}. Vediamo che una possibile soluzione è $\rho = A r^{-2}$ dove $A$ è un'opportuna costante che possiamo ottenere sostituendo tale soluzione nell'equazione \ref{eq:Isoterma1}. Otteniamo 
+\begin{equation}
+\rho = \frac{\sound^2}{2\pi G r^2}
+\end{equation}
+soluzione nota come \textit{sfera isoterma singolare}, poichè a $r=0$ la densità diverge e quindi anche la massa. Nonostante questa singolarità, questa soluzione fornisce una prima approssimazione nella descrizione dei profili di densità di alcuni sistemi come gli aloni di materia oscura delle protogalassie durante la fase di collasso gravitazionale\footnote{Oggi vengono modellizzate con i più raffinati profili di Navarro-Frenk-White $\rho = \dfrac{\rho_0}{r/R_\mathrm{s} \left( 1+ r/R_\mathrm{s} \right)^2}$, dove $\rho_0$ è la densità iniziale dell'universo al momento del collasso dell'alone, mentre $R_\mathrm{s}$ è il raggio carataristico (e per niente piccolo) dell'alone stesso.}. Per ottenere delle soluzioni più generali e prive di singolarità, risolviamo l'equazione \ref{eq:Isoterma1} definendo le variabili
+\begin{align}
+&\rho = \rho_\mathrm{c} e^{-\psi} 
+&r=\lambda \xi
+\end{align}
+con
+\begin{align}
+&\lambda=\frac{\sound}{\sqrt{4\pi G \rho_\mathrm{c}}}
+\end{align}
+L'equazione si riduce a 
+\begin{equation}
+\frac{1}{\xi^2} \der{}{\xi} \left( \xi^2 \der{\psi}{\xi} \right) = e^{-\psi} \label{eq:Isoterma2}
+\end{equation}
+con condizioni al contorno
+\begin{align*}
+&\psi(0) =0 
+&\psi'(0) =0
+\end{align*}
+
+
+Le soluzioni a questa equazione vengono chiamate \textit{sfere di Bonnor-Ebert}. Notiamo che nonostante la soluzione ottenuta dall'equazione sia unica, parliamo comunque di sfere poichè questa soluzione ha massa che diverge all'infinito. Pertanto la soluzione ottenuta va troncata ad un opportuno $\xi$ di modo da ottenere una determinata massa della sfera. Pertanto i diversi valori del raggio $\xi_0$ di troncamento determinano una famiglia di sfere a partitre dall'unica soluzione ottenuta. Definiamo la costante $g_0$ come
+\begin{equation}
+g_0 \equiv \frac{\rho_0}{\rho_\mathrm{c}} = e^{-\psi(\xi_0)}
+\end{equation}
+che dà una stima della concentrazione della sfera: se $g_0 \ll 1$ la sfera è molto concentrata, poichè è densa al centro e rarefatta al bordo. Viceversa se $g_0 \approx 1$ allora la sfera è pressochè uniforme. La particolarità di queste sfere è che essendo troncate hanno sul bordo una densità non nulla, e quindi essendo isoterme una pressione non nulla data da
+\begin{equation}
+p_0 = \rho_0 \sound^2 = g_0 \rho_\mathrm{c}\sound^2
+\end{equation}
+Questo implica le sfere di Bonnor-Ebert descrivono sfere isoterme immerse in un ambiente che esercita una pressione esterna che bilanci $p_0$. 
+
+Calcoliamo la massa della sfera 
+\begin{align*}
+M = 4\pi \int_0^{R_0} r^2 \rho(r) \dd r &= 4\pi \frac{\sound^3 \rho_\mathrm{c}}{(4\pi G \rho_\mathrm{c})^{3/2}} \int_0^{\xi_0} \xi^2 e^{-\psi} \dd \xi = \\
+&= \frac{\sound^3}{G} \frac{1}{\sqrt{4\pi G \rho_\mathrm{c}}} f_0 = \\
+&= \frac{\sound^2 R_0}{G} \frac{f_0}{\xi_0}
+\end{align*}
+Dove nella seconda riga abbiamo sfruttato l'equazione \ref{eq:Isoterma2}, e abbiamo definito $R_0 \equiv \lambda \xi_0$, mentre $f_0 \equiv \xi_0^2 \der{\psi}{\xi} \Big|_{\xi_0}$. In conclusione sul bordo avremo
+\begin{align}
+& p_0=  g_0 \rho_\mathrm{c}\sound^2 \\
+& M = \frac{\sound^2 R_0}{G} \frac{f_0}{\xi_0} = \frac{\sound^3}{G} \frac{f_0}{\sqrt{4\pi G \rho_\mathrm{c}}} 
+\end{align}
+Notiamo che, a prescindere dai fattori $f_0$ e $\xi_0$ che essenzialmente descrivono la concentrazione della sfera, le relazioni che abbiamo trovato indicano che sul bordo l'energia gravitazionale è dell'ordine dell'energia termica $GM/R_0 \approx \sound^2$, esattamente come negli altri esempi studiati in precedenza.
+In molte applicazioni della sfera isoterma ci interesserà studiare la variazione della struttura di una sfera di massa nota in diversi ambienti, quindi al variare di una pressione esterna. Conviene quindi scrivere le principali quantità in funzione della massa. A tal scopo ricaviamo dalle due equazioni precedenti $\rho_\mathrm{c}$, che sostituiamo nella pressione, e il raggio $R_0$ in funzione della massa, ottenendo
+\begin{align}
+& P_0= \frac{\sound^8}{G^3 M^2} \left( \frac{f_0^2 g_0}{4\pi} \right) \\
+& R_0= \frac{GM}{\sound^2} \left( \frac{\xi_0}{f_0} \right)
+\end{align}
+dove i termini fuori dalle parentesi corrispondono rispettivamente ad una pressione $P_\mathrm{s}$ e un raggio $R_\mathrm{s}$ di scala. Andando a graficare l'andamento di $P_0/P_\mathrm{s}$ in funzione di $(R_0 /R_\mathrm{s}^3$ e si osserva che per grandi $R_0$ (quindi basse concentrazioni), si ha che $P_0 \propto R^{-3}$. Questa proporzionalità non deve stupire perchè, essendo in regime isotermo, vale la legge di Boyle ($PV=cost$). Ad alte concnetrazioni (cioè per $R_0$ bassi) si ha una spirale, ovvero si anno delle instabilità dovute a effetti autogravitanti, introdotti dalle alte concentrazioni. Il valore massimo della pressione si ha al raggio $R_\mathrm{crit} = 0.486 \frac{\sound}{\sqrt{G\rho_0}}$, $M_\mathrm{crit} = 1.18 \frac{\sound^3}{\sqrt{G \rho_0}}$. Questa instabilità è nota come \textit{instabilità di Bonnor-Ebert}, ed è un discostamento dalla legge di Boyle per un gas isotermo ad alte concentrazioni.
+
+\section{Perturbazioni}
+Finora abbiamo studiato diversi sistemi fisici in configurazione di equilibrio idrostatico. In questa sezione studieremo gli effetti di una perturbazione su un sistema fluidodinamico in equilibrio idrostatico. Così come nel caso puntiforme di un corpo materiale, una perturbazione al suo stato di equilibrio genera un'oscillazione, nel caso continuo di un fluido, una perturbazione genera un'onda che si propaga nel fluido, onda della quale studieremo la relazione di dispersione, ovvero la relazione tra la sua frequenza e la sua lunghezza d'onda (questa relazione riassume le caratteristiche della propagazione dell'onda). Per ricavare questa relazione conviene seguire il seguente schema:
+\begin{itemize}
+\item[1.] Individuare lo stato di equilibrio del sistema.
+\item[2.] Introdurre le perturbazioni: le quantità fisiche di interesse vanno riscritte come somma di un termine di equilibrio e uno di perturbazione  molto minore del primo (ad esempio per la densità avremo $\rho = \rho_0 + \rho_1$ con $\rho_1 \ll \rho_2$.
+\item[3.] Usare le equazioni fluide per ricavare le relazioni tra le perturbazioni delle varie grandezze.
+\item[4.] Supponiamo che le perturbazioni siano di tipo ondulatorio, un'onda piana (ad esempio $\rho \propto \exp [i(\omega t - \scal{k}{r})]$).
+\item[5.] Sostituendo la perturbazione ondulatoria nelle relazioni ottenute al punto 3, si ottiene la relazione di dispersione.
+\end{itemize}
+NB $\Longrightarrow$ Da ora in poi i pedici indicheranno l'ordine della perturbazione.
+
+\subsection{Perturbazioni lagrangiane ed euleriane}
+Prima di applicare la procedura descritta a sistemi specifici, occorre distinguere due diversi approcci grazie ai quali è possibile studiare le perturbazioni, ovvero l'approccio lagrangiano e l'approccio euleriano. Iniziamo col considerare una traiettoria fluida associata al fluido imperturbato; stiamo quindi considerando la traiettoria di un elemento fluido identificato dalla posizione iniziale $\V{x}_0$. La traiettoria fluida nel fluido imperturbato è $\V{r}_0(\V{x}_0, t)$, mentre la traiettoria fluida perturbata è $\V{r}(\V{x}_0, t)$. Ad ogni istante $t$, l'elemento fluido occupa una posizione che dista dalla posizione che occuperebbe allo stesso istante $t$ se seguisse la traiettoria imperturbata  di una quantità nota come \textit{spostamento lagrangiano}
+\begin{EQ}
+\begin{equation}
+\V{\xi}(\V{x}_0, t) = \V{r}(\V{x}_0, t) - \V{r}_0(\V{x}_0, t) \label{eq:SpostamentoLagrangiano}
+\end{equation}
+\end{EQ}
+Siccome $\V{r}$ è una funzione univoca di $\V{x}_0$ e $t$, possiamo considerare direttamente $\xi$ come funzione di $\V{r}$ e $t$, cioè $\V{\xi} = \V{\xi} (\V{r}, t)$. Consideriamo ora una certa quantità fluida $f(\V{r}, t)$; definiamo la \textit{perturbazione euleriana} come 
+\begin{EQ}
+\begin{equation}
+\delta f(\V{r}, t) \equiv f(\V{r}, t) - f_0(\V{r}, t) \label{eq:PerturbazioneEuleriana}
+\end{equation}
+\end{EQ}
+In accordo con l'approccio euleriano alla fluidodinamica che considera le proprietà del fluido in un punto fissato dello spazio, la perturbazione euleriana è definita come la differenza tra i valori assunti dalla quantità $f$ nella posizione $\V{r}$ nel fluido perturbato e nel fluido imperturbato. Sottolineiamo il fatto che $\V{r}$ non dipende dal tempo, e notiamo inoltre che la perturbazione euleriana commuta con la derivata euleriana. Definiamo invece la \textit{perturbazione lagrangiana} come
+\begin{EQ}
+\begin{equation}
+\Delta f(\V{r}, t) \equiv f(\V{r}, t) - f_0(\V{r}_0, t) \label{eq:PerturbazioneLagrangiana}
+\end{equation}
+\end{EQ}
+In accordo con l'approccio lagrangiano alla fluidodinamica che considera le proprietà fluide associate ad un singolo elemento fluido, la perturbazione lagrangiana è data dalla differenza tra i valori dell quantità $f$ assunti in posizione $\V{r}$ nel fluido perturbato e in posizione $\V{r}_0$ nel fluido imperturbato. Ricordando che $\V{r} = \V{r}_0 + \V{\xi}$ e che le perturbazioni sono piccole (cioè $f_0 \ll f$), sviluppiamo al prim'ordine $f_0(\V{r}_0, t)$
+\begin{align*}
+f_0(\V{r}_0, t) \approx f_0(\V{r}, t) - \scal{\xi}{\nabla}f_0 \approx f_0(\V{r}, t) - \scal{\xi}{\nabla}f
+\end{align*}
+dove nell'ultima approssimazione abbiamo considerato il fatto che $f-f_0$ è una differenza del primo ordine, ma il gradiente è anch'esso del prim'ordine, e quindi il gradiente della differenza è del secondo ordine\footnote{$\V{\nabla}f_0 = \V{\nabla}(f_0 - f + f) = \V{\nabla}(f_0 - f) + \V{\nabla}f \approx \V{\nabla}f $}.
+Sostituendo questo sviluppo nella definizione \ref{eq:PerturbazioneLagrangiana}, otteniamo 
+\begin{EQ}
+\begin{equation}
+\Delta f(\V{r}, t) = \delta f + \scal{\xi}{\nabla}f
+\end{equation}
+\end{EQ}
+analoga alla relazione tra derivata lagrangiana ed euleriana \ref{eq:DerivataLagrangiana}.
+
+Consideriamo la perturbazione lagrangiana della velocità fluida. Si verifica facilmente\footnote{$\Delta \V{u} = \V{u}(\V{r}, t) - \V{u}_0(\V{r}_0, t) = \derL{\V{\xi}}{t} = \derP{\V{\xi}}{t} + (\scal{u}{\nabla})\V{\xi} $} che 
+\begin{equation}
+\Delta \V{u} = \derP{\V{\xi}}{t} + (\scal{u}{\nabla})\V{\xi} \label{eq:PerturbazioneVelocità}
+\end{equation}
+Se lo stato è stazionario ($\V{u} =0$), allora la perturbazione lagrangiana ed euleriana della velocità coincidono.
+
+\begin{Example}{Fluido in equilibrio idrostatico}
+Consideriamo un fluido in equilibrio idrostatico: le condizioni che descrivono questo sistema sono quindi
+\begin{align*}
+&\derP{\rho_0}{t} = 0
+& \V{u}_0 =0
+\end{align*}
+e l'equazione di continuità all'ordine 0 \ref{eq:Finale1} è soddisfatta banalmente. Consideriamo le perturbazioni euleriane alla densità e alla velocità
+\begin{align*}
+& \rho = \rho_0 + \delta \rho
+& \V{u} = \V{u}_0 + \delta\V{u}
+\end{align*}
+Essendo $\V{u}_0=0$ abbiamo $ \V{u} =  \delta\V{u}$, e sostituendo le due relazioni precedenti nell'equazione di continuità, otteniamo
+\begin{align*}
+&\derP{}{t}(\delta\rho) + \V{\nabla} \cdot(\rho_0\V{u}) = 0 \\
+&\derP{}{t}(\delta\rho) + \scal{u}{\nabla}\rho_0  + \rho_0 \scal{\nabla}{u} = 0
+\end{align*}
+Abbaimo considerato solo fino ai termini del prim'ordine; essendo $\V{u}$ al prim'ordine, il prodotto tra $\rho$ e $\V{u}$ ha come unico termine non superiore all'ordine 1 il prodotto $\rho_0\V{u}$ (il prodotto $\delta\rho_0\V{u}$ è del second'ordine). Integrando ora rispetto al tempo otteniamo
+\begin{align*}
+(\delta\rho) + \scal{\xi}{\nabla}\rho_0  + \rho_0 \scal{\nabla}{\xi} = 0
+\end{align*}
+riconoscendo $\Delta \rho$ nella somma dei primi due termini otteniamo
+\begin{equation}
+\frac{\Delta\rho}{\rho_0} = -\scal{\nabla}{\xi}
+\end{equation}
+Ciò implica che se lo spostamento lagrangiano ha divergenza positiva, allora la perturbazione lagrangiana della densità è negativa, il che equivale ad una perturbazione positiva nel volume: si ha quindi un'espansione dell'elemento fluido considerato (notiamo infatti che la perturbazione della densità è quella lagrangiana, quindi la densità considerata non è la densità di una regione fissata dello spazio ma di un elemento fluido). Viceversa se la divergenza è negativa, si ha una compressione.
+\end{Example}
+
+\subsection{Le onde sonore} \label{sec:OndeSonore}
+In questo paragrafo ricaveremo la relazione di dispersione per le onde sonore; a tal fine consideriamo un fluido barotropico, omogeneo e in equilibrio idrostatico, descritto dai seguenti sistemi di equazioni
+\begin{align*}
+&\begin{cases}
+\derP{\rho}{t} + \Div (\rho \V{u}) =0 \\[10pt]
+\derP{\V{u}}{t} + (\scal{u}{\nabla}\V{u}) = -\dfrac{\V{\nabla}p}{\rho} \\[10pt]
+p = p(\rho)
+\end{cases}
+&\begin{cases}
+\rho_0 = cost \\
+p_0 = cost \\
+\V{u}_0 = 0
+\end{cases}
+\end{align*}
+dove il primo indica le equazioni fluide del sistema mentre il secondo indica le condizioni di equilibrio. Le perturbazioni al sistema sono
+\begin{align*}
+\begin{cases}
+\rho = \rho_0 + \delta\rho \\
+p = p_0 + \delta p
+\V{u} = \delta \V{u}
+\end{cases}
+\end{align*}
+e sostituendole nelle equazioni fluide, trascurando gli ordini superiori al primo, otteniamo\footnote{La seconda equazione è ottenuta da \begin{align*}
+\derP{}{t} \delta\V{u} &= -\dfrac{1}{\rho_0+\delta\rho} \Grad (p_0 +\delta p) \approx \frac{1}{\rho_0} \left( 1-\dfrac{\delta \rho}{\rho_0} \right) \Grad (p_0 + \delta p) = \\
+&= -\dfrac{1}{\rho_0} \Grad \delta p = -\dfrac{1}{\rho_0} \der{p}{\rho} \Grad \delta \rho = -\dfrac{\sound^2}{\rho_0}\Grad\delta\rho
+\end{align*} dove nell'approssimazione abbiamo effettuato uno sviluppo al prim'ordine di $\dfrac{1}{\rho_0+\delta\rho}$}
+\begin{align}
+\begin{cases}
+&\derP{}{t}(\delta\rho) + \rho_0 \Div \delta\V{u} = 0 \\[10pt] \label{eq:Perturbazioni}
+&\derP{}{t} \delta\V{u} = -\dfrac{\sound^2}{\rho_0}\Grad\delta\rho 
+\end{cases}
+\end{align}
+Derivando rispetto al tempo la prima equazione, e calcolando la divergenza della seconda otteniamo
+\begin{align}
+\begin{cases}
+&\derPn{}{t}{2}(\delta\rho) + \rho_0 \derP{}{t}(\Div \delta\V{u}) = 0 \\[10pt]
+&\derP{}{t} (\Div\delta\V{u}) = -\dfrac{\sound^2}{\rho_0}\Grad^2\delta\rho
+\end{cases}
+\end{align}
+che combinate permettono di ottenere
+\begin{equation}
+\left[ \derPn{}{t}{2} - \sound^2 \Grad^2 \right] \delta \rho = 0 \label{eq:OndeSonore}
+\end{equation}
+Abbiamo quindi trovato che le perturbazioni della densità propagano come delle onde con velocità $\sound$. Ciò giustifica la notazione $\sound$, in quanto corrisponde proprio alla velocità delle onde sonore. Siccome $\delta\rho$ ubbidisce all'eqauzione delle onde, possiamo esprimerlo come onda monocromatica 
+\begin{equation}
+\delta \rho \propto e^{i(\omega t - \scal{k}{r})} \label{eq:OndaPiana}
+\end{equation}
+Sostituendo questa definizione nell'equazione delle onde, otteniamo
+\begin{align*}
+\left( -\omega^2 +\sound^2 k^2 \right) \delta \rho =0
+\end{align*}
+Dovendo valere per ogni $\delta \rho$, deduciamo che il termine tra parentesi deve essere nullo, pertanto ricaviamo la relazione di disperisione
+\begin{EQ}
+\begin{equation}
+\omega^2 = \sound^2 k^2  \label{eq:Dispersione}
+\end{equation}
+\end{EQ}
+Se ora andiamo a sostituire la \ref{eq:OndaPiana} nella prima equazione di \ref{eq:Perturbazioni}, otteniamo 
+\begin{equation}
+-i \omega \delta \rho  + i \rho_0 \V{k}\cdot \delta \V{u} = 0
+\end{equation}
+da cui segue\footnote{
+\begin{align*}
+\dfrac{\delta\rho}{\rho_0} = \dfrac{\V{k}\cdot \delta \V{u}}{\omega} = \dfrac{k\V{\hat{n}}\cdot \delta \V{u}}{\omega} = \dfrac{\delta u}{\sound}
+\end{align*}
+dove nell'ultima equazione abbiamo sfruttato la longitudinalità delle onde sonore $\delta\V{u} = \delta u \V{\hat{n}}$.
+}
+\begin{equation}
+\dfrac{\delta\rho}{\rho_0} =  \dfrac{\delta u}{\sound}
+\end{equation}
+Questa relazione ci dice che se volgiamo che le perturbazioni di densità siano molto piccole, la perturbazione della velocità del fluido deve essere subsonica, cioè $\delta u \ll \sound$. Inoltre da questa relazione abbiamo che $\delta u \propto \delta \rho$ pertanto possiamo considerare anche $\delta u $ come un'onda piana e sostituire nella seconda equazione \ref{eq:Perturbazioni}, ottenendo
+\begin{equation}
+i\omega \delta \V{u} = \dfrac{\sound^2}{\rho_0} i\V{k}\delta\rho \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Longrightarrow \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \dfrac{\delta \V{u}}{\sound} = \dfrac{\rho}{\rho_0} \V{\hat{n}}
+\end{equation}
+quindi la direzione di $\delta \V{u}$ è la stessa di $\V{k}$, ovvero le onde sonore sono onde longitudinali. Questo effetto ha un significato matematico più profondo: in questo caso il tensore degli sforzi è diagonale. Se vi fossero elementi fuori dalla diagonale, allora si hanno anche componenti trasverse, mentre se vi fossero solo elementi fuori dalla diagonale, e diagonale nulla si hanno onde puramente trasverse, come nel caso del tensore degli sforzi elettromagnetico.
+
+Prima di proseguire approfondiamo la relazione $\sound^2 = \der{p}{\rho}$. Se il fluido ha comprimibilità basse, e quindi piccole variazioni di densità comportano grandi variazioni di pressione, si ha che la velocità del suono è alta (in aria il suono viaggia più lentamente che in acqua). Se il fluido studiato è un gas perfetto la sua equazione di stato è
+\begin{equation}
+p= \dfrac{k T}{\mu \mpr} \rho
+\end{equation}
+che assumerà forme diverse a seconda che il gas sia isotermo o adiabatico. Occorre prestare attenzione al fatto che nello studio delle perturbazioni ci interessa conoscere la proprietà di isotermia o adiabaticità del gas in risposta alla perturbazione. Infatti può accadere che il gas sia isotermo nel suo stato stazionario ma che sia adiabatico alla perturbazione. La distinzione tra questi due stati dipende dal tempo di raffreddamento del fluido $t_\mathrm{cool}$ e dalla frequenza della perturbazione. Se $\omega t_\mathrm{cool} \gg 1$ significa che in un periodo di oscillazione dell'onda, il fluido si raffredda poco efficacemente e quindi in risposta alla perturbazione, il gas è adiabatico anche se magari non lo è nel suo stato di equilibrio. Al contrario se 
+$\omega t_\mathrm{cool} \ll 1$ il fluido si raffredda molto efficacemente in un periodo dell'onda perturbativa, e quindi in risposta alla perturbazione, il gas è isotermo. Se la risposta del gas è adiabatica si ha
+\begin{equation}
+p = k \rho^\gamma \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Longrightarrow \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \sound^2 = \gamma \dfrac{p}{\rho} = \gamma \dfrac{kT}{\mu \mpr}
+\end{equation}
+Se invece la risposta del gas è isoterma si  ha
+\begin{equation}
+p = k \rho \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Longrightarrow \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \sound^2 = \dfrac{p}{\rho} =  \dfrac{kT}{\mu \mpr} \label{eq:SuonoIsotermo}
+\end{equation}
+Vediamo quindi che la differenza tra le due velocità sta solo in un fattore $\sqrt{\gamma}$ che solitamente è dell'ordine dell'unità. Notiamo inoltre che la velocità del suono è proporzionale alla sua temperatura. 
+
+Notiamo infine che la relazione \ref{eq:Dispersione} comporta che tutte le frequenze propagano con la stessa velocità di fase $\sound$, pertanto se consideriamo un treno d'onda composto da più frequenze, si ha che dopo un certo tempo esso sarà avanzato in un'altra posizione, ma sarà rimasto immutato, cioè sarà composto dalle stesse frequenze di partenza. Per questo motivo si dice che onde per le quali $\omega$ non dipende da $k$ sono \textit{onde non dispersive}. Se invece $\omega$ ha una dipendenza da $k$, il treno d'onda subisce una modifica nel tempo, poichè frequenze diverse propagano a velocità diverse, quindi l'onda è detta \textit{dispersiva}. In questo secondo caso si considera, anzichè la \textit{velocità di fase} $v_\mathrm{ph} = \dfrac{\omega}{k}$ la \textit{velocità di gruppo} $ v_\mathrm{gr} = \der{\omega}{k}$, che coincidono nel caso di onde non dispersive.
+
+
+\subsection{Onde sonore in un mezzo stratificato}
+Consideriamo come stato di equilibrio quello che avevamo già trovato nell'esempio dell'atmosfera terrestre. Il profilo di densità ottenuto è
+\begin{equation}
+\rho_0 = \hat{\rho} \exp \left[-\dfrac{z}{H} \right]
+\end{equation}
+con $H=\frac{\sound^2}{g}$ e $\sound^2=\dfrac{kT}{\mu \mpr}$. In questo caso abbiamo una forza esterna, la gravità terrestre, che rende lo stato stazionario non uniforme, cioè dipende da $z$. Per risolvere questo problema occorre fare attenzione alle differenze tra approccio euleriano e lagrangiano, a causa della non uniformità della densità. Lo stato di equilibrio è uno stato isotermo; se le perturbazioni sono isoterme allora anche per il fluido perturbato vale $p/\rho=cost$. In questo caso la differenza tra approccio lagrangiano ed euleriano non conta nulla, poiche se anche prendo elementi fluidi diversi, il rapporto $p/\rho$ è lo stesso per tutto il fluido. Quindi anche se ho un mezzo (isotermo) stratificato, se anche si avessero onde isoterme si può adottare l'approccio euleriano. Se però nel mezzo isotermo stratificato propagano delle onde adiabatiche, l'approccio euleriano porta ad alcuni errori, come mostrato più avanti. Presentiamo quindi la risoluzione di questo problema adottanto l'approccio lagrangiano. Richiamiamo alcune relazioni utili a svolgere questo calcolo
+\begin{equation}
+\begin{cases}
+\Delta f = \delta f + \scal{\xi}{\nabla}f \\[10pt]		\label{eq:RelazioniUtili}
+\Delta \V{u} = \derP{\V{\xi}}{t} + \scal{u}{\nabla}f \\[10pt]
+\dfrac{\Delta \rho}{\rho_0} = -\Div\V{\xi}
+\end{cases}
+\end{equation}
+Semplifichaimo la notazione usando $\V{u}=\Delta\V{u}=\delta\V{u}$ essendo $\V{u}_0=0$, e consideriamo per semplicità variazioni lungo l'asse $z$, quindi $\V{\xi}=\xi \V{\hat{z}}$. Sfruttando la prima equazione \ref{eq:RelazioniUtili} otteniamo
+\begin{equation}
+\begin{cases}
+\Delta \rho = \delta\rho + \xi \dpz \rho_0 = \delta \rho - \dfrac{\xi}{H}\rho_0 \\[10pt]		
+\Delta p = \delta p -\dfrac{\xi}{H} p_0 \\[10pt]
+\Delta u = \delta u = u = \dpt \xi \\[10pt]
+\dfrac{\Delta \rho}{\rho_0} = -\dpz \xi
+\end{cases}
+\end{equation}
+dove nella seconda abiamo sfruttato il fatto che essendo pressione e densità proporzionali, anche la pressione ha la stessa dipendenza esponenziale da $z$.
+Le equazioni da risolvere sono 
+\begin{equation}
+\begin{cases}
+\dpt \rho + \dpz(\rho u) =0 \\	\label{eq:Sistema1}
+\dpt u + u \dpz u = -\dfrac{1}{\rho} \dpz p -g
+\end{cases}
+\end{equation}
+in cui sostituiamo le perturbazioni. Otteniamo rispettivamente \footnote{Il calcolo della prima equazione è \begin{align*}
+\dpt \delta\rho + \dpz (\rho_0 u)  = \dpt \delta \rho - \dfrac{\rho_0 u}{H} + \rho_0 \dpz u =0
+\end{align*}
+Sostituendovi $\delta\rho = \Delta\rho + \dfrac{\xi}{H}\rho_0$ otteniamo
+\begin{align*}
+\dpt \Delta\rho + \dfrac{\rho_0 u}{H}\dpt \xi -\dfrac{\rho_0 u}{H}u+ \rho_0 \dpz u =0
+\end{align*}
+e ricordando che $\dpt \xi = u$ si ottiene il sisultato finale.
+
+Per calcolare la seconda equazione procediamo analogamente sostituendo le perturbazioni nella seconda equazione
+\begin{align*}
+\dpt u &= -\dfrac{1}{\rho_0+\delta\rho}\dpz (p_0+\delta p) -g = -\dfrac{1}{\rho_0}\left( 1- \dfrac{\delta\rho}{\rho_0} \right) \left( \dpz p_0 + \dpz \delta p \right) - g = \\
+&= -\dfrac{1}{\rho_0} \dpz \delta p + \dfrac{\delta \rho}{\rho_0^2}\dpz p_0 = -\dfrac{1}{\rho_0} \dpz \delta p - \dfrac{\delta \rho}{\rho_0^2} \dfrac{p_0}{H}  \\
+\end{align*}
+Anche in questo caso sfruttiamo la relazione $\delta p = \Delta p + \dfrac{\xi}{H}p_0$ ottenendo
+\begin{align*}
+\dpt u = -\dfrac{1}{\rho_0} \dpz \Delta p - \dfrac{p_0}{\rho_0 H} \dpz \xi + \dfrac{\xi}{\rho_0 H^2} - \dfrac{\Delta \rho}{\rho_0} \dfrac{\sound^2}{H} - \dfrac{\xi \sound^2}{H^2}
+\end{align*}
+Ricordando che $\dfrac{\Delta \rho}{\rho_0} = \dpz\xi$ e che $\sound^2 = \dfrac{p_0}{\rho_0}$ si ottiene il risultato finale.
+}
+\begin{equation}
+\begin{cases}
+\dpt \Delta \rho + \rho_0 \dpz u =0 \\
+\dpt u = -\dfrac{1}{\rho} \dpz \Delta p
+\end{cases}
+\end{equation}
+Ricordiamo la relazione lagrangiana tra pressione e densità $\Delta p = \sound^2 \Delta\rho$, dove $\sound^2$ indica $\sound^2$ se la perturbazione è isoterma, mentre $\gamma \sound^2$ se la perturbazione è adiabatica. A questo punto, derivando la prima equazione rispetto a $z$, e la seconda rispetto a $t$, e confrontandole, otteniamo il risultato finale
+\begin{equation}
+\dpt^2 u = \sound^2 \dpz^2 u - \dfrac{\sound^2}{H}\dpz u \label{eq:MezzoStratificato1}
+\end{equation}
+Prima di approfondire il significato di questa equazione facciamo lo stesso calcolo seguendo ora l'approccio euleriano.
+Il punto di partenza sono sempre le equazioni \ref{eq:Sistema1}, in cui sostituiamo le perturbazioni euleriane, ovvero 
+$\rho = \rho_0 + \delta \rho$ e $p= p_0 + \delta p$ otteniamo\footnote{La prima equazione è ottenuta banalmente sostituendovi la perturbazione. La seconda è ottenuta da sostutuendovi la perturbazione 
+\begin{align*}
+\dpt u &= -\dfrac{1}{\rho_0+\delta\rho}\dpz (p_0+\delta p) -g = -\dfrac{1}{\rho_0}\left( 1- \dfrac{\delta\rho}{\rho_0} \right) \left( \dpz p_0 + \dpz \delta p \right) - g = \\
+&= -\dfrac{1}{\rho_0} \dpz \delta p + \dfrac{\delta \rho}{\rho_0^2}\dpz p_0 = -\dfrac{1}{\rho_0} \left( \dpz \delta p + \dfrac{\delta \rho}{H} \sound^2 \right) = \\
+\end{align*}
+A questo punto possiamo generalizzare l'equazione di stato a $p_0 = \gamma \sound^2 \rho_0$, con $\gamma=1$ per il caso isotermo, e $\gamma$ generico per il caso adiabatico, con $\sound$ velocità del suono nel caso isotermo, cioè definita dalla \ref{eq:SuonoIsotermo}. L'equazione diventa
+\begin{align*}
+= - \dfrac{\sound^2}{\rho_0} \left( \gamma \dpz \delta \rho + \dfrac{\delta \rho}{H} \right)
+\end{align*}
+}
+\begin{equation}
+\begin{cases}
+\dpt \delta \rho - \dfrac{\rho_0 u}{H} + \rho_0 \dpz u =0 \\[10pt]
+\dpt u = - \dfrac{\sound^2}{\rho_0} \left( \gamma \dpz \delta \rho + \dfrac{\delta \rho}{H} \right)
+\end{cases}
+\end{equation}
+Derivando ora la seconda equazione rispeto a $t$, e sostituendovi $\dfrac{\dpt \delta \rho}{H}$ ottenuto dalla prima equazione, e sostituendovi  $\dpt\dpz\delta\rho$ ottenuto dalla prima equazione derivata rispetto a $z$, otteniamo il risultato finale
+\begin{equation}
+\dpt^2 u = \gamma \sound^2 \dpz^2 u + (\gamma - 1) \dfrac{\sound^2 u}{H} - (2\gamma -1) \dfrac{\sound^2}{H} \dpz u \label{eq:MezzoStratificato2}
+\end{equation}
+che è in accordo con il risultato di prima \ref{eq:MezzoStratificato1} solo se $\gamma=1$. Questo risultato appena ottenuto va bene solo nel caso isotermo; nel caso adiabatico si ottiene un risultato sbagliato (non è molto chiaro).
+
+Torniamo a studiare la relazione \ref{eq:MezzoStratificato1}: sostituendovi la perturbazione piana $u \propto \exp [i(kz -\omega t)]$\footnote{Il fatto che possiamo fare questa ipotesi è conseguenza dell'approssimazione WKB, non approfondita. Basti sapere che da un punto di vista formale, ciò che andrebbe fatto è considerare $u \propto \exp [i(\psi(z)z -\omega t)]$ con $\psi(z)$ una certa funzione di $z$ che esprime la dipendenza spaziale della perturbazione (infatti in generale lo stato di equilibrio dipende dalla coordinata $z$), mentre temporalmente l'onda è piana. Si scrive a questo punto $k= \der{\psi}{z}$; espandendo in un intorno di un certo punto di equilibrio, si ha al prim'ordine un'onda piana $u \propto \exp [i(kz -\omega t)]$.}, otteniamo la relazione di disperisione per un mezzo stratificato
+\begin{equation}
+\omega^2 = \sound^2 \left( k^2 + i \dfrac{k}{H} \right) \label{eq:MezzoStratificato3}
+\end{equation}
+da cui segue
+\begin{equation}
+k = -\dfrac{i}{2H} \pm \sqrt{\left( \dfrac{\omega}{\sound} \right)^2-\left( \dfrac{1}{2H} \right)^2}
+\end{equation}
+La relazione di dispersione \ref{eq:MezzoStratificato3} è la stessa di un'onda sonara normale, se non fosse per il termine immaginario (legato alla gravità tramite $H$), che è associata alla dispersione, e quindi frequenze diverse propagano a velocità diverse. 
+
+Consideriamo il caso delle alte frequenze, ovvero $\dfrac{\omega}{\sound} > \dfrac{1}{2H}$. Risulta che $u \propto e^{z/2H}$, che significa che l'ampiezza dell'onda aumenta con l'altezza. Per meglio comprendere questo risultato, consideriamo la densità di energia cinetica
+\begin{equation}
+e_\mathrm{K} = \dfrac{1}{2} \rho_0 u^2 \propto e^{-z/H} \, e^{z/H} = costante
+\end{equation}
+Vediamo che i profili di densità e di velocità sono tali che l'energia cinetica dell'onda sia costante, in accordo con la conservazione dell'energia (la perturbazione,essendo il fluido non dissipativo, ha una densità di energia cinetica costante).
+Per studiare la perturbazione di pressione, sostituiamo l'onda piana di perturbazione nell'equazione di continuità ottenendo
+\begin{align*}
+\dfrac{\Delta \rho}{\rho_0} = \dfrac{k u}{\omega} \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Longrightarrow \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Delta \rho \propto \rho_0 u \propto e^{-z/2H}
+\end{align*}
+Osserviamo che la dipendenza esponenziale da $z$ della velocità implica che dopo un certo tempo la velocità della perturbazione sia confrontabile con $\sound$, e che quindi non sia più valida l'approssimazione di piccole perturbazioni. In questi casi si genera un'onda d'urto, uno shock, che tratteremo nel paragrafo successivo. Secondo quanto trovato, per ogni suono generato ad altezza $z=0$ esiste un'altezza $z$ a cui la perturbazione associata a quel suono genera uno shock. Questo non accade poichè in questa trattazione non stiamo considerando le dissipazioni; nel caso reale i fenomeni dissipativi dell'atmosfera riducono bilanciano l'andamento $u \propto e^{z/2H}$, impedendo la formazione di shock.
+
+Poichè l'onda che abbiamo trovato è dispersiva, quindi velocità di fase e di gruppo sono diverse tra loro e dipendono dalla frequenza della perturbazione
+\begin{equation}
+v_\mathrm{ph}=\dfrac{\omega}{\Re (k)} = \sound \left( 1- \left( \dfrac{\sound}{2H\omega} \right)^2 \right)^{-1/2}
+\end{equation}
+\begin{equation}
+v_\mathrm{gr}=\der{\omega}{\Re (k)} = \sound \left( 1- \left( \dfrac{\sound}{2H\omega} \right)^2 \right)^{1/2}
+\end{equation}
+
+
+Consideriamo a questo punto il limite delle basse frequenze, cioè $\dfrac{\omega}{\sound} < \dfrac{1}{2H}$, in questo caso k è solo immaginario, e risulta quindi che non si hanno più oscillazioni lungo $z$, ma solo lungo $t$. In altre parole, non avendo più oscillazioni spaziali, ma solo temporali, la perturbazione è un'onda stazionaria. Notiamo che solitamente le onde stazionarie si generano quando un'onda che propaga nello spazio viene riflessa interferendo con se stessa e generando i modi normali. In questo caso non abbiamo fenomeni riflessivi, bensì la dispersione dell'onda (ovvero una dipendenza delle velocità di fase e di gruppo dalla frequenza) che nel limite di basse frequenze genera gli stessi effetti di una riflessione.
+
+
+\section{Onde d'urto (Shock)}
+Abbiamo visto che le perturbazioni in un fluido si propagano con una certa velocità, ovvero $\sound$. Abbiamo inoltre visto la relazione 
+\begin{align*}
+\dfrac{\Delta \rho}{\rho_0} = \dfrac{u}{\sound}
+\end{align*}
+quindi se la velocità a cui si muovono gli elementi fluidi si avvicina alla velocità del suono, si ha che la quantità di sinistra tende a $1$, e quindi si hanno perturbazioni non lineari (non molto chiaro). Il fatto che le onde sonore si propaghino a velocità finita pone dei limiti alle capacità del fluido di riorganizzarsi in seguito al cambiamento delle condizioni al contorno, le quali possono essere dovute a diversi fattori, come perturbazioni interne o l'interazione con oggetti esterni. Ad esempio la presenza di uno scoglio in un fiume comporta un riaggiustamento delle proprietà del fluido (velocità, densità, pressione) attorno allo scoglio. La variazione locale delle proprietà dell'acqua attorno allo scoglio, ovvero la perturbazione, propaga da elemento fluido a elemento fluido tramite un'onda sonora. Potremmo dire che l'informazione della presenza dello scoglio viene comunicata dagli elemnti fluidi che impattano sulla sua superficie a tutti gli altri elementi fluidi del fiume tramite onde sonore\footnote{L'analogo elettromagnetico è l'accelerazione di una carica, la quale provoca una modifica del campo elettrostatico. L'informazione di questa modifica (perturbazione) locale viene trasmessa nello spazio tramite un'onda elettromagnetica.}. La propagazione sonora di questa informazione consente al fluido di far variare con continuità le proprietà del fluido. Tuttavia, se l'ostacolo (nel nostro esempio è il fiume che si muove, ma è equivalente considerare il fiume fermo e lo scoglio in moto) si muove con una velocità superiore alla velocità del suono si ha una discontinuità nelle proprietà del fluido in quanto, l'informazione della presenza dello scoglio non viene comunicata per tempo a tutti gli elementi fluidi. In altre parole se la sorgente della perturbazione di un fluido si muove più velocemente di quanto possa essere trasmessa tale perturbazione nel fluido (ovvero più velocemente di $\sound$), allora si genera una discontinuità nelle proprietà del fluido, nota come \textit{onda d'urto}.
+
+Vediamo come si comportano i fronti d'onda (sferici) generati da un proiettile in moto in un fluido stazionario a velocità $v$. Questo moto genera una perturbazione nel fluido che propaga alla velocità $\sound$. Facendo riferimento all'immagine \ref{im:Supersonic}
+\begin{figure}[h!]
+\includegraphics[width=\textwidth]{supersonic}
+\caption{Onde sonore in un fluido al variare della velocità della sorgente} \label{im:Supersonic}
+\end{figure}
+vediamo che se $v \approx 0$ la sorgente genera onde sferiche concentriche. Se invece $v < \sound$ si ha un avvicinamento dei fronti d'onda nella direzione del moto della sorgente, e una distanza massima tra un fronte e l'altro nella direzione opposta. Nel caso in cui $v = \sound$ si ha che la sorgente va alla stessa velocità con cui propagano i fronti d'onda da lei generati, i quali sono tra loro tangenti nel punto in cui si trova la sorgente. Nell'ultimo caso $v >\sound$ quindi le onde sonore propagano solo a monte, cioè in regioni precedentemente occupate dalla sorgente. Si genera un cono con vertice nella sorgente e apotema tangente ai fronti d'onda, definito da un angolo (compreso tra l'altezza del cono e il suo apotema) dato da
+\begin{equation}
+\sin \alpha = \dfrac{\sound}{v} \equiv \dfrac{1}{\Mach}
+\end{equation}
+dove $\Mach$ è noto come \textit{numero di Mach}.
+Quindi vendiamo che per velocità supersoniche il suono propaga solo a monte, non a valle della sorgente. Pertanto le proprietà del fluido variano con continuità solo a monte, mentre a valle l'arrivo della sorgente non è preannunciato da un'onda sonora, e pertanto lungo la superficie del cono si ha una discontinuità delle proprietà del fluido, ovvero l'onda d'urto. In questa regione sorge un problema, poichè finora abbiamo descritto il fluido assumendo che le sue quantità siano differenziabili ovunque (ipotesi che ha permesso di ottenere le equazioni fluide), ma ora non è più vero a causa della discontinuità dello schock. Non possiamo quindi studiare lo schock con le equazioni (differenziali) della fluidodinamica, ma possiamo studiare lo shock studiando a livello integrale un volume che ingloba la regione dello shock. Le equazioni che permettono questa descrizione sono note come \textit{condizioni di Rankine-Hugoniot}.
+
+Per ottenere le equazioni di Rankine-Hugoniot consideriamo uno shock attraverso il quale scorre un fluido. Questo schock non è altro che una superficie descritta in ogni suo punto da una normale $\V{\hat{n}}$. 
+Per semplicità, un fluido che attraversa uno shock lineare (ovvero schematizzabile da una linea), in uno spazio bidimensionale ($x$ direzione di propagazione del fluido, ortogonale a $y$ direzione dello shock). Questo shock costituisce una discontinuità nelle proprietà del fluido, pertato possiamo considerare due distinte regioni: la regione $1$ di pre shock e la regione $2$ di post shock. Consideriamo ora un volume V che inglobi lo shock e integriamo su di esso il l'equazione di continuità
+\begin{align*}
+\dpt\rho + \dpj (\rho u) =0 \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Longrightarrow \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \dpt \int \rho \,\dd x \, - (\rho \scal{u}{\hat{n}} )_1 + (\rho \scal{u}{\hat{n}} )_2 =0
+\end{align*}
+Facendo tendere a zero il volume di integrazione, si ottiene la \textit{prima condizione di Rankine-Hugoniot} 
+\begin{EQ}
+\begin{equation}
+\rho_1 \V{u}_1 \cdot \V{\hat{n}} = \rho_2 \V{u}_2 \cdot \V{\hat{n}}
+\end{equation}
+\end{EQ}
+che afferma che il flusso di massa che entra nello shock è lo stesso che ne esce.
+Consideriamo ora l'equazione di Eulero e integriamola sul volume. Facendo tendere a zero il volume tutti gli integrali si annullano, eccetto quello della divergenza (che per il teorema della divergenza diventa un integrale sulla superficie del volume di integrazione, la quale non si annulla al tendere a zero di $V$). Otteniamo
+\begin{equation}
+\dpt (\rho \, u_i) + \dpj (\rho \,u_i u_j + p \delta_{ij}) = - \rho \dpi \phi \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Longrightarrow \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \left[ p \, \delta_{ij} + \rho \,u_i u_j \right]_1^2 = 0
+\end{equation}
+dove $i$ è la direzione normale allo shock. Considerando i casi $j=i$, e $j\neq i$ (facendo uso della prima condizione di Rankine-Hugoniot), otteniamo la \textit{seconda condizione di Rankine-Hugoniot}
+\begin{EQ}
+\begin{equation}
+\begin{cases}
+\rho_1 u_1^2 + p_1 = \rho_2 u_2^2 + p_2 \\
+u_{j,1} = u_{j,2}
+\end{cases}
+\end{equation}
+\end{EQ}
+Nella prima equazione le volocità riportate sono le componenti lungo la direzione normale allo shock; l'ultima equazione indica che le velocità parallele alla superficie dello shock sono uguali in entrambe le regioni.
+
+Consideriamo infine l'energia totale per unità di volume, che avevamo definito come 
+\begin{align*}
+E = \rho e + \dfrac{1}{2}\rho u^2 + \rho \phi_\mathrm{ext}
+\end{align*}
+e ricordiamo l'equazione finale ottenuta alla fine della sezione \ref{sec:ConservazioneEnergia}
+\begin{equation}
+\frac{\partial E}{\partial t} + \V{\nabla} \cdot \left[ (E+p)\V{u} \right] = \rho \left[ \dot{q} + \frac{\partial \phi_\mathrm{ext}}{\partial t} \right]
+\end{equation}
+Consideriamo per ora shock adiabatici, il che implica $\rho \dot{Q}=0$, e integriamo sul volume $V$. Anche in questo caso l'unico termine che non si annulla per $V\rightarrow 0$ è l'integrale della divergenza. Otteniamo così
+\begin{align*}
+\left[ (E + p) \scal{u}{\hat{n}} \right]_1^2 = \left[ \left( e + \dfrac{1}{2}u^2 + \phi_\mathrm{ext} + \dfrac{p}{\rho} \right)\rho \scal{u}{\hat{n}} \right]_1^2 = 0
+\end{align*}
+Sfruttando la prima condizione di Rankine-Hugoniot e il fatto che le forze esterne sono uguali in entrambe le regioni, si ottiene la \textit{terza condizione di Rankine-Hugoniot}
+\begin{EQ}
+\begin{equation}
+e_1 + \dfrac{1}{2}u_1^2 + \dfrac{p_1}{\rho_1} = e_2 + \dfrac{1}{2}u_2^2 + \dfrac{p_2}{\rho_2}
+\end{equation}
+\end{EQ}
+Abbiamo così ottenuto le tre condizioni di Rankine-Hugoniot. La prima è conseguenza della conservazione della massa e indica che il flusso prima dello shock è uguale a quello dopo lo shock. La seconda deriva dalla conservazione della quantità di moto ed esprime la trasformazione di ram pressure in pressione termica. Infine l'ultima equazione, esprime la trasformazione di energia cinetica in entalpia ($p/\rho$).
+
+\subsection{Shock adiabatico}
+Sfruttando l'equazione di stato dei gas perfetti nella forma \ref{eq:GasPerfetti} possiamo scrivere
+\begin{align*}
+e + \dfrac{p}{\rho} = \dfrac{\gamma}{\gamma -1} \dfrac{p}{\rho} = \dfrac{\sound^2}{\gamma-1}
+\end{align*}
+dove nell'ultimo passaggio abbiamo introdotto l'ipotesi di shock adiabatico. Pertanto per uno shock adiabatico, la terza condizione di Rankine-Hugoniot può essere riscritta nella forma più semplice
+\begin{EQ}
+\begin{equation}
+\dfrac{1}{2}u_1^2 + \dfrac{c_{\mathrm{s},1}^2}{\gamma -1} = \dfrac{1}{2}u_2^2 + \dfrac{c_{\mathrm{s},2}^2}{\gamma -1}
+\end{equation}
+\end{EQ}
+Manipolando le tre condizioni di Rankine-Hugoniot\footnote{provare a ricavarla per esercizio: i calcoli sono solo algebra, priva di interesse fisico, e pertanto non riportati a lezione.} per gli shock adiabatici otteniamo la relazione
+\begin{EQ}
+\begin{equation}
+\dfrac{\rho_2}{\rho_1} = \dfrac{u_1}{u_2} = \dfrac{(\gamma+1)p_2 + (\gamma -1) p_1}{(\gamma+1)p_1 + (\gamma -1) p_2}
+\end{equation}
+\end{EQ}
+Consideriamo ora il caso limite di \textit{shock forte}, ovvero il caso in cui $p_2 \gg p_1$ (all'inizio la maggior parte della pressione è ram pressure; dopo lo shock si ha una dominanza di pressione termica). La relazione precedente si riduce a 
+\begin{equation}
+\dfrac{\rho_2}{\rho_1} = \dfrac{\gamma+1}{\gamma-1}
+\end{equation}
+che è un numero dell'ordine dell'unità. Quindi la densità pre e post shock non cambia di molto\footnote{Per un gas perfetto monoatomico $\gamma=\frac{5}{3}$, che comporta un aumento della densità di un fattore $4$}. Pertanto essendo le due densità dello stesso ordine di grandezza, e valendo l'ipotesi di shock forte, vale
+\begin{equation}
+\dfrac{p_2}{\rho_2^\gamma} \gg \dfrac{p_1}{\rho_1^\gamma}
+\end{equation}
+ovvero l'entropia in seguito ad uno shock aumenta di molto. Notiamo che sebbene lo shock sia adiabatico, e quindi non si hanno scambi di calore con l'esterno, si ha un aumento di entropia. Questo significa che la trasformazione subita dal gas nello shock è irreversibile, e consiste in una trasformazione di ram pressure (energia cinetica del fluido) in pressione termica (calore). Per sussistere uno shock necessita di processi dissipativi, come ad esempio la viscosità (attriti). Questi processi non sono inclusi nelle equazioni fluide, e infatti notiamo che abbiamo applicato tali equazioni nella regione 1 e nella regione 2, pre e post shock, non nella regione in cui avviene lo shock e in cui tali processi dissipativi diventano rilevanti. Questo giustifica la discontinuità presente nello shock: in tale regione, a differenza di quelle esterne, non è possibile applicare le equazioni fluide, poichè non tengono conto degli effetti dissipativi. Ovviamente non si ha una discontinuità vera e propria, le proprietà del gas variano con continuità, seppur talmente velocemente che è possibile trascurare questa fase di transizione e approssimarla ad una discontinuità. Introducendo in modo più rigoroso la viscosità nelle equazioni fluide, si ha l'effetto di smussare la discontinuità in prossimità dello shock\footnote{In questo corso vengono affrontati solo i principali sistemi fluidodinamici risolvibili analiticamente; di fatto la risoluzione della maggioranza dei sistemi fluidodinamici richiede l'uso di metodi numerici, studiati dalla \textit{fluidodinamica computazionale}. Come vengono trattati numericamente gli shock? La prima possibilità si basa sulla risoluzione delle equazioni integrali, anzichè le equazioni differenziali che descrivono la fluidodinamica del sistema. Ad esempio se il codice usato con questo primo approccio suddivide lo spazio in celle, e all'interno di una di esse è presente uno shock, il codice calcola le proprietà del fluido ai bordi della cella e le collega con continuità (di fatto segue l'approccio adottato per ottenere le condizioni di Rankine-Hugoniot). Questi metodi sono chiamati \textit{schemi di Godunov}. Un altro approccio consiste nel correggere le equazioni della fluidodinamica ideale aggiungendo un termine di viscosità che permette di smussare la discontinuità e risolvere numericamente le equazioni differenziali.}.
+
+Manipolando le condizioni di Rankine-Hugoniot possiamo trovare una relazione tra i numeri di Mach pre e post shock
+\begin{equation}
+\Mach_2^2 = \dfrac{2+(\gamma -1) \Mach_1^2}{2\gamma \Mach_1^2 - (\gamma -1)}
+\end{equation}
+Nel caso di shock forte di ha $\Mach_1 \gg 1$ che dà
+\begin{equation}
+\Mach_2^2 \approx \dfrac{\gamma -1}{2\gamma}
+\end{equation}
+che implica che per shock forti il numero di Mach post shock è dell'ordine dell'unità. L'effetto dello shock è infatti quello di rallentare il moto del fluido, aumentando la pressione termica.
+
+\subsection{Shock termici}
+Se la scala temporale dello shock è maggiore del tempo di raffreddamento del fluido, allora è possibile considerare lo shock come isotermo, cioè tale da non far variare la temperatura del fluido. La terza equazione di Rankine-Hugoniot viene sostituita dalla semplice condizione $T_1=T_2$, che comporta inoltre un'uguaglianza delle velocità del suono nelle due regioni ($c_1=c_2= \sound$). Questo permette di riscrivere in modo più semplice la seconda condizione di Rankine-Hugoniot in\footnote{La seconda equazione di Rankine-Hugoniot \begin{align*}
+\rho_1 u_1 \left( u_1 + \dfrac{\sound^2}{u_1} \right) &= \rho_2 u_2 \left( u_2 + \dfrac{\sound^2}{u_2} \right) \\
+\left( u_1 + \dfrac{\sound^2}{u_1} \right) &=  \left( u_2 + \dfrac{\sound^2}{u_2} \right) \\
+u_1 - u_2 &= \sound^2 \left( \dfrac{1}{u_2} - \dfrac{1}{u_1} \right) = \sound^2 \dfrac{u_1-u_2}{u_1 u_2} 
+\end{align*}
+da cui segue la relazione finale poichè l'ipotesi di shock implica che $u_1 \neq u_2$, peranto è possibile dividere ambo i membri per $u_1-u_2$
+}
+\begin{EQ}
+\begin{equation}
+u_1 u_2 = \sound^2
+\end{equation}
+\end{EQ}
+Un'interessante conseguenza di questa relazione riguarda i numeri di Mach. Sfruttando la prima relazione di Rankine-Hugoniot risulta che
+\begin{equation}
+\dfrac{\rho_2}{\rho_1} = \dfrac{u_1}{u_2}=\dfrac{u_1^2}{\sound^2} = \Mach_1^2
+\end{equation}
+e anche che
+\begin{equation}
+\Mach_2 = \dfrac{1}{\Mach_1}
+\end{equation}
+Vediamo quindi che nel caso di shock forte otteniamo un numero di Mach post shock $\Mach_2 \ll 1$, mentre nel aso adiabatico era dell'ordine dell'unità. In entrambi i casi si ha però la caratteristica riduzione del numero di Mach dalla regione pre schock a quella post shock. Inoltre vediamo che in questo caso isotermo, essendo $\rho_2/\rho_1 =\Mach_1^2$ segue che la densità nella regione post shock subisce un forte aumento, mentre nel caso adiabatico si ha un aumento meno significativo, dell'ordine dell'unità.
+
+\begin{figure}[h!]
+\begin{center}
+\includegraphics[width=0.5\textwidth]{Figure_1}
+\caption{Variazione della temperatura in funzione della scala spaziale o temporale durante uno schock. I punti Rossi indicano la risoluzione di uno shock isotermo, quelli blu di uno shock adiabatico.} \label{im:Shock}
+\end{center}
+\end{figure}
+Concludiamo questa sezione sugli shock sottolineando il fatto che uno shock sia adiabatico o isotermo dipende dalla scala di tempi o di lunghezze a cui siamo interessati. Tipicamente quello che accade in uno shock è un improvviso aumento della temperatura, che progressivamente decresce, sia in funzione del tempo che dello spazio. Facendo riferimento all'immagine\ref{im:Shock} vediamo che se osserviamo lo shock tra i due punti (spaziali o temporali che siano) rossi allora lo shock è isotermo, mentre se lo osserviamo tra i due punti blu è adiabatico. In base alla risoluzione spaziale o temporale che adottiamo lo shock sarà descrivibile come isotermo se non siamo in grado di osservare variazioni di temperatura, adiabatico se invece siamo in grado.
+
+
+\section{Instabilità}
+Finora abbiamo ricavato e studiato le equazioni della fluidodinamica ideale, cioè in assenza di fenomeni dissipativi; abbiamo poi utilizzato queste equazioni per studiare una serie di configurazioni di equilibrio (strato isotermo, sfera politropica ...) e stuadiato le perturbazioni di questi stati di equilibrio, lasciando spazio allo studio del caso limite dello shock. Le perturbazioni considerate finora sono di tipo ondulatorio: è però possibile che le perturbazioni di uno stato di equilibrio di un fluido portino ad un'instabilità. Un corpo puntiforme in un campo di forze associato ad un potenziale $V$ si trova in un punto $p$ di equilibrio se la derivata prima di $V$ è nulla in tale punto. Se la derivata seconda è positiva il corpo sottoposto ad una perturbazione oscilla attorno al punto di equilibrio, se invece la derivata seconda è negativa si ha un'instabilità, e una perturbazione porta il corpo ad allontanarsi dal punto di equilibrio $p$. Come si traduce questa proprietà nel caso continuo di interesse per lo studio di un fluido? L'equivalente della derivata seconda del potenziale è la pulsazione della perturbazione.
+
+Abbiamo visto che nello studio delle perturbazioni, lo scopo è quello di ottenere la relazione di dispersione, che racchiude informazioni su come la perturbazione propaga nel fluido, che, come visto in precedenza, può essere considerata come un'onda piana (sfruttando l'approssimazione WKB). In generale tale relazione è $\omega^2 = \omega^2 (k)$; è quindi possibile che la pulsazione $\omega$ sia reale o immaginaria. Nel primo caso la perturbazione risulta essere un'oscillazione (abbiamo infatti un esponenziale immaginario), nel secondo caso si ha invece un'instabilita nel caso in cui $\omega$ ha parte immaginaria negativa in quanto implica una perturbazione data da un esponenziale reale crescente. Il valore reale o immaginario di $\omega$ consente quindi di distinguere tra perturbazioni oscillanti e instabili nel caso continuo di un fluido. In questa sezione studieremo diverse instabilità:
+\begin{itemize}
+\item Gravitazionale
+\item In fluidi stratificati. Queste instabilità sono generate da stratificazioni di una certa quantità fisica (cioè una variazione di una certa grandezza del fluido lungo una coordinata), la quale genera diverse tipologie di instabilità:
+\begin{itemize}
+\item Convezione (stratificazione di entropia)
+\item Instabilità di Rayleigh-Taylor (stratificazione di densità)
+\item Instabilità di Kelvin-Helmholtz (stratificazione di velocità)
+\end{itemize}
+\item Termica
+\end{itemize}
+
+\subsection[Instabilità gravitazionale (di Jeans)]{Instabilità gravitazionale (di Jeans)\footnote{Ricordiamo che abbiamo già affrontato delle instabilità gravitazionali nella sezione \ref{sec:SferePolitropiche} sulle sfere di Bonnor-Ebert}}
+Per trattare questa instabilità consideriamo un'estensione delle onde sonore. Nella sezione \ref{sec:OndeSonore} siamo partiti dall'equazione di continuità e di Eulero, definito lo stato di equilibrio e infinie perturbato tale stato nelle due equazioni ottenendo la relazione di dispersione. In questo caso vogliamo fare la stessa cosa ma considerando anche l'autogravità del fluido, che richiede l'aggiunta dell'equazione di Poisson. Le equazioni di interesse sono quindi
+\begin{equation} \label{eq:Jeans1}
+\begin{cases}
+\derP{\rho}{t} + \Div (\rho\V{u}) = 0 \\[10pt]
+\derP{\V{u}}{t} + (\scal{u}{\nabla})\V{u} = -\inv{\rho} \V{\nabla}p - \V{\nabla}\phi \\[10pt]
+\nabla^2 \phi = 4 \pi \rho G
+\end{cases}
+\end{equation}
+come stato di equilibrio e come perturbazioni prendiamo
+\begin{align} \label{eq:Jeans2}
+&\begin{cases}
+p_0 = \mathrm{const} \\
+\rho_0 = \mathrm{const} \\
+\V{u}_0 = 0
+\end{cases}
+&\begin{cases}
+p = p_0 + p_1 \\
+\rho = \rho_0 + \rho_1 \\
+\V{u} = \V{u}_1 \\
+\phi = \phi_0 + \phi_1
+\end{cases}
+\end{align}
+Notiamo peroò che lo stato scelto non è davvero uno stato di equilibrio: vediamo infatti che all'ordine zero le tre equazioni \ref{eq:Jeans1} non sono soddisfatte per questo stato. Ciononostante assumiamo tale stato come uno stato di equilibrio\footnote{Questo stratagemma è noto in letteratura come \textit{il trucco di Jeans}. Ciò è giustificato dal fatto che sebbene lo stato considerato non sia una configurazione di equilibrio, è approssimativamente una stato di equilibrio: in altre parole lo stato non va considerato come di equilibrio esatto in senso matematico, bensì come di equilibrio approssimativo di uno stato fisico. Procedendo in maniera più rigorosa dovremmo considerare una sfera di Bonnor-Ebert; tuttavia procedendo in questo modo si semplificano notevolmente i calcoli e si giunge comunque a interessanti conclusioni fisiche sul sistema.}.
+Sostituendo le perturbazioni \ref{eq:Jeans2} nelle equazioni \ref{eq:Jeans1}, considerando perturbazioni sotto forma di onde piane $\exp [i(\scal{k}{x}-\omega t)]$, e ricordando che $p_1= \sound^2 \rho_1$, otteniamo
+\begin{align*}
+&\begin{cases}
+\dpt \rho_1 + \rho_0 \scal{\nabla}{u} = 0 \\[10pt]
+\dpt \V{u}_1 = - \sound^2 \dfrac{\V{\nabla}\rho_1}{\rho_0} \\[10pt]
+\nabla^2 \phi_1 = 4\pi G \rho_1
+\end{cases}
+&\begin{cases}
+-i\omega \rho_1 + i\rho_0 \scal{k}{u} =0 \\[10pt]
+-i\omega \V{u}_1 = -i \sound^2 \dfrac{\V{k}\rho_1}{\rho_0} \\[10pt]
+-k^2 \phi_1 = 4 \phi G \rho_1
+\end{cases}
+\end{align*}
+Sostituendo la prima e la terza equazione nella seconda si ottiene la relazion di disperisone
+\begin{EQ}
+\begin{equation}
+\omega^2 = \sound^2 k^2 - 4\pi G \rho_0
+\end{equation}
+\end{EQ}
+nota come \textit{relazione di dispersione di Jeans}. Vediamo che è una semplice variazione della relazione di dispersione delle onde sonore, con l'aggiunta di un termine di autogravità. Notiamo che avremmo potuto ottenere un risultato analogo se al posto di un fluido autogravitante avessimo considerato un plasma. In tal caso l'equazione di Poisson\footnote{La costante $e^2$ è definita come $e^2\equiv \dfrac{q_\mathrm{e}^2}{4 \pi \epsilon}$ con $q_\mathrm{e}$ carica elementare.} è $\nabla^2 \phi = 4\pi e^2 n$, dove $n$ è la densità numerica del plasma, e la relazione di dispersione finale è 
+\begin{equation}
+\omega^2 = \sound^2 k^2 + 4\pi e^2 n
+\end{equation}
+formalmente identica alla relazione di dispersione di Jeans eccetto che per il segno del secondo termine. La presenza del segno meno nella relazione di Jeans implica che nel caso in cui si hanno perturbazioni con lunghezze d'onda grandi ($k^2 \ll 4\pi G \rho_0 /\sound^2$), la pulsazione è immaginaria, e quindi il sistema presenta instabiltà. La lunghezza d'onda limite oltre la quale si hanno instabilità è
+\begin{equation}
+\lambda_\mathrm{J} = \sqrt{\dfrac{\pi \sound^2}{G\rho_0}} \approx 1.77 \dfrac{\sound}{\sqrt{G\rho_0}}
+\end{equation}
+Se vogliamo un sistema instabile è necessario che le sue dimensioni siano di almeno una $\lambda_\mathrm{J}$. Le piccole lunghezze d'onda vengono stabilizzate dalla pressione termica, in quanto tali perturbazioni corrispondono a grandi $k$ che rendono positivo $\omega^2$. Analogamente alla \textit{lunghezza d'onda di Jeans} $\lambda_\mathrm{J}$ possiamo definire la \textit{massa di Jeans}
+\begin{equation}
+M_\mathrm{J} \equiv \rho_0 \lambda_\mathrm{J}^3 \approx 5.5 \dfrac{\sound^3}{\sqrt{G^3 \rho_0}}
+\end{equation}
+Notiamo che, a parte un coefficiente, la dipendenza dalle quantità fisiche è la stessa trovata per le sfere di Bonnor-Ebert.
+
+Notiamo che nel caso di un plasma il segno positivo nel secondo termine della relazione di dispersione fa sì che non si abbiano instabilità, ma oscillazioni. Questo dipende dal fatto che l'interazione nel caso di un plasma è quella elettrica, mentre quella nel caso qui affrontato è quella gravitazionale, che essendo solamente attrattiva porta a delle instabilità in seguito a perturbazioni nella densità. Per un plasma si definisce, analogamente alla lunghezza di Jeans la \textit{lunghezza di Debye} $\lambda_\mathrm{D}$. In astrofisica le instabilità di Jeans sono rilevanti nei collassi di diverse strutture, come nubi molecolari, stelle o galassie e ammassi di galassie.
+\paragraph{Disco sottile rotante}
+Abbiamo studiato finora le instabilità gravitazionali in un mezzo omogeneo. Modificheremo ora il risultato ottenuto (la relazione di dispersione di Jeans) al caso di un mezzo stratificato, nello specifico un disco sottile in rotazione. Partendo dalla relazione di Jeans aggiungeremo dei termini che tengono conto della configurazione del sistema. 
+Iniziamo col considerare una particella che segue un'orbita circolare attorno ad una sorgente del potenziale. A causa della rotazione si avrà un potenziale efficace dato da
+\begin{equation}
+\phi_\mathrm{eff} = \dfrac{l^2}{2r^2} + \phi(r)
+\end{equation}
+Dato un momento angolare fissato, il potenziale efficace ha l'andamento riportato in figura \ref{fig:Potenziale}.
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{img/Potenziale}
+\caption{Potenziale efficace. A seconda dell'energia del sistema si hanno diverse traiettorie.}
+\end{center}
+\end{figure}
+Per energie positive l'orbita non è legata, e nel caso kepleriano sono delle iperboli. Sempre nel caso kepleriano si ha che se l'energia è nulla l'orbita è parabolica e marginalmente legata; se è negativa ma superiore al valore assunto nel raggio $r_\mathrm{e}$ in cui si ha il minimo del potenziale, l'orbita è legata ed ellittica. Infine se è pari al valore assunto nel minimo del potenziale, la particella è legata e segue un'orbita circolare. In tutte le orbite non circolari si ha un moto radiale della particella; se quindi la particella che si trova nel minimo di potenziale viene perturbata, oscilla attorno al minimo compiendo un moto oscillatorio radiale che va ad aggiungersi a quello rotazionale su traiettoria circolare. Questi moti radiali sono detti moti epiciclici. Calcolando la derivata seconda del potenziale efficace a $r_\mathrm{c}$ è possibile trovare la \textit{frequenza di oscillazione epiciclica}. Anzitutto risulta banalmente\footnote{Si deriva il potenziale efficace e si impone la nullità della derivata nel punto di minimo $r_\mathrm{c}$} 
+\begin{equation}
+\der{\phi}{r} \bigg|_{r_\mathrm{c}} = \dfrac{l^2}{r_\mathrm{c}^3}
+\end{equation}
+A questo punto calocoliamo la derivata seconda del potenziale efficace nel punto $r_\mathrm{c}$; sfruttando poi la relazione appena trovata si ottiene così la frequenza epiciclica
+\begin{EQ}
+\begin{equation}
+\kappa^2 \equiv \left(\dern{\phi}{r}{2}  + \dfrac{3}{r} \der{\phi}{r}\right) \bigg|_{r_\mathrm{c}}
+\end{equation}
+\end{EQ} 
+È possibile scrivere la frequenza epiciclica in termini della velocità angolare \footnote{La seguente scrittura della velocità angolare \begin{align*}
+m \der{\phi}{r} = F &= m a_\mathrm{c} = m \dfrac{v^2}{r} = \\
+&= m r \Omega^2  
+\end{align*} }
+\begin{equation}
+\Omega^2 = \inv{r} \der{\phi}{r} \bigg|_{r_\mathrm{c}}
+\end{equation}
+Per alleggerire la notazione, nei calcoli successivi ometteremo il fatto che le espressioni sono valutate in $r_\mathrm{c}$, riscrivendolo solo alla fine. Possiamo scrivere
+\begin{align*}
+\dern{\phi}{r}{2} = \der{}{r}\left(\der{\phi}{r}\right) = \der{}{r}\left(\inv{r}\der{\phi}{r}r\right) = r\der{}{r}\left(\Omega^2\right)+\Omega^2
+\end{align*}
+Sostituendo nella frequenza epiciclica si ottiene\footnote{Si sfrutta la relazione
+\begin{align*}
+\dfrac{r}{\Omega^2} \der{\Omega^2}{r} = \der{(\ln\Omega^2)}{(\ln r)} = 2 \der{(\ln\Omega)}{(\ln r)}
+\end{align*}}
+\begin{equation}
+\kappa^2 = 4 \Omega^2 \left[1+\inv{2}\der{(\ln\Omega)}{(\ln r)} \right]
+\end{equation}
+Si ha che $\Omega$ è la frequenza del moto circolare, mentre $\kappa$ è la frequenza delle oscillazioni radiali che si sovrappongono alla rotazione. Il rapporto $\kappa/\Omega$ dà informazioni sulla forma dell'orbita: se è un numero razionale l'orbita è chiusa, cioè dopo $n$ oscillazioni radiali e $m$ rotazioni il corpo ritorna nel punto di partenza. Se ciò non accade l'orbita non è chiusa e per tempi infiniti tutti i punti dell'anello di valor medio pari all'orbita circolare e spessore pari all'ampiezza dell'oscillazione radiale vengono occupati dal corpo. Dalla relazione appena ottenuta possiamo vedere che nel caso kepleriano\footnote{Ricordiamo che la velocità kepleriana è definita come \begin{align*}
+\Omega\equiv \sqrt{\dfrac{GM}{R^3}} 
+\end{align*} }risulta che $\kappa = \Omega$ e quindi l'orbita perturbata è un'ellisse con il centro della forza in uno dei due fuochi; infatti, poichè le oscillazioni radiali avvengono con la stessa frequenza delle rotazioni, si hanno un pericentro e un apocentro diametralmente opposti. Un altro caso interessante è il caso di potenziale armonico $\phi \propto r^2$ implica $\kappa = 2 \Omega$. In questo caso dovendo fare due oscillazioni radiali in un'orbita circolare si hanno due pericentri diametralmente opposti e due apocentri diametralemnte opposti, tali che l'asse dei pericentri è ortogonale all'asse degli apocentri. In altre parole l'orbita è un'ellisse centrata nel centro del campo di forze.
+
+Notiamo che la relazione precedente prevede orbite instabili che risultano dal caso $\kappa^2<0$. Un sistema che prevede orbite instabili è ad esempio un buco nero. Per semplificare il problema, tralasciando la relatività generale, è possibile descrivere il sistema usando la meccanica newtoniana e un potenziale efficace noto come \textit{potenziale di Paczynski-Wiita} 
+\begin{EQ}
+\begin{equation}
+\phi_\mathrm{PW} \equiv - \dfrac{GM}{(r-R_\mathrm{S})}
+\end{equation}
+\end{EQ}
+dove $R_\mathrm{S} = 2GM/c^2$ è il raggio di Schwarzshild. Calcolando la frequenza epiciclica associata si trova
+\begin{equation}
+\kappa^2 = ... = \left[-\dfrac{2}{(r-R_\mathrm{S})^3}+\dfrac{3}{r} \inv{(r-R_\mathrm{S})^2} \right] GM
+\end{equation}
+È possibile calcolare il raggio limite oltre il quale si anno orbite instabili (cioè oltre il quale il $\kappa$ è immaginario. Si trova che le orbite instabili hanno raggio $r<R_\mathrm{S}$ che in effetti è lo stesso risultato che si ottiene dalla relatività generale.
+Abbiamo quindi trovato che in un moto rotazionale di particella singola si ha una frequenza naturale di oscillazione radiale data da $\kappa$. Nella relazione di dispersione che vogliamo trovare per il sistema in analisi, rihiederà quindi l'aggiunta di un termine $+\kappa^2$ al secondo membro. Tuttavia la rotazione introduce un'altra modifica alla relazione di dispersione che presenteremo di seguito.
+
+Le perturbazioni le abbiamo finora scritte come onde piane nella forma $\exp\left[ i(\scal{k}{r} - \omega t) \right]$. Poichè stiamo considerando un disco sottile in rotazione, conviene prendere $\V{r}$ in coordinate polari e trascurare la coordinata $z$ (ipotesi di disco sottile). La perturbazione è quindi $\exp\left[ i(kr + m\varphi - \omega t) \right]$, dove $k$ e $m$ sono rispettivamente i numeri d'onda radiale e azimutale. Quest'ultimo assume solo valori interi poichè per la simmetria del problema la perturbazione deve avere lo stesso valore in $\varphi=0$ e $\varphi=2\pi$. Il numero d'onda azimutale indica il numero di massimi angolari della perturbazione; si può dimostrare che questi assumono una forma a spirale, quindi se $m=4$ si hanno $4$ bracci a spirale. A questo punto introduciamo la rotazione del disco con velocità angolare $\Omega_\mathrm{p}$, e cambiamo sistema di riferimento mettendoci nel sistema di riferimento rotante, in cui la perturbazione è ferma. Per farlo basta cambiare coordinata angolare definendo $\varphi' = \varphi - \Omega_\mathrm{p}$. La perturbazione in termini di $\varphi'$ è $\exp\left[ i(kr + m\varphi'+m\Omega_\mathrm{p} t - \omega t) \right]$. Se il sistema ruota con una velocità angolare pari a $\Omega_\mathrm{p}= \omega/m$, la perturbazione non dipende dal tempo, e quindi in un tale sistema la perturbazione risulta ferma. Pertanto nel sistema di riferimento in cui il disco è in rotazione, la perturbazione ruota alla stessa velocità rotazionale del disco $\Omega_\mathrm{p}$ detta \textit{velocità di pattern}. Quindi vediamo che la frequenza che conta nella perturbazione in un disco in rotazione è $\omega-m\Omega$. Da queste considerazioni la relazione di dispersione viene modificata in
+\begin{equation}
+\left( \omega -m\Omega\right)^2 = \sound^2 k^2 - 4\pi G \rho_0 + \kappa^2
+\end{equation}
+dove $k$  è il numero d'onda radiale\footnote{Anche in questo caso si usa l'approssimazione WKB. In generale infatti si potrebbe avere una dipendenza di $k$ da $r$, che è la responsabile della forma a spirale delle perturbazioni.} 
+
+A questo punto resta da modificare il termine di autogravità $- 4\pi G \rho_0 $. Per farlo consideriamo l'equazione di Possion, che per le perturbazioni in un disco sottile assume la forma
+\begin{equation}
+\nabla^2\phi' = 4 \pi G \Sigma' \delta(z)
+\end{equation}
+dove  $\Sigma'$ è la densità superficiale. Scomponendo il laplaciano nella parte in $z$ e raggruppando la parte in $xy$ si ha
+\begin{align}
+\dern{\phi'}{z}{2} - k^2 \phi' = 4\pi G \Sigma' \delta(z) \label{eq:Jeans3}
+\end{align}
+che ammette soluzioni, per $z\neq 0 $, date da
+\begin{equation}
+\phi' = A\,e^{\pm kz}
+\end{equation}
+Per trovare la costante $A$ prendiamo il piano $z=0$ e chiudiamo il piano tra i due piani $-\epsilon$ e $+\epsilon$. Integriamo l'equazione \ref{eq:Jeans3} tra i due piani ottenendo 
+\begin{equation}
+\dern{\phi'}{z}{2}\bigg|_{-\epsilon}^{+\epsilon} - k^2 \phi'\bigg|_{-\epsilon}^{+\epsilon} = 4\pi G \Sigma'
+\end{equation}
+Calcolando poi la derivata del potenziale si ha
+\begin{equation}
+\der{\phi'}{z}= \begin{cases}
+-|k| A\,e^{- |kz|} \,\,\,\,\,\, z>0\\
+|k| A\,e^{- |kz|} \,\,\,\,\,\,\,\,\,\,\,  z<0
+\end{cases}
+\end{equation}
+e facendo tendere $\epsilon$ a $0$ si ottiene
+\begin{equation}
+-2|k|= 4\pi G \Sigma'
+\end{equation}
+che permette di ricavare $A$. Possiamo ora ricavare $k^2\phi'\big|_{z=0} = -2\pi G \Sigma_0 |k|$. Ricordando la discussione fatta per ottenere la relazione di Jeans in cui avevamo trovato $k^2\phi'\big|_{z=0} = -4\pi G \rho_0$ possiamo riscrivere la relazione di dispersione finale
+\begin{EQ}
+\begin{equation}
+\left( \omega -m\Omega\right)^2 = \sound^2 k^2 - 2\pi G \Sigma_0 |k| + \kappa^2 \label{eq:LinShu}
+\end{equation}
+\end{EQ}
+Ricordiamo che $\omega$ è la frequenza della perturbazione, $m$ è il numero d'onda azimutale e $\Omega_\mathrm{p} = \omega /m$ è la frequenza di pattern, $\Omega$ è la frequenza angolare a cui ruota il disco, $k$ è il numero d'onda radiale, $\kappa$ è la frequenza azimutale. Il termine $\sound^2k^2$ è il termine "standard" delle onde sonore, associato alla pressione termica, il secondo termine è associato all'autogravità del fluido, mentre il terzo è associato alla rotazione. Questa relazione di dispersione è stata ricavata nel 1964 da Lin \& Shu. Rispetto alla relazione di dispersione di Jeans, la \textit{relazione di dispersione di Lin \& Shu}, in cui si ha pressione stabilizzante e autogravità destabilizzante, si ha l'aggiunta di un termine stabilizzante dato dalla rotazione $\kappa^2$. Vediamo che i tre termini dipendono da tre diverse potenze di $k$, rispettivamente 2, 1, 0. Quindi il primo termine domina per piccole lunghezze d'onda (ovvero grandi $k$), il secondo per lunghezze d'onda intermedie, mentre il terzo per grandi lunghezze d'onda. In altri termini la pressione è rilevante a piccole scale, la rotazione a grandi scale, mentre l'autogravità a scale intermedie. Per avere instabilità occorre che $\left( \omega -m\Omega\right)^2  <0$ che equivale alla condizione
+\begin{EQ}
+\begin{equation}
+Q \equiv \dfrac{\sound \kappa}{\pi G \Sigma_0} <1
+\end{equation}
+\end{EQ}
+dove $Q$ è il \textit{parametro di stabilità del disco}. Notiamo che a numeratore compaiono i termini stabilizzanti, mentre a denominatore il termine destabilizzante. Se domina il denominatore, cioè l'autogravità destabilizzante, si ha appunto instabilità. Troviamo infine il valore di $k$ che massimizza l'instabilità, cioè il minimo della quadratica \ref{eq:LinShu}. Derivando e ponendo la derivata a zero si trova banalmente che 
+\begin{equation}
+k_\mathrm{max} = \dfrac{\pi G \Sigma_0}{\sound^2} = \inv{H}
+\end{equation}
+dove nell'ultima equazione abbiamo usato la scala caratteristica dello strato isotermo autogravitante (vedi sezione \ref{sec:StratoIsotermoAutogravitante}). Ricordando lo spessore ottenuto per un disco in un campo kepleriano, e cioè $H_\mathrm{kep}=\sound/\Omega$, e ricordando che in questo caso $\kappa=\Omega$, possiamo riscrivere il fattore di stabilità del disco come
+\begin{equation}
+Q=\dfrac{H}{H_\mathrm{kep}}
+\end{equation}
+cioè lo spessore dello strato autogravitante diviso lo spessore dello strato in cui viene trascurata l'autogravità, dà il parametro di stabilità del disco.
+Quindi si il disco è instabile, e quindi se $Q\ll 1$, si ha $H\ll H_\mathrm{kep}$ cioè lo spessore del disco deve essere molto più piccolo di quello che si avrebbe trascurando l'autogravità; ciò significa che l'autogravità del fluido è importante e domina sulla gravità dell'oggetto centrale, in quanto rende più compatto il disco di quanto sia in grado di fare la gravità dell'oggetto centrale. Viceversa se $Q\gg 1$ si ha $H\gg H_\mathrm{kep}$, e quindi domina la gravità dell'oggetto centrale. 
+
+\subsection{Instabilità in fluidi stratificati}
+In questa sezione consideriamo le instabilità dovute a stratificazioni di una certa grandezza fisica, ovvero variazioni di tale grandezza lungo una direzione, che indicheremo con $z$. Nei sistemi che studieremo è presente un campo gravitazionale, che assumeremo rivolto in direzione $-z$.
+\paragraph{Instabilità convettiva}
+Condsideriamo un fluido in equilibrio idrostatico in un campo gravitazionale esterno, e consideriamo un elemento di fluido ad una certa altezza $z$ e caratterizzato da densità $\rho$ e pressione $p$. Essendo il fluido in equilibrio, l'ambiente circostante all'elemento considerato avrà la stessa densità e pressione. Effettuiamo ora uno spostamento lagrangiano dell'elemento fluido di una quantità $\delta z$. Nella nuova posizione $z+\delta z$ l'ambient avrà densità e pressione $\rho'$ e $p'$. Come variano le proprietà dell'elemento fluido? Anzitutto il tempo impiegato dall'elemento per equilibrare la sua pressione con quella dell'ambiente circostante è pari a $\tau \equiv L/\sound$ dove $L$ è la dimensione tipica dell'elemento fluido (ciò poichè le variazioni di pressione propagano come onde sonore), che assumiamo tale che $\tau \ll \tau_\mathrm{cool}$ con $\tau_\mathrm{cool}$ tempo di raffreddamento. Se questa condizione è rispettata, lo spostamento dell'elemento fluido è adiabatico, cioè non si hanno scambi di calore nel tempo in cui la pressione raggiunge l'equilibrio con quella dell'ambiente. A causa di ciò la densità dell'elemento fluido sarà\footnote{Ricordiamo che in una trasformazione adiabatica $p\propto\rho^\gamma$}
+\begin{equation}
+\rho^{*} = \rho \left(\dfrac{p'}{p}\right)^{1/\gamma}
+\end{equation}
+Poichè si ha
+\begin{align}
+&p'=p+\der{p}{z} \delta z \label{eq:Convettiva1}
+&\rho'=\rho+\der{\rho}{z} \delta z
+\end{align}
+si può approssimare la densità dell'elemento fluido a 
+\begin{equation}
+\rho^{*}=\rho\left(1+\inv{p}\der{p}{z}\delta z\right)^{1/\gamma} \approx \rho + \dfrac{\rho}{\gamma p}\der{p}{z}\delta z
+\end{equation}
+Possiamo ora confrontare la densità dell'elemento fluido con quella dell'ambiente circostante: se $\rho^*<\rho'$ l'elemento fluido si trova in un ambiente di densità maggiore che lo spinge ancor più verso l'alto (l'elemento fluido è una bolla che tende a risalire per galleggiamento)\footnote{La tendenza di un corpo a galleggiare è detta \textit{buoyancy}}. Se invece vale $\rho^*>\rho'$ l'elemento fluido che è stato spostato vero l'alto torna nella posizione $z$ di partenza poichè il nuovo ambiente in cui si trova ha densità minore e non è in grado di sostenere il suo peso, lasciandolo affondare. La condizione di instabilità convettiva è quindi\footnote{Segue banalmente da una riscrittura della condizione $\rho^*<\rho'$ in cui si sotituisce $\rho'$ dato dalla \ref{eq:Convettiva1} }
+\begin{EQ}
+\begin{equation}
+\der{}{z}\left[\ln\left(\dfrac{p}{\rho^\gamma}\right)\right]<0
+\end{equation}
+\end{EQ}
+Vediamo quindi che la condizione di insitabilità è che la derivata lungo $z$ dell'entropia (la parte tra parentesi quadre) sia negativa, cioè che l'entropia diminuisca lungo l'asse $z$, o analogamente aumenti lungo la direzione del campo gravitazionale. Un fluido ad alta entropia tende a galleggiare, quindi se gli elementi fluidi ad alta entropia sono in basso, l'instablilità tende a farli risalire in direzione opposta al campo gravitazionale tramite convezione. La configurazione stabile è quella in cui il gradiente di entropia cresce in direzione opposta al campo gravitazionale.
+
+\paragraph[Instabilità di Rayleigh-Taylor]{Instabilità di Rayleigh-Taylor\footnote{Il calcolo della relazione di dispersione per questa instabilità è piuttosto laborioso, pertanto lo omettiamo limitandoci a fornire il risultato.}}
+Questa instabilità si ha in un fluido in cui il gradiente di densità è opposto al campo gravitazionale, cioè aumenta all'aumentare di $z$. Intuitivamente questa instabilità è dovuta al fatto che elementi fluidi più densi posti ad una certa altezza tendono a cadere essendo più pesanti dei sottostanti elementi fluidi meno densi. La relazione di dispersione dell'instabilità di Rayleigh-Taylor per fluidi incomprimibili è 
+\begin{EQ}
+\begin{equation}
+\omega=\pm i k \sqrt{\dfrac{g}{k}\dfrac{\rho_2-\rho_1}{\rho_2+\rho_1}}
+\end{equation}
+\end{EQ}
+con $\rho_1$ e $\rho_2$ densità associate rispettivamente alla regione bassa e a quella alta del fluido. Vediamo quindi che l'instabilità si ha per $\rho_2>\rho_1$, di modo che $\omega$ è immaginario.
+L'effetto di quest'instabilità è la formazione di \textit{fingers} strutture dovute dalla progressiva penetrazione del fluido superiore di densità maggiore in quello inferiore di densità minore, come mostrato nella figura \ref{im:RayleighTaylor}
+\begin{figure}
+\includegraphics[width=\textwidth]{Rayleigh}
+\caption{Instabilità di Rayleigh-Taylor. Il fluido nero è a densità maggiore del fluido bianco. Le forme caratteristiche (finger) progrediscono via via che il fluido nero sprofonda in quello bianco: la parte centrale scende, quelle laterali si arricciano formando dei vortici caratteristici. }
+\label{im:RayleighTaylor}
+\end{figure}
+
+\paragraph{Instabilità di Kelvin-Helmholtz}
+L'instabilità di Kelvin-Helmholtz è dovuta ad una stratificazione di velocità; in generale, nel caso di fluido incomprimibile, si hanno due fluidi caratterizzati da densità $\rho_1$ e $\rho_2$ e velocità $\V{u}_1$ e $\V{u}_2$ in contatto tra loro. In questo caso la relazione di dispersione è 
+\begin{EQ}
+\begin{equation}
+\dfrac{\omega}{k} = \dfrac{\rho_1\V{u}_1+\rho_2\V{u}_2}{\rho_1+\rho_2} \pm i |\V{u}_1-\V{u}_2|\dfrac{\sqrt{\rho_1\rho_2}}{\rho_1+\rho_2}
+\end{equation}
+\end{EQ}
+L'instabilità si ha solo se la parte immaginaria è non nulla, cosa che accade se le due velocità sono diverse. Notiamo che sia nell'instabilità di Rayleigh-Taylor che in quella di Kelvin-Helmholtz, la parte immaginaria di $\omega$ è tanto più grande quanto più grande è $k$, con una proporzionalità $\omega\propto k^{1/2}$ nel primo caso mentre $\omega\propto k$ nel secondo. Ciò implica che le prime instabilità osservabili sono associate a a grandi $k$ e quindi piccole lunghezze d'onda. L'instabilità di Kelvin-Helmoltz sono caratterizzate dalla formazione di vortici all'interfaccia tra le due regioni a velocità diverse, come mostrato nella figura \ref{im:KelvinHelmholtz}. Tipicamente queste ultime due instabilità si verificano contemporaneamente e sono responsabili del mescolamento di due fluidi. In particolare l'instabilità di Kelvin-Helmoholtz si verifica nel merge di galassie.
+\begin{figure}
+\includegraphics[width=\textwidth]{Kelvin}
+\caption{Instabilità di Kelvin-Helmholtz. Nel riquadro di destra è riportato uno zoom sulle instabilità a piccole lunghezze d'onda}
+\label{im:KelvinHelmholtz}
+\end{figure}
+
+\subsection{Instabilità termica}
+Sia un fluido omogeneo non autogravitante in equilibrio idrostatico. La trattazione del problema dell'instabilità termica è un'estensione di quella delle onde sonore, in cui si aggiunge una perturbazione all'energia: vanno quindi considerate l'equazione di continuita, l'equazione di Eulero e l'equazione dell'energia, che riportiamo di seguito in forma lagrangiana\footnote{Perturbazioni lagrangiane ed elueriane coincidono poichè il fluido è supposto statico (vedi equazione\ref{eq:DerivataLagrangiana}, quindi è possibile effettuare una trattazione lagrangiana del problema.}
+\begin{equation}
+\begin{cases}
+\derL{\rho}{t}+\rho \scal{\nabla}{u}=0 \\[10pt]
+\rho \derL{\V{u}}{t} = -\Grad p \\[10pt]
+\inv{1-\gamma}\derL{p}{t} - \dfrac{\gamma}{\gamma-1}\dfrac{p}{\rho} \derL{\rho}{t} = \rho \dot{q} \equiv q(\rho,T) \label{eq:InstabilitàTermica1}
+\end{cases}
+\end{equation}
+dove per ottenere l'ultima equazione abbiamo combinato l'equazione dell'energia in forma lagrangiana data dalla \ref{eq:EquazioneDiStato1} e l'equazione dei gas perfetti nella forma \ref{eq:GasPerfetti}.
+Nell'ultimo passaggio abbiamo definito $q(\rho,T)$ come il calore netto assorbito dal fluido per unità di tempo e volume. Esso è dato dalla differenza tra il calore assorbito e quello emesso per unità di tempo e volume ($q^+-q^-$). Esso è funzione di due variabili di stato (abiamo scelto la densità e la temperatura). Se $q$ è positivo domina l'assorbimento, e il gas si riscalda, viceversa se è negativo domina l'emissione e il gas si raffredda.
+
+
+
+Passiamo ora a studiare le perturbazioni allo stato di equilibrio del fluido, ipotizzando perturbazioni sotto forma di onde piane e indichiamo con l'apice $'$ la perturbazione al prim'ordine, mentre le quantità all'ordine zero le indichiamo senza nè apici nè pedici. Le quantità soggette a perturbazione sono $\V{u}$, $\rho$, $p$. Seguendo il solito approccio già visto nelle sezioni precedenti si ottengono dalle prime due equazioni le seguenti relazioni
+\begin{align}
+-i\omega \rho' + i\rho \scal{k}{u'} =0  \,\,\,\,\,\,\, & \Longrightarrow \,\,\,\,\,\,\, \omega \dfrac{\rho'}{\rho} = \scal{k}{u'} \\
+-i\omega \rho \V{u}' = -i\V{k} p' \,\,\,\,\,\,\, & \Longrightarrow \,\,\,\,\,\,\, \omega \rho \V{u}' = \V{k}p' 
+\end{align}
+A questo punto moltiplicando scalarmente per $\V{k}$ l'ultima equazione e usando la prima, si ottiene
+\begin{equation}
+\omega^2 = k^2 \dfrac{p'}{\rho'} \label{eq:InstabilitàTermica2}
+\end{equation}
+Se a questo punto ipotizzassimo che il fluido sia barotropico avremmo $p'/\rho' = \sound^2$, ottenendo la relazione di dispersione delle onde sonore. In questo caso volgiamo però ottenere il rapporto $p'/\rho'$ dall'equazione dell'energia. Per semplificare il calcolo definiamo 
+\begin{align*}
+&q_\rho \equiv \derP{q}{\rho}\bigg|_T
+&q_T \equiv \derP{q}{T}\bigg|_\rho
+\end{align*}
+Introducendo le perturbazioni nella terza equazione \ref{eq:InstabilitàTermica1}, ottenendo
+\begin{equation}
+-\dfrac{i\omega}{\gamma-1}\left[ p'-\gamma \dfrac{p}{\rho}\rho' \right] = q_\rho \rho' + q_T T' \label{eq:InstabilitàTermica3}
+\end{equation}
+A questo punto riscriviamo $p'$ al membro di destra sfruttando la relazione di dispersione \ref{eq:InstabilitàTermica2}. Per il membro di sinistra consideriamo l'equazione di stato dei gas perfetti che implica $p\propto\rho T$\footnote{La costante di proporzionalità è $C=\dfrac{k}{\mu \mpr}$}. Sostituendovi le perturbazioni e trascurando i termine al second'ordine\footnote{\begin{align*}
+p+p' &= C(T+T')(\rho+\rho') = CT\rho \left(1+\dfrac{\rho'}{\rho}+\dfrac{T'}{T} + \dfrac{T'\rho'}{T\rho} \right)\\
+p\left(1+\dfrac{p'}{p}\right) &= CT\rho \left(1+\dfrac{\rho'}{\rho}+\dfrac{T'}{T} + \dfrac{T'\rho'}{T\rho} \right)\\
+1+\dfrac{p'}{p} &= 1+\dfrac{\rho'}{\rho}+\dfrac{T'}{T} + \dfrac{T'\rho'}{T\rho} \\
+\dfrac{p'}{p} &= \dfrac{\rho'}{\rho}+\dfrac{T'}{T} + \dfrac{T'\rho'}{T\rho} \approx \dfrac{\rho'}{\rho}+\dfrac{T'}{T}
+\end{align*}} 
+si ottiene
+\begin{equation}
+\dfrac{T'}{T} = \dfrac{p'}{p} - \dfrac{\rho'}{\rho} = \dfrac{\rho'}{p}\left( \dfrac{\omega^2}{k^2}-\dfrac{p}{\rho}\right) \label{eq:InstabilitàTermica4}
+\end{equation}
+dove nell'ultima uguaglianza abbiamo sfruttato la \ref{eq:InstabilitàTermica2}.
+A questo punto possiamo ricavare $T'$ dall'equazione precedente e sostituirlo nel secondo membro della \ref{eq:InstabilitàTermica3}, ottenendo la relazione di dispersione finale
+\begin{equation}
+-\dfrac{i\omega}{\gamma-1}\left[ \left( \dfrac{\omega}{k} \right)^2-\gamma \dfrac{p}{\rho} \right] = q_\rho + q_T \dfrac{T}{p}\left[\left(\dfrac{\omega}{k}\right)^2 - \dfrac{p}{\rho}\right] \label{eq:InstabilitàTermica5}
+\end{equation}
+Notiamo che la relazione di dispersione è una cubica in $\omega$ e quindi ammette 3 soluzioni. Nel caso delle onde sonore avevamo due soluzioni in quanto la relazione di dispersione era una quadratica (vedi equazione \ref{eq:InstabilitàTermica3}). La terza soluzione che segue dalla relazione appena trovata risulta dal limite a basse frequenza $\left(\dfrac{\omega}{k} \ll \sound = \sqrt{\dfrac{p}{\rho}}\right)$. La \ref{eq:InstabilitàTermica5} si riduce banalmente a
+\begin{equation}
+\dfrac{i\gamma}{\gamma-1} \omega p = q_\rho - q_T T \label{eq:InstabilitàTermica6}
+\end{equation}
+Se ipotizziamo che la pressione sia costante, e che quindi $p'=0$, la \ref{eq:InstabilitàTermica4} implica che $\rho'/\rho=T'/T$ e quindi che $\rho=\rho(T)$; pertanto risulta che $q(\rho(T), T)$ e quindi il secondo membro dell'equazione \ref{eq:InstabilitàTermica6} diventa
+\begin{align*}
+q_\rho \rho- q_T T = \derP{q}{\rho}\rho - \derP{q}{T}T = -T \left[\derP{q}{T}-\dfrac{\rho}{T}\derP{q}{\rho}\right] = -T \der{q}{T}\bigg|_p = -\der{q}{\ln T}\bigg|_p 
+\end{align*}
+La relazione di dispersione \ref{eq:InstabilitàTermica5} diventa così
+\begin{EQ}
+\begin{equation}
+i\omega = - \dfrac{(\gamma - 1)}{\gamma} \inv{p} \der{q}{\ln T}\bigg|_p
+\end{equation}
+\end{EQ}
+Ora ricordando che le perturbazioni sono in forma di onda piana, per avere instabilità l'esponenziale deve essere crescente, cosa che accade quando $i\omega<0$. Da quanto abbiamo appena trovato risulta quindi che la condizione di instabilità, nota come \textit{criterio di Fields}, è
+\begin{EQ}
+\begin{equation}
+\der{q}{\ln T}\bigg|_p >0
+\end{equation}
+\end{EQ}
+Questo risultato è intuitivo: se all'equilibrio il tasso di riscaldamento effettivo del fluido è tale che aumenta all'aumentare della temperatura, allora una perturbazione che interessa anche l'energia del fluido, comporta un'instabilità in quanto un aumento di energia provoca un aumento di temperatura e quindi un aumento del tasso di riscaldamento.
+
+\paragraph{Il mezzo intersellare}
+Per il mezzo interstellare (ISM) la dipendenza di $q^+$ dalla temperatura, fissata la densità è pressochè costante, mentre per $q^-$ si ha una forte dipendenza dalla temperatura, poichè i processi di raffreddamento sono principalmente dovuti a emissione radiativa, la quale dipende fortemente dalla temperatura. La \textit{cooling function}, schematizzata nella figura (aggiungere immagine), ovvero la dipendenza di $q^-$ dalla temperatura, fissata la densità, assume diversi profili in tre regioni: $H_2$, $HI$, $HII$, rispettivamente le regioni in cui l'idrogeno (il principale componente dell'ISM, si trova nello stato molecolare, atomico e ionizzato. Il minimo tra i due picchi associati alle fasi $H_2$ e $HI$ (picchi dovute alle righe di emissione molecolare e atomica), corrisponde alla regione di dissociazione delle molecole dell'idrogeno, mentre per alte temperature la cooling function è dominata dalla bremsstrahlung, $q^-\propto\sqrt{T}$. Il picco dell'emissione molecolare è a circa $10^2\, \mathrm{K}$, quello dell'emissione atomica a circa $10^4\, \mathrm{K}$ e a partire dai $10^5\, \mathrm{K}$ si ha prevalentemente emissione free-free dovuta all'idrogeno ionizzato. Come si vede dallo schema della funzione di cooling si hanno cinque punti di intersezione tra $q^+$ e $q^-$, corrispondenti all'equilibrio termico ($q=q^+-q^-=0$). Non tuti questi punti di equilibrio termico sono stabili: dal criterio di Fields si ha che i punti di instabilità sono quelli in cui la derivata di $q$ è positiva, e quindi la derivata di $q^-$ è negativa. Tali punti sono il punto $B$ e il punto $D$.
+
+\section{Viscosità}
+Fino ad ora abbiamo considerato fluidi ideali non viscosi (o inviscidi) ovvero fluidi in cui non intervengono forze di attrito interno. In questa sezione introdurremo gli effetti della viscosità, andando a modificare le equazioni fluidodinamiche interessate da questo fenomeno, ovvero l'equazione di Eulero (quantità di moto) e l'equazione dell'energia.
+Ricordiamo l'equazione di Eulero \ref{eq:Finale2}
+\begin{equation}
+\partial_t (\rho u_i) + \partial_j(\rho u_i u_j )= -\partial_j(p\delta_{ij})  
+\end{equation}
+analoga a\footnote{Si passa da questa equazione alla precedente usando l'equazione di continuità \ref{eq:Finale1}}
+\begin{equation}
+\rho \left[\der{\V{u}}{t}+(\scal{u}{\nabla})\V{u}\right] = -\Grad p
+\end{equation}
+Le forze viscose sono forze che si oppongono ad una variazione di velocità, e quindi dovranno avere una dipendenza dal gradiente della velocità. In base alla tipologia del gradiente dal gradiente di velocità si distinguono due classi di fenomeni viscosi. I primi sono detti di compressione o rarefazione, in cui si hanno gradienti di velocità paralleli alla direzione del moto; i secondi sono detti di strisciamento, in cui i gradienti di velocità sono ortogonali alla direzione del moto.
+Una riscrittura che contenga gli effetti della viscosità è la seguente
+\begin{align}
+&\partial_{t}(\rho u_i) = - \partial_i\Pi_{ij}
+&\Pi_{ij} \equiv \rho u_iu_j + p\delta_{ij} - \sigma_{ij} \label{eq:Viscosità3}
+\end{align}
+dove la quantità $\Pi_{ij}$ è il \textit{tensore flusso di quantità di moto}, definito come somma del tensore degli stress che avevamo definito alla fine del paragrafo \ref{subsec:EquazioneEulero} e del tensore degli stress viscosi. La definizione \ref{eq:Stress0} è basata sul fatto che nel sistema di riferimento di un elemento fluido, la sua quantità di moto non cambia come risultato dei moti differenziali degli elementi di fluido adiacenti; il primo termine (che contiene le velocità) descrive il trasporto di quantità di moto associata a moti macroscopici (il moto complessivo del fluido), mentre il secondo termine descrive il trasporto della quantità di moto associato ai fenomenni microscopici, ovvero all'agitazione termica che genera una pressione termica, come già visto nel paragrafo \ref{subsec:EquazioneEulero}. Per tener conto dei \textit{processi viscosi}, ovvero i processi che permettono il trasferimento di quantità di moto tra elementi fluidi adiacenti, a causa della loro diversa velocità, abbiamo aggiunto il tensore dedgli sforzi viscosi.
+Come già detto questo tensore deve dipendere dai gradienti di velocità, alla base dei processi viscosi. Oltre a questa aggiungiamo l'ipotesi che il fluido sia newtoniano ovvero un fluido in cui la dipendenza del tensore degli stress viscosi dal gradiente delle velocità è lineare. Infine richiediamo che nel caso di rotazione rigida il tensore degli stress viscosi sia nullo\footnote{Durante una rotazione rigida non si hanno infatti nè rotazioni nè compressioni, e quindi ci si aspetta che per un moto del genere non intervengano effetti di viscosità.}. Si può dimostrare (non lo verificheremo) che esistono due soli possibili tensori che soddisfano le condizioni richieste, ovvero
+\begin{EQ}
+\begin{align}
+&\sigma_{ij} = \inv{2}(\partial_j u_i + \partial_i u_j)
+&\sigma_{ij} = \partial_k u_k \delta_{ij} \label{eq:Viscosità1}
+\end{align}
+\end{EQ}
+dove la seconda espressione è la divergenza della velocità moltiplicata per il tensore unitario. Verifichiamo che per un moto di rotazione rigida a velocità angolare $\V{\Omega}$ i tensori si annullano. Per un moto rotazionale vale
+\begin{equation}
+\V{u} = \vett{\Omega}{x} \,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Longrightarrow  \,\,\,\,\,\,\,\,\,\,\,\,\,\,\, u_i = \varepsilon_{ilk}\, \Omega_l\, x_k
+\end{equation}
+risulta che
+\begin{equation}
+\partial_j u_i = \varepsilon_{ilk}\, \Omega_l\, \delta_{jk} = \varepsilon_{ilj} \, \Omega_l
+\end{equation}
+ma vale anche
+\begin{equation}
+\partial_i u_j = \varepsilon_{jlk}\, \Omega_l\, \delta_{ik} = \varepsilon_{jlk} \, \Omega_l = -\partial_j u_i
+\end{equation}
+e quindi il primo tensore della \ref{eq:Viscosità1} è nullo. Notiamo inoltre che
+\begin{equation}
+\partial_j u_j = \varepsilon_{jlk}\,\Omega_l \,\delta_{jk} = \varepsilon_{jlj}\, \Omega_l = 0
+\end{equation}
+e quindi anche il secondo tensore è nullo.
+
+Il tensore degli stress viscosi (d'ora in poi lo chiameremo semplicemente tesore degli stress) deve essere espresso come combinazione lineare dei due tensori \ref{eq:Viscosità1}
+\begin{EQ}
+\begin{equation}
+\sigma_{ij} = \eta \left( \derP{u_i}{x_j} + \derP{u_j}{x_i} - \dfrac{2}{3}(\Div{u}) \delta_{ij} \right) + \zeta(\Div{u}) \delta_{ij} \label{eq:Viscosità2}
+\end{equation}
+\end{EQ}
+Il motivo per cui il termine della divergenza della veloctità è stato spezzato in due termini è una semplice questione di simmetria del tensore di stress. Se deformiamo il fluido effettuando una compressione uguale nelle tre direzioni 
+\begin{equation}
+\derP{u_x}{x} = \derP{u_y}{y} = \derP{u_z}{z} \equiv A
+\end{equation}
+avremo che $\Div{u} = 3A$, e quindi il termine in $\eta$ è nullo sulla diagonale (cioè per $j=i$). Questo significa che tale termine, annullandosi per una pura compressione, è un termine che non descrive i fenomeni di compressione, bensì di strisciamento. Pertanto scritto in questo modo, il tensore degli stress ha una termine associato alla viscosità di strisciamento (quello con coefficiente $\eta$), e un termine in associato alla viscosità di compressione (il termine in $\zeta$). La prima viscosità è detta \textit{shear viscosity}, mentre la seconda è detta \textit{bulk viscosity}. Il coefficiente $\eta$ è detto \textit{coefficiente di shear viscosity}, mentre il coefficiente $\zeta$è detto \textit{coefficiente di bulk viscosity}, e sono definiti positivi. In questo modo il tensore degli stress dà forze viscose che si oppongono al gradiente di velocità.
+Un coefficiente spesso usato nello studio della viscosità è il \textit{coefficiente di viscosità cinemattica} 
+\begin{EQ}
+\begin{equation}
+\nu \equiv \dfrac{\eta}{\rho}
+\end{equation}
+\end{EQ}
+Per chiarire la terminologia riportiamo alcune definizioni. Il primo tensore della \ref{eq:Viscosità1} è noto con il nome di \textit{rate of strain tensor}, in italiano \textit{tensore delle deformazioni}. Il tensore della \ref{eq:Viscosità2} è invece il \textit{viscous stress tensor}, in italiano \textit{tensore degli sforzi viscosi} o semplicemente tensore degli sforzi.
+Sostituendo la \ref{eq:Viscosità2} nella \ref{eq:Viscosità3} otteniamo l'\textit{equazione di Navier-Stokes}
+\begin{EQ}
+\begin{equation}
+\derP{}{t}(\rho u_i) = -\derP{p}{x_i} - \derP{}{x_i}(\rho u_i u_j)+ \derP{}{x_i}\left[ \eta \left( \derP{u_i}{x_j} + \derP{u_j}{x_i} - \dfrac{2}{3}(\Div{u}) \delta_{ij} \right) + \zeta(\Div{u}) \delta_{ij} \right]
+\end{equation}
+\end{EQ}
+Un altro modo per scriverla è (usando l'equazione precedente e l'equazione di conservazione della massa, ovvero l'equazione di continuità)
+\begin{EQ}
+\begin{equation}
+\rho \left[ \derP{\V{u}}{t} + (\scal{u}{\nabla})\V{u} \right] = -\Grad p + \V{\nabla}\cdot\left[ \eta \left( \derP{u_i}{x_j} + \derP{u_j}{x_i} - \dfrac{2}{3}(\Div{u}) \delta_{ij} \right) + \zeta(\Div{u}) \delta_{ij} \right]
+\end{equation}
+\end{EQ}
+Se ora ipotizziamo che $\eta$ e $\zeta$ siano costanti l'equazione può essere riscritta nella forma\footnote{Si sfrutta la proprietà degli operatori vettoriali
+\begin{align*}
+\Grad\left[ \dpj u_i + \dpi u_j \right] = \Grad^2\V{u} + \Grad(\Div{u})
+\end{align*}}
+\begin{equation}
+\rho \left[ \derP{\V{u}}{t} + (\scal{u}{\nabla})\V{u} \right] =  -\Grad p + \eta\nabla^2 \V{u} + \left( \zeta + \dfrac{\eta}{3} \right) \Grad(\Div{u})
+\end{equation}
+Se aggiungiamo l'ipotesi di incomprimibilità del fluido, ovvero $\Div{u}$ l'equazione di Navier-Stokes si riduce a 
+\begin{equation}
+\derP{\V{u}}{t} + (\scal{u}{\nabla})\V{u} =  -\dfrac{\Grad p}{\rho} + \nu\nabla^2 \V{u} 
+\end{equation}
+
+
+Resta ora da studiare come cambia l'equazione dell'energia. Per apportare le modifiche all'equazione dell'energia, consideriamo la derivata lagrangiana dell'energia cinetica per unità di volume.
+\begin{equation}
+\derL{}{t} \quadre{\inv{2}\rho u^2} =\footnote{In questo passaggio stimiamo la derivata lagrangiana di $\rho$ dall'equazione di continuità.} -\inv{2}\rho u^2 \Div{u} + \rho \scal{u}{} \derL{\V{u}}{t} =\footnote{La derivata lagrangiana della velocità si ottiene dall'equazione di Navier-Stokes} = 
+-\inv{2}\rho u^2 \Div{u} + \rho u_i \tonde{-\inv{\rho}\dpi p + \inv{\rho}\dpj \sigma_{ij}}
+\end{equation}
+Riarrangiando i termini si ottiene
+\begin{equation}
+\derP{}{t}\tonde{\inv{2}\rho u^2} + \derP{}{x_j} \tonde{\inv{2}\rho u^2 u_j} = -u_i\dpi p + u_i \dpj \sigma_ij \label{eq:Viscosità4}
+\end{equation}
+Questa relazione ha la forma di un'equazione di conservazione: la derivata temporale dell'energia cinetica per unità di volume più la divergenza del suo flusso è uguale alla somma di due quantità che fanno variare l'energia cinetica, ovvero il lavoro della pressione e il lavoro dovuto dalle forze viscose (questi due termini hanno le dimensioni di una potenza per unità di volume, così come i termini di sinistra). Possiamo riscrivere l'ultimo termine dell'equazione come
+\begin{equation}
+u_i \dpj \sigma_{ij} = \dpj (\sigma_{ij}u_i) -\sigma_{ij}\dpj u_i \label{eq:Viscosità5}
+\end{equation}
+Scritto in questo modo, il lavoro per unità di tempo e di volume è scritto come somma di due contributi, fisicamente diversi tra loro. Il termine $\dpj (\sigma_{ij}u_i)$ è una divergenza, quindi andando ad integrare su tutto il fluido, ovvero su tutto il volume del fluido, l'equazione \ref{eq:Viscosità4} contribuisce solo al bordo, ovvero sulla superficie che racchiude il volume totale del fluido (a causa del teorema della divergenza). Questo è quindi un termine di superficie, cioè che dà contributi alla variazione dell'energia cinetica, solo sulla superficie del fluido. Questo implica che tale termine è un termine di trasporto viscoso dell'energia. Il termine $-\sigma_{ij}\dpj u_i$ è invece un termine di volume, ovvero dà contributi alla variazione dell'energia cinetica lungo tutto il volume del fluido. Esso è quindi un termine di dissipazione viscosa dell'energia cinetica del fluido. Potremmo dire che il primo termine corrisponde ad una perdita di energia verso l'esterno del fluido (trasporto), mentre il secondo corrisponde ad una perdita interna dell'energia (dissipazione), che viene trasformata in calore. Sicoome $\sigma_{ij}$ è simmetrico (non cambia scambiando gli indici), possiamo scrivere
+\begin{equation}
+\sigma_{ij}\dpj u_i = \sigma_{ij} \inv{2}\tonde{\dpj u_i + \dpi u_j} \equiv \sigma_{ij} e_{ij}
+\end{equation}
+dove abbiamo indicato il tensore delle deformazioni con $e_{ij}$. Dall'equazione \ref{eq:Viscosità2} si ha che nel caso di un fluido incomprimibile ($\Div{u}=0$) si ha
+\begin{equation}
+\sigma_{ij} = 2 \eta e_{ij}
+\end{equation}
+da cui segue che
+\begin{equation}
+\sigma_{ij} \dpj u_i = 2 \eta e_{ij}^2 \label{eq:Viscosità15}
+\end{equation}
+il che prova che il termine di dissipazione della \ref{eq:Viscosità5} è sempre positivo, che implica che la presenza di dissipazione interna porta sempre ad una riduzione dell'energia cinetica del fluido.
+
+Riassumendo, per aggiungere gli effetti legati alla viscosità, occorre anzitutto modificare l'equazione di Eulero aggiungendo il tensore degli stress e ottenendo così l'equazione di Navire-Stokes, di cui abbiamo visto varie forme; in generale il tensore degli stress risutla costituito da una parte di viscosità di shear (scorrimento) e da una viscosità di bulk (compressione). In secondo luogo occorre modificare l'equazione dell'energia aggiungendo il lavoro compiuto dalle forze viscose, il quale si divide in due contributi: uno di trasporto globale dell'energia, e un'altro di dissipazione locale di energia.
+
+\subsection{Turbolenza}
+Per turbolenza si intende un qualsiasi moto fluido caratterizzato da cambiamenti caotici nella pressione e nella velocità fluida. In questa sezione descriveremo la caratteristica principale dei moti turbolenti, ovvero la formazione di vortici. Consideriamo l'equazione di Navier-Stokes nel caso di un fluido incomprimibile\footnote{Lo studio delle turbolenze è stato sviluppato principalmente per fluidi incomprimibili.} in presenza di un campo conservativo esterno
+\begin{equation}
+\derP{\V{u}}{t} + (\scal{u}{\nabla})\V{u} =  -\dfrac{\Grad p}{\rho} + \nu\nabla^2 \V{u} 
+ -\Grad \phi \label{eq:Viscosità6}
+\end{equation}
+Per descrivere la formazione di vortici all'interno di un fluido, si utilizza la \textit{vorticità}, definita come il rotore del campo di velocità
+\begin{EQ}
+\begin{equation}
+\V{\omega}=\Rot{u}
+\end{equation}
+\end{EQ}
+che qualitativamente descrive in ogni punto il "grado" locale di rotazione del fluido. Questa quantità è non nulla se il fluido è in rotazione globale o se localmente si hanno dei vortici. Sfruttando le proprietà degli operatori vettoriali si ha
+\begin{equation}
+\vett{u}{\omega} = \vett{u}{}(\Rot{u}) = \Grad \tonde{\dfrac{u^2}{2}} - (\scal{u}{\nabla})\V{u} \label{eq:Viscosità11}
+\end{equation}
+Sfruttiamo questa relazione per riscrivere la \ref{eq:Viscosità6} come
+\begin{EQ}
+\begin{equation}
+\derP{\V{u}}{t} + \Grad \tonde{\dfrac{u^2}{2} + \dfrac{p}{\rho} + \phi} = \vett{u}{\omega} +\nu \Grad^2 \V{u} \label{eq:Viscosità7}
+\end{equation}
+\end{EQ}
+Vediamo ora due applicazioni dell'equazione \ref{eq:Viscosità7}. Il primo è il caso inviscido e stazionario, ovvero il caso di un fluido tale che $\nu=0$ e $\dpt \V{u}=0$. In quest'ipotesi, e proiettando l'equazione lungo le linee di flusso, ovvero moltiplicando scalarmente l'equazione per per la velocità si ottiene
+\begin{equation}
+\scal{u}{\nabla}\tonde{\dfrac{u^2}{2} + \dfrac{p}{\rho} + \phi} =  0
+\end{equation} 
+Ciò significa che il gradiente della quantità tra parentesi è sempre ortogonale alla velocità, e quindi che tale quantità è costante lungo le linee di flusso; questo risultato è il \textit{teorema di Bernoulli}
+\begin{EQ}
+\begin{equation}
+\dfrac{u^2}{2} + \dfrac{p}{\rho} + \phi = cost \label{eq:Bernoulli}
+\end{equation}
+\end{EQ}
+Un'altro risultato interessante si ottiene calcolando il rotore dell'equazione \ref{eq:Viscosità7}
+\begin{equation}
+\derP{\V{\omega}}{t} = \Rot{}(\vett{u}{\omega}) + \nu \Grad^2 \V{\omega} \label{eq:Viscosità9}
+\end{equation}
+che non è altro che l'equazione della vorticità nel fluido; è semplicemente una riscrittura dell'equazione di Navier-Stokes in termini della vorticità\footnote{È interessante notare che in magnetoidrodinamica il campo magnetico soddisfa una legge analoga a quella della vorticità, ovvero \begin{align*}
+\derP{\V{B}}{t} = \Rot{}(\vett{u}{B}) + \eta_m \Grad^2 \V{B}
+\end{align*} dove $\eta_m= c^2 \rho_\Omega/4\pi$.
+Per ottenere questa relazione si utilizza la legge di Ohm nella forma $\V{E}=\rho_\Omega \V{J}$m dove $\rho_\omega$ indica la resistività, mentre $\V{J}$ indica la densità di corrente. In presenza di un campo magnetico possiamo generalizzare (a livello intuitivo, quantitativamente si ottiene lo stesso risultato ma la derivazione non è banale: la tralasciamo perchè esula dagli obiettivi del corso) la legge di Ohm a
+\begin{align*}
+\V{E}+\inv{c}\vett{u}{B} = \rho_\Omega \V{J}
+\end{align*}
+dove $\V{u}$ indica la velocità fluida. 
+Ricordiamo inoltre la legge di Ampere, che nel caso in cui la velocità fluida sia molto minore di $c$, non ha il termine della corrente di spostamento
+\begin{equation}
+\Rot{B} = \dfrac{4\pi}{c} \V{J}
+\end{equation}
+Scriviamo inoltre l'equazione di Maxwell della divergenza di $\V{B}$ nella forma $\Rot{}(\Rot{B}) = -\Grad^2 \V{B}$. Dalla legge di Faraday in cui sostituiamo il rotore di $E$ partendo dalla legge di Ohm generalizzata, e dalla due leggi appena scritte otteniamo
+\begin{align*}
+-\inv{c} \derP{\V{B}}{t} = \Rot{E} = \rho_\Omega \Rot{J} -\inv{c} \Grad(\vett{u}{B}) =
+\dfrac{c}{4\pi} \Rot{}(\Rot{B})  -\inv{c} \Grad(\vett{u}{B}) = -\dfrac{c}{4\pi} \Grad^2 \V{B}-\inv{c} \Grad(\vett{u}{B}) 
+\end{align*}
+Eguagliando il primo e l'ultimo termine si ottiene la relazione di partenza.}.
+Un caso particolare di questa equazione  è il caso inviscido, in cui si ottiene
+\begin{equation}
+\derP{\V{\omega}}{t} = \Rot{}(\vett{u}{\omega}) \label{eq:Viscosità12}
+\end{equation}
+nota come \textit{equazione di Helmholtz}. Questa equazione implica che se un fluido inviscido ha vorticità nulla, la vorticità si mantiene nulla nel tempo. Per generare vorticità in un fluido inizialmente fermo è necessario che il fluido sia viscoso. 
+
+
+Otterremo ora un importante risutlato dello studio delle turbolenze, ovvero il teorema di Kelvin. Per farlo iniziamo considerando un fluido inviscido ($\nu=0$), e definiamo la circuitazione della velocità fluida 
+\begin{equation}
+\Gamma (t) \equiv \oint_C \scal{u}{} \dd \V{l} \label{eq:Viscosità8}
+\end{equation}
+Dove $C$ indica la curva chiusa su cui si sta calcolando la circuitazione del campo di velocità. Questa quantità dice quanto il fluido sta ruotando, infatti dal teorema di Stokes possiamo scrivere
+\begin{equation}
+\Gamma (t) = \int_S \scal{\omega}{}\dd \V{S}
+\end{equation}
+Quindi la circuitazione della velocità lungo una curva chiusa non è altro che il flusso della vorticità attraverso una superficie $S$ con bordo $C$. 
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{img/streamtube}
+\caption{Rappresentazione di un tubo di flusso e delle sue linee di flusso. In verde sono rappresentate le curve da cui ha origine il tubo di flusso e in blu le linee di flusso.} \label{fig:streamtube}
+\end{center}
+\end{figure}
+Facendo riferimento alla figure \ref{fig:streamtube} definiamo il \textit{tubo di flusso} come lo spazio individuato dalla superficie tubolare che si forma tracciando una linea di flusso passante per ogni punto di una curva chiusa che non sia essa stessa una linea di flusso. Tale superficie tubolare non verrà mai attraversata in nessun punto dal fluido nell'istante considerato. Quindi in base al fluire del flusso (descritto dalle linee di flusso), alla curva chiusa $C1$ scelta al tempo iniziale $t=0$ e al tempo finale $t$ si ottiene un certo tubo di flusso. Ci chiediamo ora come varia la circuitazione \ref{eq:Viscosità8} dal tempo iniziale al tempo finale, cioè tra le due sezioni del tubo di flusso. Questa variazione è data dal \textit{teorema di Kelvin}
+\begin{EQ}
+\begin{equation}
+\der{\Gamma}{t} = \Gamma (t) = \int_S \scal{\omega}{}\dd \V{S} = \int_S \quadre{\derP{\V{\omega}}{t}-\Rot{}(\vett{u}{\omega})}\cdot \dd \V{S} = 0
+\end{equation}
+\end{EQ}
+dove l'ultima uguaglianza vale nel caso inviscido, il quale implica appunto che il termine tra le parentesi quadre sia nullo (\ref{eq:Viscosità9}). Il teorema di Kelvin per un fluido inviscido afferma quindi che la circuitazione della velocità fluida si conserva lungo i tubi di flusso. Questo risultato può essere interpretato come una conservazione del momento angolare: infatti poichè la circuitazione è la stessa lungo tutti i bordi delle sezioni di un tubo di flusso, si ha che se il tubo si restringe (o si allarga) la velocità lungo la curva chiusa deve aumentare (o diminuire). Se quindi la lunghezza del circuito aumenta la rotazione del fluido diminuisce, viceversa aumenta se la lunghezza del circuito diminuisce. Un altro modo per interpretare questo risultato consiste nel considerare il volume del tubo di flusso. Esso è racchiuso dalle superfici delimitate dai circuiti $C1$ e $C2$, e dalla superficie laterale data dalle linee di flusso che congiungono ciascun punto di $C1$ con uno e un solo punto di $C2$\footnote{Le linee di flusso non si incrociano mai, quindi per come è definito un tubo di flusso, i punti di $C1$ e di $C2$ sono collegati biunivocamente da una sola linea di flusso.}. Il teorema di Kelvin dice che il flusso di $\omega$ attraverso $S1$ è lo stesso attraverso $S2$. Essendo $\omega$ definito come un rotore, la sua divergenza è nulla. Quindi l'integrale di volume della divergenza di $\omega$ è nullo, ma per il teorema della divergenza tale integrale è uguale al flusso di $\omega$ attraverso la superficie del volume considerato. Ma poichè il flusso attravero $S1$ è uguale e opposto al flusso attraverso $S2$ (per il teorema di Kelvin), si ha che il flusso della vorticità attraverso la superficie laterale del tubo di flusso è nullo. Questo significa che le linee di vorticità sono legate alle linee di flusso; quando le linee di flusso si allargano si modificano di conseguenza le linee di vorticità, che restano tangenti alle linee di flusso della superficie laterale del tubo. Ciascuna linea di vorticità connette tra loro elementi fluidi associati a diverse linee di flusso\footnote{Tornando all'analogo del campo magnetico, si ha che per un fluido con resistività nulla vale il teorema di Kelvin.}.
+
+Dimostriamo ora il teorema di Kelvin. Abbiamo che la circuitazione dipende dal tempo attraverso la velocità $\V{u}$ e il circuito $C$. Pertanto 
+\begin{equation}
+\der{\Gamma}{t} = \oint_C \derL{\V{u}}{t} \cdot \dd \V{l} + \oint_C \scal{u}{} \derL{}{t} \dd \V{l} \label{eq:Viscosità10}
+\end{equation}
+e iniziamo calcolando il primo integrale. Indichiamo con $\V{A}(t)$ e $\V{B}(t)$ i vettori che indicano rispettivamente il punto iniziale e finale dell'elemento di curva $\dd \V{l}$ al tempo $t$. Lasciando evolvere il sistema fino al tempo $t+\delta t$, i vettori $\V{A}$ e $\V{B}$ evolvono seguendo le linee di flusso; il nuovo elemento di curva sarà $\dd \V{l}(t+\delta t)$ delimitato dai vettori $\V{A}(t+\delta t)$ e $\V{B}(t+\delta t)$, collegati con rispettivi vettori al tempo $t$ rispettivamente da $\V{u}(\V{A)}\delta t$ e $\V{u}(\V{B})\delta t$. Pertanto vale
+\begin{equation}
+\dd \V{l} (t+\delta t) = \V{B}(t+\delta t)-\V{A}(t+\delta t) = \V{B}(t) + \V{u}(\V{B})\delta t - \V{A}(t) - \V{u}(\V{A})\delta t = \dd \V{l}(t) + (\dd \scal{l}{\nabla})\V{u} \delta t
+\end{equation}
+Possiamo così stimare la derivata lagrangiana nell'integranda del secondo integrale
+\begin{equation}
+\derL{}{t} \dd \V{l} = \dfrac{\dd \V{l} (t+\delta t) - \dd \V{l} (t)}{\delta t} = (\dd \scal{l}{\nabla})\V{u}
+\end{equation}
+L'integranda può quindi essere riscritta come
+\begin{equation}
+\scal{u}{} \derL{}{t} \dd \V{l} = \scal{u}{}(\dd \scal{l}{\nabla})\V{u} = \Grad\tonde{\inv{2}u^2}\cdot\dd \V{l}
+\end{equation}
+Segue che il secondo integrale è la circuitazione di un gradiente, la quale è nulla. Pertanto il secondo integrale è nullo, e quindi abbiamo ottenuto il risultato generale che la derivata temporale della circuitazione di un campo di vettoriale è data solo dai contributi delle variazioni temporali del campo vettoriale, mentre non si hanno contributi dovuti alla variazione temporali del circuito. Calcoliamo ora il primo integrale: ricordiamo che, sfruttando la relazione \ref{eq:Viscosità11} la derivata lagrangiana della velocità è
+\begin{equation}
+\derL{\V{u}}{t} = \derP{\V{u}}{t} + \Grad\tonde{\dfrac{u^2}{s}} - \vett{u}{\omega}
+\end{equation}
+Anche in questo caso il termine con il gradiente ha circuitazione nulla, pertanto
+\begin{equation}
+\der{\Gamma}{t} = \oint_C \derL{\V{u}}{t} \cdot \dd \V{l} = \oint_C \quadre{\der{\V{u}}{t} - \vett{u}{\omega}}\cdot \dd \V{l} = \int_S \quadre{\derP{\V{\omega}}{t}-\Rot{}(\vett{u}{\omega})}\cdot \dd \V{S}
+\end{equation}
+Abbiamo così dimostrato il teorema. Esso esprime quanto già avevamo considerato dall'equazione di Helmholtz \ref{eq:Viscosità12}, ovvero che se il fluido inizialmente privo di vortici ha viscosità nulla, allora è impossibile generare dei vortici. Infatti se la viscosità è nulla, il teorema di Kelvin implica che la ciscuitazione non varia nel tempo, e che quindi il flusso della vorticità si deve conservare. Pertanto se la vorticità è inizialmente nulla, è nulla anche al tempo $t$.
+
+Ora che abbiamo definito la quantità associata alla turbolenza, ovvero la volrticità, e specificato le sue principali caratteristiche con il teorema di Kelvin, possiamo discutere a livello quantitativo la turbolenza. Distinguiamo i \textit{fluidi laminari}, in cui non sono presenti vortici, e \textit{fluidi turbolenti} in cui invece sono presenti. La descrizione della vorticità è molto complicata; seguiremo l'approccio adottato da Kolmogorov per i moti vorticosi nei fluidi incomprimibili. I vortici si formano su grandi scale, trasportando una certa energia; dopodichè si scompongono progressivamente in vortici più piccoli che trasportano frazioni dell'energia totale del vortice iniziale. Infine quando i vortici raggiungono le piccole scale in cui la viscosità diventa rilevante, scompaiono dissipando la loro energia nel fluido. Questi processi sono quantificati da due termini nell'equazione di Navier-Stokes \ref{eq:Viscosità6}: il termine non lineare $(\scal{u}{\nabla})\V{u}$ genera i moti caotici turbolenti, mentre il termine viscoso $\nu\Grad^2 \V{u}$ è responsabile della dissipazione dei vortici (ma anche della generazione; infatti per quanto visto per il teorema di Kelvin, se la viscosità è nulla, non è possibile generare vorticità). I moti vorticosi verranno dissipati quando il termine dissipativo diventa dello stesso ordine di grandezza del termine non lineare. Per determinare quando ciò avviene possiamo adottare un'analisi dimensionale dei due termini per ricavare le scale di lunghezza tipiche a cui avvengono la dissipazione e la generazione dei vortici. Consideriamo in generale la scala di lunghezze $\lambda$, e supponiamo che su tale scala la velocità fluida sia $u_\lambda$. Il termine non lineare è esprimibile come
+\begin{equation}
+(\scal{u}{\nabla})\V{u} \,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Longrightarrow \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\dfrac{u_\lambda^2}{\lambda} \label{eq:Viscosità13}
+\end{equation}
+mentre il termine dissipativo può essere scritto come
+\begin{equation}
+\nu \Grad^2 \V{u} \,\,\,\,\,\,\,\,\,\,\,\,\,\,\, \Longrightarrow \,\,\,\,\,\,\,\,\,\,\,\,\,\,\,\nu \dfrac{u_\lambda}{\lambda^2} \label{eq:Viscosità14}
+\end{equation}
+Il rapporto tra questi due termini è 
+\begin{EQ}
+\begin{equation}
+Re \equiv \dfrac{u_\lambda \lambda}{\nu}
+\end{equation}
+\end{EQ}
+è un numero adimensionale che indica quanto conta il termine non lineare dell'equazione di Navier-Stokes, rispetto al termine viscoso. Questo rapporto è noto come \textit{numero di Reynolds}\footnote{Fisicamente il numero di Reynolds rappresenta il rapporto tra le forze di inerzia e quelle viscose agenti su un elemento fluido in moto con velocità $\V{u}$.}. Dagli studi sperimentali si osserva che la turbolenza si genera tipicamente per $Re>10^3 - 10^4$. Tali valori variano a seconda dei fluidi. Vediamo quindi che la turbolenza si genera per basse viscosità, infatti se abbiamo un fluido molto viscoso, come ad esempio la lava, non si genera turbolenza e il fluido resta a regime laminare. Inoltre dalle diverse dipendenze dalla velocità e dalla scala di lunghezza del termine non lineare e del termine viscoso (equazioni \ref{eq:Viscosità13} e \ref{eq:Viscosità14}), si osserva che la dissipazione domina su piccole scale, mentre su grandi scale domina la generazione di turbolenza, la quale domina anche per grandi velocità.  
+
+La scala a cui si ha dissipazione della vorticosità è ottenuta fissando il numero di Reynolds a uno. Tale scala è 
+\begin{equation}
+\lambda_K = \dfrac{\nu}{u_K} \label{eq:Viscosità16}
+\end{equation}
+
+Come abbiamo già accennato, l'approccio di Kolmogorov\footnote{L'intuizione di Kolmogorov è stata quella di capire che il comportamento della turbolenza, nelle suddette condizioni, dipende esclusivamente da $\varepsilon$ (energia dissipata, o equivalentemente iniettata, per unità di tempo e di massa) e da $\nu$ (viscosità).} assume turbolenza stazionaria, ovvero si ipotizza che la densità energetica nei moti vorticosi è costante nel tempo. Ciò significa che l'energia dissipata dalla viscosità viene compensata da un'altro processo che inietta energia nel sistema, mantenendo la turbolenza. In altri termini il flusso di energia da scale maggiori a scale minori deve essere costante. Chiamiamo $\varepsilon$ l'energia dissipata per unità di tempo e massa.
+Ricordando l'equazione \ref{eq:Viscosità15}, abbiamo che il tasso di dissipazione $D$ per unità di volume è \footnote{Sfruttiamo il fatto che dimensionalmente il tensore delle deformazioni ha le dimensioni di una velocità su una lunghezza.}
+\begin{equation}
+D \sim \eta e_{ij}^2 \sim \nu\rho \dfrac{u_K^2}{\lambda_K^2} \equiv \rho \label{eq:Viscosità17}
+\end{equation}
+Da questa equazione, e usando la \ref{eq:Viscosità16} possiamo ottenere un'espressione per $\varepsilon$, ovvero
+\begin{EQ}
+\begin{equation}
+\varepsilon = \dfrac{\nu^3}{\lambda_K^4} \label{eq:Viscosità18}
+\end{equation}
+\end{EQ}
+Sottolienaimo che le condizioni \ref{eq:Viscosità16} e \ref{eq:Viscosità17} derivano rispettivamenta dall'ipotesi che alla scala di Kolmogorv il numero di Reynolds è dell'ordine dell'unità e dalla stazionarietà della turbolenza.
+Da questa relazione otteniamo che la scala di Kolmogorov e la velocità di Kolmogorov (ovvero le quantità che descrivono la vorticosità) dipendono unicamente dalla voscosità e dall'energia per unità di tempo e massa iniettata nel sistema (la quale coincide con quella dissipata per l'ipotesi di stazionarietà, che rende possibile usare $\varepsilon$ per indicarle entrambe).
+\begin{EQ}
+\begin{align}
+&\lambda_K = \tonde{\dfrac{\nu^3}{\varepsilon}}^{1/4}
+&u_K = (\nu \varepsilon)^{1/4}
+\end{align}
+\end{EQ}
+Resta ora da trovare il legame tra le grandi scale di distanza $L$ e di velocità $u_L$ a cui avviene l'iniezione di energia con le piccole scale di Kolmogorov. Per farlo procediamo da una pura analisi dimensionale. Abbiamo definito $\varepsilon$ come l'energia iniettata/dissipata per unità di tempo e massa. Essa sarà quindi esprimibile dal quadrato della velocità alla scala $L$ (che ha le dimensioni di un'energia per unità di massa) diviso il tempo scala dell'iniezione, dato dal rapporto tra la scala $L$ e la velocità di scala $u_L$. Otteniamo così
+\begin{equation}
+\epsilon = \dfrac{u_L^3}{L}
+\end{equation}
+Eguagliando quest'ultima equazione con la \ref{eq:Viscosità18} si ottiene facilmente 
+\begin{equation}
+\dfrac{L}{\lambda_K} = \mathit{Re}^{3/4}
+\end{equation}
+dove abbiamo identificato $\mathit{Re} = u_L L/\nu$ con il numero di Reynolds alla scala di iniezione, il quale è per definizione molto maggiore di uno, poichè le turbolenze si innescano solo per numeri di Reynolds elevati. Quanto più grande è il numero di Reynolds, tanto più grande è il divario tra la scala di iniezione e quella di Kolmogorov a cui diventa rilevante la disipazione.
+
+Un ultimo contributo fornito da Kolmogorov è dato dallo studio dello \textit{spettro di Kolmogorov} ovvero da come l'energia è distribuita sulle diverse scale di lunghezza. Essendo uno spettro di Fourier la dipendenza dell'energia dalle lunghezze è tramite i numeri d'onda $\V{k}$. 
+\begin{figure}
+\begin{center}
+\includegraphics[width=0.8\textwidth]{img/Kolmogorov}
+\caption{Spettro di Kolmogorov}\label{fig:Kolmogorov}
+\end{center}
+\end{figure}
+Per determinare lo spettro si aggiunge l'ipotesi di turbolenza isotropa, il che implica una dipendenza dell'energia dal solo modulo del numero d'onda $k$. Il fatto che i fenomeni vorticosi avvengono a partire dalle scale $L$ di iniezione dell'energia, fino alle scale $\lambda_K$ di dissipazione dell'energia, implica che fuori da questo intervallo l'energia decresce rapidamente a zero. Inoltre nel regime intermedio, detto \textit{regime inerziale}, l'energia dipende solamente dall'energia per unità di tempo e di massa iniettata nel sistema, e dal numero d'onda (ovvero dalla scala di lunghezze) associato ai vortici, e quindi si assume che la dipendenza dell'energia da queste due quantità sia una legge di potenza\footnote{In questo regime non vi può essere dipendenza dello spettro se non dall'energia immessa nel fluido su grandi scale $\epsilon$ che genera la turbolenza, e dal numero d'onda associato ad un certo vortice. Ad esempio una dipendenza dalla viscosità del fluido è esclusa poichè in tale regime il fluido non ha ancora raggiunto scale sufficientemente piccole affinche si manifestino fenomeni di dissipazione viscosa (è come se non ci fosse viscosità).}.
+Facendo riferimento all'immagine \ref{fig:Kolmogorov}, vediamo che facendo queste assunzioni, il grafico logaritmico dello spettro è una retta nel regime inerziale. Per trovare la pendenza della retta basta una semplice analisi dimensionale.
+\begin{equation}
+E_k \propto \varepsilon^a k^b
+\end{equation}
+Essendo $E_k$ un'energia per unità di massa e numero d'onda, ha le dimensioni di $L^3\, T^{-2}$. Ricordando che $\varepsilon$ ha le dimensioni di $L^2 \,T^{-3}$, si ricava banalmente
+\begin{EQ}
+\begin{align}
+E_k \propto \varepsilon^{2/3}\,k^{-5/3}
+\end{align}
+\end{EQ}
+La caratteristica fondamentale dello spettro di Kolmogorov nel regime inerziale è la dipendenza da $k^{-5/3}$.
+
+In astrofisica si osservano fenomeni di turbolenze nel mezzo interstellare e intergalattico, nei dischi di accrescimento, o nelle nubi molecolari durante la formazione stellare.
+
+\section{Accrescimento}
+Concludiamo questo capitolo con dei brevi cenni ai fenomeni di accrescimento senza entrare troppo nel dettaglio, in quanto argomenti del corso di Fisica Cosmica 2.
+
+L'obbiettivo è studiare il flusso di materia verso/da un oggetto sferico centrale. Grazie a questa simmetria scriviamo le equazioni fluide in simmetria sferica, considerando la velocità del fluido nella sola direzione radiale, ovvero $V{u}=u\vers{r}$. L'equazione di continuità diventa
+\begin{equation}
+\derP{\rho}{t} + \inv{r^2} \derP{}{r}\tonde{r^2 u \rho}=0
+\end{equation}
+In condizioni stazionarie ($\dpt\rho=0$) risulta che $\rho u r^2$ è una costante, e quindi è una costante anche la quantità
+\begin{equation}
+\dot{M} = 4\pi \rho u r^2
+\end{equation}
+che non è altro che massa di fluido che transita nell'unità di tempo attraverso il guscio sferico di raggio $r$; indica la variazione temporale della massa dell'oggetto centrale. L'equazione di Eulero in coordinate sferiche è invece
+\begin{equation}
+\derP{u}{t} + u\derP{u}{r}= -\inv{\rho}\der{p}{r} - \dfrac{GM}{r^2}  \label{eq:Accrescimento3}
+\end{equation}
+dove al secondo membro abbiamo tenuto conto del fatto che è presento un campo di gravità dovuto all'oggetto centrale di massa $M$. Aggiungendo l'ipotesi di stazionarietà risulta che il primo membro può essere riscritto semplicemente come $u\der{u}{r}$. Sfruttando la relazione 
+\begin{equation}
+\der{p}{r}=\sound^2 \der{\rho}{r}
+\end{equation}
+riscriviamo l'equazione di Eulero come
+\begin{equation}
+u^2\der{(\ln u)}{r} = -\sound^2 \der{(\ln\rho)}{r} - \dfrac{GM}{r^2} \label{eq:Accrescimento1}
+\end{equation}
+Sappiamo inoltre che $\dot{M}$ è una costante, e quindi anche il suo logaritmo è una costante, che significa che la sua derivata rispetto a $r$ è nulla, ovvero
+\begin{equation}
+\der{(\ln \dot{M})}{r} = \der{(\ln\rho)}{r} + \der{(\ln u)}{r} + \dfrac{2}{r} = 0
+\end{equation}
+da cui si ottiene
+\begin{equation}
+-\der{(\ln\rho)}{r} = \der{(\ln u)}{r} + \dfrac{2}{r} 
+\end{equation}
+Sostituendo questo termine nella \ref{eq:Accrescimento1} si ottiene
+\begin{equation}
+\sound^2 \der{(\ln u)}{r} + \dfrac{2\sound^2}{r}  - \dfrac{GM}{r^2} = u^2\der{(\ln u)}{r}
+\end{equation}
+che può essere riscritta più convenientemente nella seguente forma
+\begin{EQ}
+\begin{equation}
+(u^2-\sound^2) \der{(\ln u)}{r} = \dfrac{2\sound^2}{r} \tonde{1-\dfrac{GM}{2\sound^2 r}} \label{eq:Accrescimento2}
+\end{equation}
+\end{EQ}
+Questa equazione permette di descrivere i fenomeni di accrescimento (la massa del fluido si muove verso l'oggetto centrale) e quelli di vento stellare (la massa del fluido si vuove dall'oggetto centrale). Nel caso di vento si ha velocità nulla a $r=0$ che aumenta progressivamente diventando infinita per $r\to\infty$. Viceversa nel caso di accrescimento si ha $u=0$ per raggi molto grandi e $u\to\infty$ per $r\to 0$. È chiaro che in entrambi i casi si ha un raggio a cui la velocità supera (in un senso o nell'altro) la velocità del suono. Tale raggio limite a cui si ha $u=\sound$ è detto \textit{raggio sonico} $r_\mathrm{s}$, e può essere facilmente trovato dall'equazione \ref{eq:Accrescimento2}, trovando
+\begin{equation}
+r_\mathrm{s} = \dfrac{GM}{2\sound^2}
+\end{equation}
+Ad una distanza pari al raggio sonico si ha che il membro di destra dell'equazione \ref{eq:Accrescimento2} si annulla, il che implica o che la velocità del fluido è pari a quella del suono, o che la velocità ha raggiunto un massimo.
+
+Il tasso di accrescimento al raggio sonico vale
+\begin{equation}
+\dot{M} = 4\pi \dfrac{G^2M^2}{4\sound^4} \rho_\mathrm{s} \sound = \dfrac{\pi G^2 M^2}{\sound^3(r_\mathrm{s})} \label{eq:Accrescimento7}
+\end{equation}
+dove con $\sound(r_\mathrm{s})$ indichiamo il fatto che la velocità del suono è associata al raggio sonico, poichè in generale è funzione di $r$. Quello che si vuole fare ora è riuscire a dare una stima del tasso di accrescimento da quantità valutate a grandi distanze dall'oggetto centrale (le quali sono pù facili da misurare). Cerchiamo quindi di riscrivere questa stima in termini di tali quantità. 
+Iniziamo supponendo che l'equazione di stato sia politropica $p = k\rho^\gamma$ con $k$ costante di proporzionalità. Si può scrivere
+\begin{equation}
+\inv{\rho}\der{p}{r} = \gamma k \rho^{\gamma-2}\der{\rho}{r} = \dfrac{\gamma}{\gamma-1}k \der{}{r}(\rho^{\gamma-1})
+\end{equation}
+Sostituendo quest'equazione nella \ref{eq:Accrescimento3}\footnote{Il termine $\derP{u}{t}=0$ poichè stiamo considerando il caso stazionario.} e integrando rispetto a $r$ si ottiene 
+\begin{equation}
+\inv{2}u^2+\dfrac{\sound^2}{\gamma-1}-\dfrac{GM}{r} = cost \label{eq:Accrescimento4}
+\end{equation}
+Quest'equazione è una forma dell'equazione di Bernoulli \ref{eq:Bernoulli}. Fino ad ora la trattazione è valida sia per il caso di accrescimento che di vento. Concentriamoci sul primo caso, in cui si ha che $u=0$ per $r\to\infty$. Quest'ipotesi consente di stimare dalla \ref{eq:Accrescimento4} la costante di Bernoulli a $\dfrac{c_\infty^2}{\gamma-1}$, dove con $c_\infty$ intendiamo la velocità del suono all'infinito. Valutando la \ref{eq:Accrescimento4} al raggio sonico, otteniamo la relazione
+\begin{equation}
+\sound^2(r_\mathrm{s}) = \dfrac{2}{5-3\gamma}c_\infty^2 \label{eq:Accrescimento5}
+\end{equation}
+Infine, considernado che $\sound^2\propto\rho^{\gamma-1}$ risulta
+\begin{equation}
+\tonde{\dfrac{c_\infty}{\sound(r_\mathrm{s})}} = \tonde{\dfrac{\rho_\infty}{\rho_s}}
+\end{equation}
+da cui otteniamo
+\begin{equation}
+\rho_s = \rho_\infty \tonde{\dfrac{2}{5-3\gamma}}^{1/(\gamma-1)} \label{eq:Accrescimento6}
+\end{equation}
+A questo punto, sostituendo le \ref{eq:Accrescimento5} e \ref{eq:Accrescimento6} nella \ref{eq:Accrescimento7}, otteniamo
+\begin{EQ}
+\begin{equation}
+\dot{M} = \pi \dfrac{(GM)^2}{c_\infty} \rho_\infty\quadre{\dfrac{2}{5-3\gamma}}^{\dfrac{5-3\gamma}{2(\gamma-1)}}
+\end{equation}
+\end{EQ}
+Questo tasso di accrescimento è noto come \textit{accrescimento di Bondi}.
+Questo risultato non va bene per $\gamma\geq 5/3$: in queste condizioni il gas è troppo poco comprimibile per raggiungere velocità soniche. In questa derivazione abbiamo considerato un fluido in accrescimento su di un oggetto centrale in quiete (rispetto al fluido). Un'altra configurazione possibile è quella di un oggetto, ad esempio una stella, in moto all'interno di un fluido con velocità $v_\infty$. In questo caso il tasso di accrescimento è
+\begin{equation}
+\dot{M} = 4\pi \dfrac{(GM)^2}{v_\infty^3}\rho_\infty
+\end{equation}
+detto \textit{accrescimento di Hoyle-Lyttleton}. In questo caso il moto dell'oggetto nel fluido domina sugli effetti di pressione ($\sound\ll v_\infty$). Il caso più generale è quello che considera entrambi gli effetti: in tal caso il tasso di accrescimento è
+\begin{equation}
+\dot{M} = 4\pi \dfrac{(GM)^2}{v_\infty^3 + c_\infty^3}\rho_\infty
+\end{equation}
+detto \textit{accrescimento di Bondi-Hoyle}.
+
+Notiamo infine che in questa discussione abbiamo fatto un'ipotesi molto vincolante, ovvero la simmetria sferica. Nella quasi totalita dei casi i sistemi in accresciemento sono in rotazione. Questo implica che a grandi distanze il sistema è in buona approssimazione sferico, ma avvicinandosi all'oggetto centrale, la conservazione del momento angolare implica uno schiacciamento del sistema, per cui l'accrescimento avviene prevalentemente nel piano di rotazione del sistema. Il risultato qui ottenuto è una prima approssimazione del problema dell'accrescimento, ma che fallisce nella descrizione più dettagliata dei sistemi come i dischi di accrescimento, trattati nel secondo modulo di questo corso.
+
+

@@ -1,0 +1,62 @@
+\babel@toc {italian}{}
+\babel@toc {italian}{}
+\contentsline {chapter}{\numberline {1}Interazione radiazione-materia}{1}{chapter.1}
+\contentsline {section}{\numberline {1.1}Radiazione}{2}{section.1.1}
+\contentsline {subsection}{\numberline {1.1.1}Equazioni di Maxwell}{2}{subsection.1.1.1}
+\contentsline {subsection}{\numberline {1.1.2}Spettro}{5}{subsection.1.1.2}
+\contentsline {section}{\numberline {1.2}Radiazione da carica accelerata}{7}{section.1.2}
+\contentsline {subsection}{\numberline {1.2.1}Radizione di ciclotrone}{11}{subsection.1.2.1}
+\contentsline {section}{\numberline {1.3}Scattering}{12}{section.1.3}
+\contentsline {subsection}{\numberline {1.3.1}Scattering Thomson}{12}{subsection.1.3.1}
+\contentsline {subsection}{\numberline {1.3.2}Scattering di Rayleigh}{15}{subsection.1.3.2}
+\contentsline {section}{\numberline {1.4}Bremsstrahlung}{17}{section.1.4}
+\contentsline {subsection}{\numberline {1.4.1}Bremsstrahlung termica}{20}{subsection.1.4.1}
+\contentsline {section}{\numberline {1.5}Trasporto radiativo}{21}{section.1.5}
+\contentsline {subsection}{\numberline {1.5.1}Emissione}{23}{subsection.1.5.1}
+\contentsline {subsection}{\numberline {1.5.2}Assorbimento}{23}{subsection.1.5.2}
+\contentsline {subsection}{\numberline {1.5.3}Equazione del trasporto radiativo}{24}{subsection.1.5.3}
+\contentsline {section}{\numberline {1.6}Radiazione termica}{25}{section.1.6}
+\contentsline {subsection}{\numberline {1.6.1}Radiazione di corpo nero}{25}{subsection.1.6.1}
+\contentsline {subsection}{\numberline {1.6.2}Coefficienti di Einstein}{28}{subsection.1.6.2}
+\contentsline {section}{\numberline {1.7}Approssimazione di Rosseland}{31}{section.1.7}
+\contentsline {section}{\numberline {1.8}Effetti relativistici ai processi radiativi}{32}{section.1.8}
+\contentsline {subsection}{\numberline {1.8.1}Relativit\IeC {\`a} ristretta}{32}{subsection.1.8.1}
+\contentsline {subsection}{\numberline {1.8.2}Radiazione di sincrotrone}{35}{subsection.1.8.2}
+\contentsline {subsection}{\numberline {1.8.3}Scattering Compton}{41}{subsection.1.8.3}
+\contentsline {subsection}{\numberline {1.8.4}Scattering Compton inverso}{43}{subsection.1.8.4}
+\contentsline {chapter}{\numberline {2}Fluidodinamica}{48}{chapter.2}
+\contentsline {section}{\numberline {2.1}Teorema del trasporto}{48}{section.2.1}
+\contentsline {subsection}{\numberline {2.1.1}Concetti di cinematica}{50}{subsection.2.1.1}
+\contentsline {subsection}{\numberline {2.1.2}Teorema di Reynolds}{50}{subsection.2.1.2}
+\contentsline {subparagraph}{Lemma}{51}{equation.2.1.8}
+\contentsline {subparagraph}{Teorema}{51}{equation.2.1.9}
+\contentsline {subparagraph}{Corollario}{52}{equation.2.1.12}
+\contentsline {section}{\numberline {2.2}Equazioni fluidodinamiche}{52}{section.2.2}
+\contentsline {subsection}{\numberline {2.2.1}Equazione di Eulero}{53}{subsection.2.2.1}
+\contentsline {subsection}{\numberline {2.2.2}Equazione di stato e conservazione dell'energia}{55}{subsection.2.2.2}
+\contentsline {subsection}{\numberline {2.2.3}Equazione del trasporto}{56}{subsection.2.2.3}
+\contentsline {section}{\numberline {2.3}Equazioni di stato politropiche}{58}{section.2.3}
+\contentsline {section}{\numberline {2.4}Applicazioni delle equazioni fluidodinamiche}{59}{section.2.4}
+\contentsline {section}{\numberline {2.5}Sfere Politropiche}{63}{section.2.5}
+\contentsline {subsection}{\numberline {2.5.1}Relazione massa-raggio}{64}{subsection.2.5.1}
+\contentsline {subsection}{\numberline {2.5.2}Fluido isotermo}{66}{subsection.2.5.2}
+\contentsline {section}{\numberline {2.6}Perturbazioni}{68}{section.2.6}
+\contentsline {subsection}{\numberline {2.6.1}Perturbazioni lagrangiane ed euleriane}{68}{subsection.2.6.1}
+\contentsline {subsection}{\numberline {2.6.2}Le onde sonore}{70}{subsection.2.6.2}
+\contentsline {subsection}{\numberline {2.6.3}Onde sonore in un mezzo stratificato}{72}{subsection.2.6.3}
+\contentsline {section}{\numberline {2.7}Onde d'urto (Shock)}{76}{section.2.7}
+\contentsline {subsection}{\numberline {2.7.1}Shock adiabatico}{78}{subsection.2.7.1}
+\contentsline {subsection}{\numberline {2.7.2}Shock termici}{80}{subsection.2.7.2}
+\contentsline {section}{\numberline {2.8}Instabilit\IeC {\`a}}{80}{section.2.8}
+\contentsline {subsection}{\numberline {2.8.1}Instabilit\IeC {\`a} gravitazionale (di Jeans)}{82}{subsection.2.8.1}
+\contentsline {paragraph}{Disco sottile rotante}{83}{equation.2.8.147}
+\contentsline {subsection}{\numberline {2.8.2}Instabilit\IeC {\`a} in fluidi stratificati}{87}{subsection.2.8.2}
+\contentsline {paragraph}{Instabilit\IeC {\`a} convettiva}{87}{subsection.2.8.2}
+\contentsline {paragraph}{Instabilit\IeC {\`a} di Rayleigh-Taylor}{88}{equation.2.8.169}
+\contentsline {paragraph}{Instabilit\IeC {\`a} di Kelvin-Helmholtz}{88}{figure.caption.23}
+\contentsline {subsection}{\numberline {2.8.3}Instabilit\IeC {\`a} termica}{89}{subsection.2.8.3}
+\contentsline {paragraph}{Il mezzo intersellare}{92}{equation.2.8.181}
+\contentsline {section}{\numberline {2.9}Viscosit\IeC {\`a}}{92}{section.2.9}
+\contentsline {subsection}{\numberline {2.9.1}Turbolenza}{96}{subsection.2.9.1}
+\contentsline {section}{\numberline {2.10}Accrescimento}{102}{section.2.10}
+\contentsline {chapter}{Bibliografia}{105}{equation.2.10.250}

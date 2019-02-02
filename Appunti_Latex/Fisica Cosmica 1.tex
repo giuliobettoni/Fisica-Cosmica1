@@ -1,0 +1,93 @@
+\documentclass[a4paper,twoside,openany,titlepage]{book}
+
+\title{Appunti del corso di Fisica Cosmica 1, professor G. Lodato, anno accademico 2018-2019}
+\author{Giulio Bettoni}
+
+
+%COMPRESSIONE
+%%\pdfcompresslevel=9
+%\pdfobjcompresslevel=2
+
+%IMPAGINAZIONE E SCRITTURA
+\usepackage{makeidx}
+\usepackage[italian]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr}
+%\usepackage[marginparwidth=1.5cm, marginparsep=1.5cm]{geometry}				%permette di usare tutta la pagina
+\usepackage[a-1b]{pdfx}
+\usepackage[pdfa]{hyperref}				%permete di effettuare collegamenti tra i documenti citati 
+\usepackage{verbatim}				%permette di commentare più righe
+\usepackage{lipsum} 				%generatore di testo
+\usepackage{marginnote}
+\usepackage{MyPackage}			%Pacchetto con i comandi che ho definito io
+
+%BIBLIOGRAFIA
+\usepackage[autostyle,italian=guillemets]{csquotes}
+\usepackage{natbib}
+\bibliographystyle{apa-good}
+
+%IMMAGINI GRAFICI TABELLE
+\usepackage{graphicx}
+\usepackage{subfig}
+\usepackage{booktabs}
+\usepackage[labelfont=bf]{caption}
+%\usepackage[x11names]{xcolor}
+\usepackage{multirow}
+%\usepackage{tabularx}
+
+
+%MATEMATICA
+\usepackage{amsmath}
+\usepackage{gensymb}
+\usepackage{fixmath}
+\usepackage{siunitx}
+\usepackage{bigints}
+\DeclareMathOperator{\sinc}{sinc}
+
+
+%COMANDI
+\newcommand{\cors}[1]{\textit{#1}}	%Ho creato un nuovo comando per mettere in corsivo le parole
+\newcommand{\shish}{\mathrm}
+
+
+
+\includeonly{%
+Interazione_radiazione_materia,
+Fluidodinamica
+}
+
+%\fancyhf{} % meglio precisare!
+%\fancyhead[LE]{\slshape \leftmark}
+%\fancyhead[RO]{\slshape \rightmark}
+%\fancyfoot[C]{\thepage}
+%\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\footrulewidth}{0pt}
+
+
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{}{}} %toglie il nome del capitolo dallo stile di pagina fancy
+\renewcommand{\headrulewidth}{0.4pt}
+%\renewcommand{\headsep}{18pt}
+
+
+%CORPO DEL DOCUMENTO
+\begin{document}
+\date{}
+\maketitle
+%\pagenumbering{gobble}
+%\newpage
+\newpage
+\pagenumbering{arabic}
+\frontmatter					% è la parte introdutiva del documento, numerata in numeri romani
+\tableofcontents				%compone l'indice
+\mainmatter	
+\include{Interazione_radiazione_materia}
+\include{Fluidodinamica}
+\backmatter					% è la parte finale del documento
+\addcontentsline{toc}{chapter}{Bibliografia}
+\nocite{*}
+\bibliography{biblio}
+
+\end{document}

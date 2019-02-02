@@ -1,0 +1,36 @@
+\begin{thebibliography}{7}
+\expandafter\ifx\csname natexlab\endcsname\relax\def\natexlab#1{#1}\fi
+\expandafter\ifx\csname url\endcsname\relax
+  \def\url#1{{\tt #1}}\fi
+\expandafter\ifx\csname urlprefix\endcsname\relax\def\urlprefix{URL }\fi
+
+\bibitem[{Armitage(2009)}]{book:Armitage}
+Armitage, P.~J. (2009).
+\newblock {\em Astrophysics of Planet Formation\/}.
+
+\bibitem[{Batchelor(1967)}]{book:Batchelor}
+Batchelor, G. (1967).
+\newblock {\em An introduction to fluid dynamics\/}.
+
+\bibitem[{{Clarke} \& {Carswell}(2007)}]{book:Clarke}
+{Clarke}, C., \& {Carswell}, R. (2007).
+\newblock {\em Principles of astrophysical fluid dynamics\/}.
+
+\bibitem[{Hartmann(2009)}]{book:Hartmann}
+Hartmann, L. (2009).
+\newblock {\em Accretion Process in Star Formation\/}.
+
+\bibitem[{{Longair}(1992)}]{book:Longair}
+{Longair}, M.~S. (1992).
+\newblock {\em {High energy astrophysics. Vol.1: Particles, photons and their
+  detection}\/}.
+
+\bibitem[{Pringle \& King(2007)}]{book:Pringle}
+Pringle, J., \& King, A. (2007).
+\newblock {\em Astrophysical flows\/}.
+
+\bibitem[{{Rybicki} \& {Lightman}(1986)}]{book:Rybicki}
+{Rybicki}, G.~B., \& {Lightman}, A.~P. (1986).
+\newblock {\em {Radiative Processes in Astrophysics}\/}.
+
+\end{thebibliography}

@@ -1,0 +1,61 @@
+This is BibTeX, Version 0.99d (TeX Live 2017/Debian)
+Capacity: max_strings=100000, hash_size=100000, hash_prime=85009
+The top-level auxiliary file: Fisica Cosmica 1.aux
+The style file: apa-good.bst
+A level-1 auxiliary file: Interazione_radiazione_materia.aux
+A level-1 auxiliary file: Fluidodinamica.aux
+Database file #1: biblio.bib
+Warning--can't use both author and editor fields in book:Armitage
+Warning--missing publisher in book:Armitage
+Warning--can't use both author and editor fields in book:Batchelor
+Warning--missing publisher in book:Batchelor
+Warning--can't use both author and editor fields in book:Clarke
+Warning--missing publisher in book:Clarke
+Warning--can't use both author and editor fields in book:Hartmann
+Warning--missing publisher in book:Hartmann
+Warning--missing publisher in book:Longair
+Warning--can't use both author and editor fields in book:Pringle
+Warning--missing publisher in book:Pringle
+Warning--missing publisher in book:Rybicki
+You've used 7 entries,
+            2804 wiz_defined-function locations,
+            622 strings with 5599 characters,
+and the built_in function-call counts, 2922 in all, are:
+= -- 217
+> -- 97
+< -- 7
++ -- 39
+- -- 30
+* -- 203
+:= -- 497
+add.period$ -- 14
+call.type$ -- 7
+change.case$ -- 38
+chr.to.int$ -- 7
+cite$ -- 19
+duplicate$ -- 208
+empty$ -- 242
+format.name$ -- 49
+if$ -- 557
+int.to.chr$ -- 1
+int.to.str$ -- 1
+missing$ -- 45
+newline$ -- 35
+num.names$ -- 28
+pop$ -- 98
+preamble$ -- 1
+purify$ -- 38
+quote$ -- 0
+skip$ -- 120
+stack$ -- 0
+substring$ -- 79
+swap$ -- 94
+text.length$ -- 0
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 42
+warning$ -- 12
+while$ -- 21
+width$ -- 0
+write$ -- 76
+(There were 12 warnings)
